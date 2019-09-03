@@ -80,7 +80,7 @@ class Sight(models.Model):
 
 
 class SectionOfSights(models.Model):
-    types = models.ManyToManyField(TypeOfSights, blank=True, null=True, verbose_name='Типы')
+    types = models.ManyToManyField(TypeOfSights, blank=True, verbose_name='Типы')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
 
     class Meta:
