@@ -9,7 +9,7 @@
 <body>
   {% block content %}
       {% for region in regions %}
-          <a href="#"><h3>{{ region.title }}</h3></a>
+          <a href="{{ region.get_absolute_url }}"><h3>{{ region.title }}</h3></a>
           <p>{{ region.description }}</p>
       {% endfor %}
   {% endblock %}
