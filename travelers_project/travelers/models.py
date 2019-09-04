@@ -5,7 +5,7 @@ from geography.models import City
 from geography.models import Sight
 
 
-class Sourse(models.Model):
+class Source(models.Model):
     link = models.CharField(max_length=255,
                             default='',
                             blank=False,
@@ -16,7 +16,7 @@ class Sourse(models.Model):
     class Meta:
         verbose_name = 'Источник'
         verbose_name_plural = 'Источники'
-        db_table = 'sources'
+        # db_table = 'sources'
 
 
 class Traveler(models.Model):
@@ -33,12 +33,12 @@ class Traveler(models.Model):
                              default='http://gpsnew.ru/images/products/no_picture.jpg',
                              blank=False,
                              verbose_name='Фото')
-    sourses = models.ManyToManyField(Sourse, verbose_name='Источники')
+    sourses = models.ManyToManyField(Source, verbose_name='Источники')
 
     class Meta:
         verbose_name = 'Путешественник'
         verbose_name_plural = 'Путешественники'
-        db_table = 'travelers'
+        # db_table = 'travelers'
 
 
 class Post(models.Model):
@@ -68,7 +68,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
-        db_table = 'posts'
+        # db_table = 'posts'
 
 
 class PostPhoto(models.Model):
@@ -85,7 +85,7 @@ class PostPhoto(models.Model):
     class Meta:
         verbose_name = 'Фотография отзыва'
         verbose_name_plural = 'Фотографии отзыва'
-        db_table = 'post_photos'
+        # db_table = 'post_photos'
 
 
 class Tag(models.Model):
@@ -100,7 +100,7 @@ class Tag(models.Model):
     class Meta:
         verbose_name = 'Тэг'
         verbose_name_plural = 'Тэги'
-        db_table = 'tags'
+        # db_table = 'tags'
 
 
 class Travel(models.Model):
@@ -116,7 +116,7 @@ class Travel(models.Model):
                            blank=True,
                            verbose_name='Тэг')
     travelers = models.ManyToManyField(Traveler, verbose_name='Путешественники')
-    sourses = models.ManyToManyField(Sourse, verbose_name='Источники')
+    sourses = models.ManyToManyField(Source, verbose_name='Источники')
     photo = models.CharField(max_length=255,
                              default='',
                              verbose_name='Фото')
@@ -128,7 +128,7 @@ class Travel(models.Model):
     class Meta:
         verbose_name = 'Путешествие'
         verbose_name_plural = 'Путешествия'
-        db_table = 'travels'
+        # db_table = 'travels'
 
 
 class Route(models.Model):
@@ -147,4 +147,4 @@ class Route(models.Model):
     class Meta:
         verbose_name = 'Маршрут'
         verbose_name_plural = 'Маршруты'
-        db_table = 'routes'
+        # db_table = 'routes'
