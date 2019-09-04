@@ -16,7 +16,6 @@ class Source(models.Model):
     class Meta:
         verbose_name = 'Источник'
         verbose_name_plural = 'Источники'
-        # db_table = 'sources'
 
 
 class Traveler(models.Model):
@@ -38,7 +37,6 @@ class Traveler(models.Model):
     class Meta:
         verbose_name = 'Путешественник'
         verbose_name_plural = 'Путешественники'
-        # db_table = 'travelers'
 
 
 class Post(models.Model):
@@ -68,7 +66,6 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
-        # db_table = 'posts'
 
 
 class PostPhoto(models.Model):
@@ -85,7 +82,6 @@ class PostPhoto(models.Model):
     class Meta:
         verbose_name = 'Фотография отзыва'
         verbose_name_plural = 'Фотографии отзыва'
-        # db_table = 'post_photos'
 
 
 class Tag(models.Model):
@@ -94,13 +90,11 @@ class Tag(models.Model):
                            blank=False,
                            null=False,
                            verbose_name='Тэг')
-    post = models.ManyToManyField(Post,
-                                  verbose_name='Посты')
+    post = models.ManyToManyField(Post, verbose_name='Посты')
 
     class Meta:
         verbose_name = 'Тэг'
         verbose_name_plural = 'Тэги'
-        # db_table = 'tags'
 
 
 class Travel(models.Model):
@@ -128,7 +122,6 @@ class Travel(models.Model):
     class Meta:
         verbose_name = 'Путешествие'
         verbose_name_plural = 'Путешествия'
-        # db_table = 'travels'
 
 
 class Route(models.Model):
@@ -147,4 +140,3 @@ class Route(models.Model):
     class Meta:
         verbose_name = 'Маршрут'
         verbose_name_plural = 'Маршруты'
-        # db_table = 'routes'
