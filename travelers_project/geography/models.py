@@ -58,7 +58,7 @@ class TypeOfSights(models.Model):
 
 class Sight(models.Model):
     type = models.ManyToManyField(TypeOfSights, related_name='type_sight', verbose_name='Достопримечательности')
-    city = models.ForeignKey(City, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name='Город')
+    city = models.ForeignKey(City, on_delete=models.DO_NOTHING, related_name='sigth', blank=True, null=True, verbose_name='Город')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     text = models.TextField(default='', verbose_name='Описание')
     original_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Стянутные координаты')
@@ -80,7 +80,7 @@ class Sight(models.Model):
 
 
 class SectionOfSights(models.Model):
-    types = models.ManyToManyField(TypeOfSights, blank=True, verbose_name='Типы')
+    types = models.ManyToManyField(TypeOfSights, related_name='type_section_of_sights', blank=True, verbose_name='Типы')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
 
     class Meta:
