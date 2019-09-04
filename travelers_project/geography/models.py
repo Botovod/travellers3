@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 
 class Region(models.Model):
@@ -11,6 +12,9 @@ class Region(models.Model):
     class Meta:
         verbose_name = 'Регион'
         verbose_name_plural = 'Регионы'
+
+    def get_absolute_url(self):
+        return reverse('region_detail_url', kwargs={'id': self.id})
 
 
 class CityManager(models.Manager):
