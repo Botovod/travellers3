@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  {% block content %}
+      {% for type_sight in type_sights %}
+          <a href="{{ type_sight.get_absolute_url }}"><h3>{{ type_sight.title }}</h3></a>
+      {% endfor %}
+  {% endblock %}
+
+</body>
+</html>
