@@ -14,7 +14,7 @@ class Region(models.Model):
         verbose_name_plural = 'Регионы'
 
     def get_absolute_url(self):
-        return reverse('region_detail_url', kwargs={'id': self.id})
+        return reverse('region_detail_url', kwargs={'pk': self.pk})
 
 
 class CityManager(models.Manager):
@@ -46,7 +46,7 @@ class City(models.Model):
         verbose_name_plural = 'Города'
 
     def get_absolute_url(self):
-        return reverse('city_detail_url', kwargs={'id': self.id})
+        return reverse('city_detail_url', kwargs={'pk': self.pk})
 
 
 class TypeOfSights(models.Model):
@@ -63,7 +63,7 @@ class TypeOfSights(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('type_sight_detail_url', kwargs={'id': self.id})
+        return reverse('type_sight_detail_url', kwargs={'pk': self.pk})
 
 
 class Sight(models.Model):
