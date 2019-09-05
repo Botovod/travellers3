@@ -8,14 +8,8 @@
 </head>
 <body>
   {% block content %}
-      <h2>{{ region.title }}</h2>
-      {% with cities=region.city.all %}
-          {% for city in cities %}
-            <a href="{{ city.get_absolute_url }}">
-              <h3>{{ city.title }}</h3>
-            </a>
-          {% endfor %}
-      {% endwith %}
+      <h1>{{ city.title }}</h1>
+      <p>{{ city.description }}</p>
   {% endblock %}
 
 </body>
