@@ -32,7 +32,7 @@ class Traveler(models.Model):
                              default='http://gpsnew.ru/images/products/no_picture.jpg',
                              blank=False,
                              verbose_name='Фото')
-    sourses = models.ManyToManyField(Source, verbose_name='Источники')
+    sources = models.ManyToManyField(Source, verbose_name='Источники')
 
     class Meta:
         verbose_name = 'Путешественник'
