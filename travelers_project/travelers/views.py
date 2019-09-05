@@ -1,20 +1,16 @@
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.views.generic import DetailView
+from django.views.generic import ListView
 
 from .models import Traveler
 
 
-def index(request):
-    traveler_list = Traveler.objects.all()
-    context = {
-        'traveler_list': traveler_list,
-    }
-    return render(request, 'travelers/index.html', context)
+class TravelerList(ListView):
+    model = Traveler
+    context_object_name = 'traveler_list'
+    template_name = 'travelers/index.html'
 
 
-def traveler_detail(request, traveler_id):
-    traveler = get_object_or_404(Traveler, pk=traveler_id)
-    return render(request,
-                  'travelers/traveler_detail.html',
-                  {'traveler': traveler},
-                  )
+class TravelerDetail(DetailView):
+    model = Traveler
+    template_name = 'travelers/traveler_detail.html'
+    context_object_name = 'traveler_detail'
