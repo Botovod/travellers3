@@ -11,7 +11,7 @@
       <h2>{{ region.title }}</h2>
       {% with cities=region.city.all %}
           {% for city in cities %}
-            <a href="#">
+            <a href="{{ city.get_absolute_url }}">
               <h3>{{ city.title }}</h3>
             </a>
           {% endfor %}
