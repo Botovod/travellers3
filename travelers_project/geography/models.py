@@ -45,6 +45,9 @@ class City(models.Model):
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
 
+    def get_absolute_url(self):
+        return reverse('city_detail_url', kwargs={'id': self.id})
+
 
 class TypeOfSights(models.Model):
     title = models.CharField(max_length=255, default='', verbose_name='Название')
