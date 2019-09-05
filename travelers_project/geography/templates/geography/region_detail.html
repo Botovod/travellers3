@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  {% block content %}
-      <h2>{{ region_detail.title }}</h2>
-      {% with cities=region_detail.city.all %}
-          {% for city in cities %}
-            <a href="{{ city.get_absolute_url }}">
-              <h3>{{ city.title }}</h3>
-            </a>
-          {% endfor %}
-      {% endwith %}
-  {% endblock %}
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+    <h2>{{ region_detail.title }}</h2>
+    {% with cities=region_detail.city.all %}
+        {% for city in cities %}
+          <a href="{{ city.get_absolute_url }}">
+            <h3>{{ city.title }}</h3>
+          </a>
+        {% endfor %}
+    {% endwith %}
+{% endblock %}

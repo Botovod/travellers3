@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  {% block content %}
-      {% for region in region_list %}
-          <a href="{{ region.get_absolute_url }}"><h3>{{ region.title }}</h3></a>
-          <p>{{ region.description }}</p>
-      {% endfor %}
-  {% endblock %}
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+    {% for region in region_list %}
+        <a href="{{ region.get_absolute_url }}"><h3>{{ region.title }}</h3></a>
+        <p>{{ region.description }}</p>
+    {% endfor %}
+{% endblock %}
