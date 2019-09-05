@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
 {% if traveler_list %}
-    <ul>
+<ul>
     {% for traveler in traveler_list %}
-        <li><a href= "{{ traveler.id }}">{{ traveler.name }}</a></li>
+    <li><a href="{{ traveler.id }}">{{ traveler.name }}</a></li>
     {% endfor %}
-    </ul>
+</ul>
 {% else %}
-    <p>No travelers are available in db.</p>
+<p>No travelers are available in db.</p>
 {% endif %}
 
 {% endblock %}

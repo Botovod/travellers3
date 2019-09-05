@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ traveler_detail.name }}</h2>
+<h4>
+    <ul>
+        <img src="{{ traveler_detail.photo }}" alt="{{ traveler_detail.name }}">
+        <li>{{ traveler_detail.link }}</li>
+        <li>{{ traveler_detail.sources }}</li>
+    </ul>
+
+{% endblock %}
