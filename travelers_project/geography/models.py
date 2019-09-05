@@ -62,6 +62,9 @@ class TypeOfSights(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('type_sight_detail_url', kwargs={'id': self.id})
+
 
 class Sight(models.Model):
     type = models.ManyToManyField(TypeOfSights, related_name='type_sight', verbose_name='Достопримечательности')
