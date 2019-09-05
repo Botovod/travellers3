@@ -1,0 +1,9 @@
+{% if traveler_list %}
+    <ul>
+    {% for traveler in traveler_list %}
+        <li><a href= "{{ traveler.id }}">{{ traveler.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No travelers are available in db.</p>
+{% endif %}

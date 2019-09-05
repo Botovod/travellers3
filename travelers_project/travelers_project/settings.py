@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'geography',
-    'travelers',
+    'travelers.apps.TravelersConfig',
 ]
 
 MIDDLEWARE = [
