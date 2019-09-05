@@ -18,3 +18,9 @@ def city_detail(request, id):
     city = get_object_or_404(City, id=id)
     context = {'city': city}
     return render(request, 'geography/city_detail.html', context)
+
+
+def type_sights(request):
+    type_sights = Sight.objects.all()
+    context = {'type_sights': type_sights}
+    return render(request, 'geography/type_sights.html', context)
