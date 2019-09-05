@@ -38,6 +38,9 @@ class Traveler(models.Model):
         verbose_name = 'Путешественник'
         verbose_name_plural = 'Путешественники'
 
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     title = models.CharField(max_length=255,
