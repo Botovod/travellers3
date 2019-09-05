@@ -1,32 +1,38 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
 from .models import City, Sight, Region, TypeOfSights
 
 
-def regions(request):
-    regions = Region.objects.all()
-    context = {'regions': regions}
-    return render(request, 'geography/regions.html', context)
+class RegionList(ListView):
+    model = Region
+    template_name = 'geography/regions.html'
+    context_object_name = 'region_list'
+region_list = RegionList.as_view()
 
 
-def region_detail(request, id):
-    region = get_object_or_404(Region, id=id)
-    context = {'region': region}
-    return render(request, 'geography/region_detail.html', context)
+class RegionDetail(DetailView):
+    model = Region
+    template_name = 'geography/region_detail.html'
+    context_object_name = 'region_detail'
+region_detail = RegionDetail.as_view()
 
 
-def city_detail(request, id):
-    city = get_object_or_404(City, id=id)
-    context = {'city': city}
-    return render(request, 'geography/city_detail.html', context)
+class CityDetail(DetailView):
+    model = City
+    template_name = 'geography/city_detail.html'
+    context_object_name = 'city_detail'
+city_detail = CityDetail.as_view()
 
 
-def type_sights(request):
-    type_sights = TypeOfSights.objects.all()
-    context = {'type_sights': type_sights}
-    return render(request, 'geography/type_sights.html', context)
+class TypeOfSightsList(ListView):
+    model = TypeOfSights
+    template_name = 'geography/type_sights.html'
+    context_object_name = 'type_sights'
+type_sights = TypeOfSightsList.as_view()
 
 
-def type_sight_detail(request, id):
-    type_sight = get_object_or_404(TypeOfSights, id=id)
-    context = {'type_sight': type_sight}
-    return render(request, 'geography/type_sight_detail.html', context)
+class TypeOfSightsDetail(DetailView):
+    model = TypeOfSights
+    template_name = 'geography/type_sight_detail.html'
+    context_object_name = 'type_sight_detail'
+type_sight_detail = TypeOfSightsDetail.as_view()
