@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  {% block content %}
-    <h1>{{ type_sight.title }}</h1>
-    {% with sights=type_sight_detail.type_sight.all %}
-        {% for sight in sights %}
-          <h3>{{ sight.title }} <a href="{{ sight.city.get_absolute_url }}">({{ sight.city }})</a></h3>
-          <p>{{ sight.text }}</p>
-        {% endfor %}
-    {% endwith %}
-  {% endblock %}
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+  <h1>{{ type_sight.title }}</h1>
+  {% with sights=type_sight_detail.type_sight.all %}
+      {% for sight in sights %}
+        <h3>{{ sight.title }} <a href="{{ sight.city.get_absolute_url }}">({{ sight.city }})</a></h3>
+        <p>{{ sight.text }}</p>
+      {% endfor %}
+  {% endwith %}
+{% endblock %}
