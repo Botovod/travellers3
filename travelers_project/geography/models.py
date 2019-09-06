@@ -2,12 +2,18 @@ from django.db import models
 from django.shortcuts import reverse
 
 
-class Region(models.Model):
-    title = models.CharField('Название', max_length=255, default='', blank=False)
-    description = models.TextField('Описание', default='', blank=True)
+class BaseModel(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        abstract = True
+
+
+class Region(BaseModel):
+    title = models.CharField('Название', max_length=255, default='', blank=False)
+    description = models.TextField('Описание', default='', blank=True)
 
     class Meta:
         verbose_name = 'Регион'
@@ -22,7 +28,7 @@ class CityManager(models.Manager):
         return self.filter(posted=True)
 
 
-class City(models.Model):
+class City(BaseModel):
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="city",default=None, blank=True, null=True, verbose_name="Регион")
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     description = models.TextField(default='', blank=True, verbose_name='Описание')
@@ -38,9 +44,6 @@ class City(models.Model):
 
     objects = CityManager()
 
-    def __str__(self):
-        return self.title
-
     class Meta:
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
@@ -49,7 +52,7 @@ class City(models.Model):
         return reverse('city_detail_url', kwargs={'pk': self.pk})
 
 
-class TypeOfSights(models.Model):
+class TypeOfSights(BaseModel):
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     time = models.CharField(max_length=100, default='', blank=True, verbose_name='Время')
     color = models.CharField(max_length=30, default='#0000FF', verbose_name='Цвет')
@@ -59,14 +62,11 @@ class TypeOfSights(models.Model):
         verbose_name = 'Тип достопримечательности'
         verbose_name_plural = 'Типы достопримечательностей'
 
-    def __str__(self):
-        return self.title
-
     def get_absolute_url(self):
         return reverse('type_sight_detail_url', kwargs={'pk': self.pk})
 
 
-class Sight(models.Model):
+class Sight(BaseModel):
     type = models.ManyToManyField(TypeOfSights, related_name='type_sight', verbose_name='Достопримечательности')
     city = models.ForeignKey(City, on_delete=models.DO_NOTHING, related_name='sigth', blank=True, null=True, verbose_name='Город')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
@@ -85,11 +85,8 @@ class Sight(models.Model):
         verbose_name = 'Достопримечательность'
         verbose_name_plural = 'Достопримечтельности'
 
-    def __str__(self):
-        return self.title
 
-
-class SectionOfSights(models.Model):
+class SectionOfSights(BaseModel):
     types = models.ManyToManyField(TypeOfSights, related_name='type_section_of_sights', blank=True, verbose_name='Типы')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
 
@@ -97,11 +94,8 @@ class SectionOfSights(models.Model):
         verbose_name = 'Раздел достопримечательностей'
         verbose_name_plural = 'Разделы достопримечательностей'
 
-    def __str__(self):
-        return self.title
 
-
-class SightPhoto(models.Model):
+class SightPhoto(BaseModel):
     sight = models.ForeignKey(Sight, on_delete=models.CASCADE, related_name='sigth_photo', null=True, verbose_name='Достпримечательность')
     file = models.ImageField(default='', upload_to='images/photo/', verbose_name='Изображение')
     posted = models.BooleanField('Опубликовано', default=True)
