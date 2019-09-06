@@ -7,11 +7,11 @@ from .views import RouteBySightsList
 
 urlpatterns = [
     # ex: traces/route_cities
-    path('route_cities/', RouteByCitiesList.as_view()),
+    path('route-cities/', RouteByCitiesList.as_view()),
     # ex: traces/route_cities/1/
-    path('route_cities/<int:pk>', RouteByCitiesDetail.as_view()),
+    path('route-cities/<int:pk>/', RouteByCitiesDetail.as_view()),
     # ex: traces/route_sigths
-    path('route_sights/', RouteBySightsDetail.as_view()),
+    path('route-sights/', RouteBySightsDetail.as_view()),
     # ex: traces/route_sights/1/
-    path('route_sights/<int:pk>', RouteBySightsList.as_view()),
+    path('route-sights/<int:pk>/', RouteBySightsList.as_view()),
 ]
