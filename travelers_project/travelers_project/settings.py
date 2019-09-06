@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'geography',
     'travelers.apps.TravelersConfig',
+    'traces.apps.TracesConfig',
 ]
 
 MIDDLEWARE = [
