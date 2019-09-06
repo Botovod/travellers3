@@ -1,0 +1,7 @@
+{% extands 'base.html' %}
+
+{% block content %}
+    {% for sight in sight_list %}
+        <h3>{{ sight.title }}</h3>
+    {% endfor %}
+{% endblock %}
