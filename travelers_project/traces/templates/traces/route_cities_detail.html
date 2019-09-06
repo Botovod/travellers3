@@ -1,0 +1,10 @@
+{% extands 'base.html' %}
+
+{% block content %}
+    <h1>{{ route_city_detail.title }}</h1>
+    {% with cities=route_city_detail.cities.all %}
+        {% for city in cities %}
+            <p>{{ city.title }}</p>
+        {% endfor %}
+    {% endwith %}
+{% endblock %}
