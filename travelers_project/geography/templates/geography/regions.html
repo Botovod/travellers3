@@ -2,7 +2,7 @@
 
 {% block content %}
     {% for region in region_list %}
-        <a href="{{ region.get_absolute_url }}"><h3>{{ region.title }}</h3></a>
+        <a href="{% url 'region_detail_url' pk=region.pk %}"><h3>{{ region.title }}</h3></a>
         <p>{{ region.description }}</p>
     {% endfor %}
 {% endblock %}

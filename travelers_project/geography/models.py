@@ -19,9 +19,6 @@ class Region(BaseModel):
         verbose_name = 'Регион'
         verbose_name_plural = 'Регионы'
 
-    def get_absolute_url(self):
-        return reverse('region_detail_url', kwargs={'pk': self.pk})
-
 
 class CityManager(models.Manager):
     def posted(self):
@@ -48,9 +45,6 @@ class City(BaseModel):
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
 
-    def get_absolute_url(self):
-        return reverse('city_detail_url', kwargs={'pk': self.pk})
-
 
 class TypeOfSights(BaseModel):
     title = models.CharField(max_length=255, default='', verbose_name='Название')
@@ -61,9 +55,6 @@ class TypeOfSights(BaseModel):
     class Meta:
         verbose_name = 'Тип достопримечательности'
         verbose_name_plural = 'Типы достопримечательностей'
-
-    def get_absolute_url(self):
-        return reverse('type_sight_detail_url', kwargs={'pk': self.pk})
 
 
 class Sight(BaseModel):
