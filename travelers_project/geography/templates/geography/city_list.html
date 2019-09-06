@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for city in city_list %}
+      <p>{{ city.title }}</p>
+    {% endfor %}
+{% endblock %}

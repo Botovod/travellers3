@@ -12,12 +12,13 @@ class BaseModel(models.Model):
 
 
 class Region(BaseModel):
-    title = models.CharField('Название', max_length=255, default='', blank=False)
+    title = models.CharField('Название', max_length=255, default='')
     description = models.TextField('Описание', default='', blank=True)
 
     class Meta:
         verbose_name = 'Регион'
         verbose_name_plural = 'Регионы'
+        ordering = ['title']
 
 
 class CityManager(models.Manager):
@@ -44,6 +45,7 @@ class City(BaseModel):
     class Meta:
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
+        ordering = ['title']
 
 
 class TypeOfSights(BaseModel):
@@ -55,6 +57,7 @@ class TypeOfSights(BaseModel):
     class Meta:
         verbose_name = 'Тип достопримечательности'
         verbose_name_plural = 'Типы достопримечательностей'
+        ordering = ['title']
 
 
 class Sight(BaseModel):
@@ -75,6 +78,7 @@ class Sight(BaseModel):
     class Meta:
         verbose_name = 'Достопримечательность'
         verbose_name_plural = 'Достопримечтельности'
+        ordering = ['title']
 
 
 class SectionOfSights(BaseModel):
@@ -84,6 +88,7 @@ class SectionOfSights(BaseModel):
     class Meta:
         verbose_name = 'Раздел достопримечательностей'
         verbose_name_plural = 'Разделы достопримечательностей'
+        ordering = ['title']
 
 
 class SightPhoto(BaseModel):
