@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import RouteByCities
+from .models import RouteBySights
+
+admin.site.register(RouteByCities)
+admin.site.register(RouteBySights)
