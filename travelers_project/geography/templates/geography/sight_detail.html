@@ -6,7 +6,15 @@
       <h1>{{ sight_detail.title }}</h1>
       <div class="single-middle">
         <div class="col-md-7 need">
-          <img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt="">
+          {% if sight_detail.sight_photo.all %}
+              {% with photos=sight_detail.sight_photo.all %}
+                {% for photo in photos %}
+                  <img class="img-responsive" src="{{ photo.file.url }}" alt="">
+                {% endfor %}
+              {% endwith %}
+          {% else %}
+              <img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt="">
+          {% endif %}
         </div>
         <div class="col-md-5 tag">
           <div class="social-in">
