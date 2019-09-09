@@ -3,6 +3,8 @@
 
 {% block content %}
     <div class="container">
+
+
       <div class="story">
         <center>
           <h1>CITIES</h1>
@@ -28,5 +30,8 @@
         {% endfor %}
         <div class="clearfix"> </div>
       </div>
+
+    {% include 'geography/includes/paginator.html' %}
+
     </div>
 {% endblock %}
