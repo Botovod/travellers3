@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <div class="container">
@@ -7,19 +8,25 @@
       <div class="grid-top-top">
         {% for region in region_list %}
           <div class="col-md-6 ">
-            <div class="col-md-6 service-grid">
-              <a href="single.html">
-                <img class="img-responsive" src="images/app.jpg" alt=""/>
-              </a>
-            </div>
-            <div class="col-md-6 top-grid-right">
-              <h4>Lorem ipsum dolor</h4>
-              <p>
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some form, by injected humour,
-                or randomised words which don't look even slightly believable.
-              </p>
-            </div>
+            <a href="{% url 'region_detail_url' pk=region.pk%}">
+              <div class="col-md-6 service-grid">
+                  {% if region.image %}
+                    <img class="img-responsive" src="" alt=""/>
+                  {% else %}
+                    <img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt=""/>
+                  {% endif %}
+              </div>
+              <div class="col-md-6 top-grid-right">
+                <h4>{{ region.title }}</h4>
+                <p>
+                  {{ region.description }}
+
+                  There are many variations of passages of Lorem Ipsum available,
+                  but the majority have suffered alteration in some form, by injected humour,
+                  or randomised words which don't look even slightly believable.
+                </p>
+              </div>
+            </a>
             <div class="clearfix"> </div>
           </div>
         {% endfor %}
