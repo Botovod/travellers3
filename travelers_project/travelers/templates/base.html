@@ -44,13 +44,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header">
 		<div class="container">
 			<div class="logo">
-				<a href="#"><img src="{% static 'images/log.png' %}" alt=""></a>
+				<a href="{% url 'base_url' %}"><img src="{% static 'images/log.png' %}" alt=""></a>
 			</div>
 				<div class="top-nav">
 					<span class="menu"><img src="{% static 'images/menu.png' %}" alt="" > </span>
 					<ul>
 						<li><a href="{% url 'region_list_url' %}">Regions</a></li>
-						<li><a href="story.html">Cities</a></li>
+						<li><a href="{% url 'city_list_url' %}">Cities</a></li>
 						<li><a href="#">Traces</a></li>
 						<li><a href="contact.html">Contacts</a></li>
 					</ul>
@@ -75,7 +75,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a href="#" class="here"> START HERE<i> </i></a>
 					</div>
 				</div>
+
+				<div class="container">
+					<div class="middle-top">
+						<h3>Recent Tour</h3>
+
+						{% for sight in sights %}
+							<div class="brand">
+								<div class="col-md-3 fashion">
+									<a href="{% url 'sight_detail_url' pk=sight.pk %}">
+										<img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt="">
+										<p>Brand Project<i> </i></p>
+									</a>
+								</div>
+							</div>
+						{% endfor %}
+
+					</div>
+				</div>
 			{% endblock %}
+
 
 	<div class="content-bottom-in">
 				<div class="container">
