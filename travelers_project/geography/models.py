@@ -91,9 +91,9 @@ class SectionOfSights(BaseModel):
         ordering = ['title']
 
 
-class SightPhoto(BaseModel):
+class SightPhoto(models.Model):
     sight = models.ForeignKey(Sight, on_delete=models.CASCADE, related_name='sigth_photo', null=True, verbose_name='Достпримечательность')
-    file = models.ImageField(default='', upload_to='images/photo/', verbose_name='Изображение')
+    file = models.ImageField(default='', upload_to='photo/photo/', verbose_name='Изображение')
     posted = models.BooleanField('Опубликовано', default=True)
 
     class Meta:
