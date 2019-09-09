@@ -84,7 +84,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="brand">
 								<div class="col-md-3 fashion">
 									<a href="{% url 'sight_detail_url' pk=sight.pk %}">
-										<img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt="">
+										{% if sight.sight_photo.all %}
+											{% with photo=sight.sight_photo.first %}
+												<img class="img-responsive" src="{{ photo.file.url }}" alt="">
+											{% endwith %}
+										{% else %}
+											<img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt="">
+										{% endif %}
 										<p>Brand Project<i> </i></p>
 									</a>
 								</div>
