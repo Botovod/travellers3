@@ -21,6 +21,7 @@ class CityList(ListView):
     model = City
     template_name = 'geography/city_list.html'
     context_object_name = 'city_list'
+    paginate_by = 2
 
 
 class CityDetail(DetailView):
