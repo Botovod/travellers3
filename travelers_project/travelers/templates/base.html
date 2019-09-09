@@ -44,16 +44,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header">
 		<div class="container">
 			<div class="logo">
-				<a href="index.html"><img src="{% static 'images/log.png' %}" alt=""></a>
+				<a href="#"><img src="{% static 'images/log.png' %}" alt=""></a>
 			</div>
 				<div class="top-nav">
 					<span class="menu"><img src="{% static 'images/menu.png' %}" alt="" > </span>
 					<ul>
-						<li  ><a href="services.html" >Services</a></li>
-						<li><a href="story.html" > Our Story</a></li>
-						<li><a href="work.html"> Work  </a></li>
-						<li><a href="404.html" >Journal</a></li>
-						<li><a href="contact.html">contact</a></li>
+						<li><a href="{% url 'region_list_url' %}">Regions</a></li>
+						<li><a href="story.html">Cities</a></li>
+						<li><a href="#">Traces</a></li>
+						<li><a href="contact.html">Contacts</a></li>
 					</ul>
 					<!--script-->
 				<script>
@@ -67,11 +66,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 
-	<div class="container">
-		<div class="content-middle">
+
 			{% block content %}
+				<div class="banner">
+					<div class="container">
+						<h1>Lorem Ipsum is simply dummy text</h1>
+						<p>excepteur sint occaecat cupidatat non proident</p>
+						<a href="#" class="here"> START HERE<i> </i></a>
+					</div>
+				</div>
 			{% endblock %}
-		</div>
+
+	<div class="content-bottom-in">
+				<div class="container">
+					<ul class="social">
+						<li><a href="#"><i> </i></a></li>
+						<li><a href="#"><i class="twitter"> </i></a></li>
+						<li><a href="#"><i class="dribble"> </i></a></li>
+						<li><a href="#"><i class="gmail"> </i></a></li>
+					</ul>
+				</div>
 	</div>
 
 
