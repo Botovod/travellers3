@@ -1,8 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for region in region_list %}
-        <a href="{% url 'region_detail_url' pk=region.pk %}"><h3>{{ region.title }}</h3></a>
-        <p>{{ region.description }}</p>
-    {% endfor %}
+  <div class="container">
+    <div class="services">
+      <h3 >REGIONS</h3>
+      <div class="grid-top-top">
+        {% for region in region_list %}
+          <div class="col-md-6 ">
+            <div class="col-md-6 service-grid">
+              <a href="single.html">
+                <img class="img-responsive" src="images/app.jpg" alt=""/>
+              </a>
+            </div>
+            <div class="col-md-6 top-grid-right">
+              <h4>Lorem ipsum dolor</h4>
+              <p>
+                There are many variations of passages of Lorem Ipsum available,
+                but the majority have suffered alteration in some form, by injected humour,
+                or randomised words which don't look even slightly believable.
+              </p>
+            </div>
+            <div class="clearfix"> </div>
+          </div>
+        {% endfor %}
+
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
