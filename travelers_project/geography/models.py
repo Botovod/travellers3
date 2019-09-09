@@ -14,6 +14,7 @@ class BaseModel(models.Model):
 class Region(BaseModel):
     title = models.CharField('Название', max_length=255, default='')
     description = models.TextField('Описание', default='', blank=True)
+    image = models.FileField(upload_to='photo/regions/', blank=True, null=True, verbose_name='Изображение')
 
     class Meta:
         verbose_name = 'Регион'
@@ -31,6 +32,7 @@ class City(BaseModel):
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     description = models.TextField(default='', blank=True, verbose_name='Описание')
     slug = models.SlugField(max_length=255, db_index=True, verbose_name='Адрес')
+    image = models.FileField(upload_to='photo/cities/', blank=True, null=True, verbose_name='Изображение')
     default_zoom = models.PositiveSmallIntegerField(default=0, blank=True, verbose_name='Масштаб')
     centre_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Координаты')
     posted = models.BooleanField(default=False, verbose_name='Опубликовано')
