@@ -62,7 +62,7 @@ class TypeOfSights(BaseModel):
 
 class Sight(BaseModel):
     type = models.ManyToManyField(TypeOfSights, related_name='type_sight', verbose_name='Достопримечательности')
-    city = models.ForeignKey(City, on_delete=models.DO_NOTHING, related_name='sigth', blank=True, null=True, verbose_name='Город')
+    city = models.ForeignKey(City, on_delete=models.DO_NOTHING, related_name='sight', blank=True, null=True, verbose_name='Город')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     text = models.TextField(default='', verbose_name='Описание')
     original_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Стянутные координаты')
@@ -92,8 +92,8 @@ class SectionOfSights(BaseModel):
 
 
 class SightPhoto(models.Model):
-    sight = models.ForeignKey(Sight, on_delete=models.CASCADE, related_name='sigth_photo', null=True, verbose_name='Достпримечательность')
-    file = models.ImageField(default='', upload_to='photo/photo/', verbose_name='Изображение')
+    sight = models.ForeignKey(Sight, on_delete=models.CASCADE, related_name='sight_photo', null=True, verbose_name='Достпримечательность')
+    file = models.ImageField(default='', upload_to='photo/', verbose_name='Изображение')
     posted = models.BooleanField('Опубликовано', default=True)
 
     class Meta:

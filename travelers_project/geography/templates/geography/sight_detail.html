@@ -1,8 +1,52 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <h3>{{ sight_detail.title }}</h3>
-
-    <p>{{ sight_detail.text }}</p>
+    <div class="container">
+      <h1>{{ sight_detail.title }}</h1>
+      <div class="single-middle">
+        <div class="col-md-7 need">
+          {% if sight_detail.sight_photo.all %}
+              {% with photos=sight_detail.sight_photo.all %}
+                {% for photo in photos %}
+                  <img class="img-responsive" src="{{ photo.file.url }}" alt="">
+                {% endfor %}
+              {% endwith %}
+          {% else %}
+              <img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt="">
+          {% endif %}
+        </div>
+        <div class="col-md-5 tag">
+          <div class="social-in">
+            <div class="col-md-4 date">
+              <p>Date add<span>{{ sight_detail.add_date|date:"d m Y" }}</span></p>
+            </div>
+            <div class="col-md-4 date">
+              <p>City<a href="{% url 'city_detail_url' pk=sight_detail.city.pk %}"><span>{{ sight_detail.city.title }}</span></a></p>
+            </div>
+            <div class="col-md-4 date">
+              <p>Region<a href="{% url 'region_detail_url' pk=sight_detail.city.region.pk %}"><span>{{ sight_detail.city.region.title }}</span></a></p>
+            </div>
+            <div class="clearfix"> </div>
+          </div>
+          <p class="tag-in">
+            {{ sight_detail.description }}
+            Lorem ipsum dolor sit amet, mollis epicuri pri ei,
+            perpetua honestatis ad vix. Ne duo ludus putent,
+            cu causae tamquam voluptua duo. Agam officiis no duo,
+            ut reque decore sea. Cu eripuit accusam vix.
+            Facete blandit detraxit pri cu, sea soluta doming civibus ea.
+            <span>
+              Eum eu tale clita iuvaret, cu est saperet forensibus interesset,
+              cum ne case iusto oportere. Id idque indoctum eum, menandri mediocrem has ei.
+              At usu modo quaerendum. Sit ei dicunt tacimates, mea ea enim eirmod suscipiantur,
+              amet dicit ancillae vel in. Ex mea augue eloquentiam, his postea dolorem suavitate ea.
+              Mel hendrerit accommodare concludaturque ex.
+            </span>
+          </p>
+          </div>
+          <div class="clearfix"> </div>
+        </div>
+    </div>
 
 {% endblock %}

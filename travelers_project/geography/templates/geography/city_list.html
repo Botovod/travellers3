@@ -1,7 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    {% for city in city_list %}
-      <p>{{ city.title }}</p>
-    {% endfor %}
+    <div class="container">
+      <div class="story">
+        <center>
+          <h1>CITIES</h1>
+          <br>
+        </center>
+        {% for city in city_list %}
+          <a href="{% url 'city_detail_url' pk=city.pk %}">
+            <div class="col-md-6 story-popular">
+                <img class="img-responsive " src="{% static 'images/not-foto.png' %}" alt="">
+              <h6>{{ city.title }}</h6>
+              <p>
+                {{ city.description }}
+                There are many variations of passages of Lorem Ipsum available,
+                but the majority have suffered alteration in some form, by injected humour,
+                or randomised word. Richard McClintock.
+              </p>
+            </div>
+          </a>
+        {% endfor %}
+        <div class="clearfix"> </div>
+      </div>
+    </div>
 {% endblock %}
