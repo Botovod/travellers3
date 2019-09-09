@@ -11,7 +11,7 @@
             <a href="{% url 'region_detail_url' pk=region.pk%}">
               <div class="col-md-6 service-grid">
                   {% if region.image %}
-                    <img class="img-responsive" src="" alt=""/>
+                    <img class="img-responsive" src="{{ region.image.url }}" alt=""/>
                   {% else %}
                     <img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt=""/>
                   {% endif %}
@@ -31,8 +31,45 @@
           </div>
         {% endfor %}
 
+
         <div class="clearfix"> </div>
       </div>
     </div>
+
+    {% if is_paginated %}
+        <center>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                {% endif %}
+
+                {% for n in page_obj.paginator.page_range %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{n}}">{{ n }}</a>
+                  </li>
+                {% endfor %}
+
+
+                {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">Next</a>
+                  </li>
+                {% endif %}
+            </ul>
+          </nav>
+        </center>
+    {% endif %}
+
   </div>
 {% endblock %}
