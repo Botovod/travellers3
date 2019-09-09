@@ -1,7 +1,11 @@
 from django.views.generic import DetailView
 from django.views.generic import ListView
+from django.views.generic import TemplateView
 
 from .models import Traveler
+
+class BaseTemplate(TemplateView):
+    template_name = 'base.html'
 
 
 class TravelerList(ListView):
