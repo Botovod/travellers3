@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 from geography.models import City, Sight, Region, TypeOfSights, SightPhoto
 
 
+
 class RegionList(ListView):
     model = Region
     template_name = 'geography/regions.html'
