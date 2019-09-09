@@ -12,7 +12,11 @@
               {% for city in cities %}
                 <a href="{% url 'city_detail_url' pk=city.pk %}">
                   <div class="col-md-6 story-popular">
+                    {% if city.image %}
+                      <img class="img-responsive " src="{{ city.image.url }}" alt="">
+                    {% else %}
                       <img class="img-responsive " src="{% static 'images/not-foto.png' %}" alt="">
+                    {% endif %}
                     <h6>{{ city.title }}</h6>
                     <p>
                       {{ city.description }}
