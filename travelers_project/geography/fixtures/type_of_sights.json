@@ -1,0 +1,382 @@
+[
+  {
+    "fields": {
+      "marker": "marks/theater.png",
+      "colour": "#FF0000",
+      "time": " ",
+      "title": "\u0422\u0435\u0430\u0442\u0440\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "marker": "marks/photo.png",
+      "colour": "#800000",
+      "time": " ",
+      "title": "\u041a\u0440\u0430\u0441\u0438\u0432\u044b\u0435 \u043c\u0435\u0441\u0442\u0430"
+    },
+    "model": "geography.typeofsights",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "marker": "marks/cinema.png",
+      "colour": "#FF7F50",
+      "time": " ",
+      "title": "\u041a\u0438\u043d\u043e\u0442\u0435\u0430\u0442\u0440\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "marker": "marks/restaurant.png",
+      "colour": "#FF8C00",
+      "time": " ",
+      "title": "\u041a\u0430\u0444\u0435"
+    },
+    "model": "geography.typeofsights",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "marker": "marks/clock.png",
+      "colour": "#800080",
+      "time": " ",
+      "title": "\u0410\u043d\u0442\u0438\u043a\u0430\u0444\u0435"
+    },
+    "model": "geography.typeofsights",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "marker": "marks/cycling.png",
+      "colour": "#00FFFF",
+      "time": " ",
+      "title": "\u0412\u0435\u043b\u043e\u0441\u0438\u043f\u0435\u0434\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "marker": "marks/art-museum-2.png",
+      "colour": "#48D1CC",
+      "time": " ",
+      "title": "\u041f\u0430\u043c\u044f\u0442\u043d\u0438\u043a\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "marker": "marks/museum_archeological.png",
+      "colour": "#2E8B57",
+      "time": " ",
+      "title": "\u041c\u0443\u0437\u0435\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "marker": "marks/dancinghall.png",
+      "colour": "#2F4F4F",
+      "time": " ",
+      "title": "\u041a\u043b\u0443\u0431\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "marker": "marks/forest.png",
+      "colour": "#FF1493",
+      "time": " ",
+      "title": "\u0411\u043e\u0442\u0430\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0441\u0430\u0434"
+    },
+    "model": "geography.typeofsights",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "marker": "marks/fountain-2.png",
+      "colour": "#00FF00",
+      "time": " ",
+      "title": "\u0424\u043e\u043d\u0442\u0430\u043d\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "marker": "marks/chapel-2.png",
+      "colour": "#FFD700",
+      "time": " ",
+      "title": "\u0425\u0440\u0430\u043c\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "marker": "marks/rollerskate.png",
+      "colour": "#228B22",
+      "time": " ",
+      "title": "\u0420\u043e\u043b\u0438\u043a\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "marker": "marks/fastfood.png",
+      "colour": "#E6E6FA",
+      "time": " ",
+      "title": "\u0424\u0430\u0441\u0442\u0444\u0443\u0434"
+    },
+    "model": "geography.typeofsights",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "marker": "marks/barbecue.png",
+      "colour": "#66CDAA",
+      "time": " ",
+      "title": "\u0421\u0442\u043e\u043b\u043e\u0432\u044b\u0435"
+    },
+    "model": "geography.typeofsights",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "marker": "marks/gourmet_0star.png",
+      "colour": "#FFFF00",
+      "time": " ",
+      "title": "\u0420\u0435\u0441\u0442\u043e\u0440\u0430\u043d\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "marker": "marks/pizzeria.png",
+      "colour": "#191970",
+      "time": " ",
+      "title": "\u041f\u0438\u0446\u0446\u0435\u0440\u0438\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "marker": "marks/coffee.png",
+      "colour": "#FFFF40",
+      "time": " ",
+      "title": "\u041a\u043e\u0444\u0435\u0439\u043d\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "marker": "marks/teahouse.png",
+      "colour": "#FFF400",
+      "time": " ",
+      "title": "\u0427\u0430\u0439\u043d\u044b\u0435"
+    },
+    "model": "geography.typeofsights",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "marker": "marks/candy.png",
+      "colour": "#FF4F00",
+      "time": " ",
+      "title": "\u041a\u043e\u043d\u0434\u0438\u0442\u0435\u0440\u0441\u043a\u0438\u0435"
+    },
+    "model": "geography.typeofsights",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "marker": "marks/japanese-food.png",
+      "colour": "#4FFF00",
+      "time": " ",
+      "title": "\u0421\u0443\u0448\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "marker": "marks/museum_art.png",
+      "colour": "#FFFF03",
+      "time": " ",
+      "title": "\u0412\u044b\u0441\u0442\u0430\u0432\u043a\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "marker": "marks/billiard-2.png",
+      "colour": "#FFF300",
+      "time": " ",
+      "title": "\u0411\u0438\u043b\u044c\u044f\u0440\u0434"
+    },
+    "model": "geography.typeofsights",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "marker": "marks/music_classical.png",
+      "colour": "#FFFF30",
+      "time": " ",
+      "title": "\u0424\u0438\u043b\u0430\u0440\u043c\u043e\u043d\u0438\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "marker": "marks/bowling.png",
+      "colour": "#FF3F00",
+      "time": " ",
+      "title": "\u0411\u043e\u0443\u043b\u0438\u043d\u0433"
+    },
+    "model": "geography.typeofsights",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "marker": "marks/music_choral.png",
+      "colour": "#F3FF00",
+      "time": " ",
+      "title": "\u041a\u0430\u0440\u0430\u043e\u043a\u0435"
+    },
+    "model": "geography.typeofsights",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "marker": "marks/aquarium.png",
+      "colour": "#3FFF00",
+      "time": " ",
+      "title": "\u041e\u043a\u0435\u0430\u043d\u0430\u0440\u0438\u0443\u043c\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "marker": "marks/circus.png",
+      "colour": "#FFFF02",
+      "time": " ",
+      "title": "\u0426\u0438\u0440\u043a\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "marker": "marks/ferriswheel.png",
+      "colour": "#FFFF20",
+      "time": " ",
+      "title": "\u0410\u0442\u0442\u0440\u0430\u043a\u0446\u0438\u043e\u043d\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "marker": "marks/karting.png",
+      "colour": "#FFF200",
+      "time": " ",
+      "title": "\u041a\u0430\u0440\u0442\u0438\u043d\u0433"
+    },
+    "model": "geography.typeofsights",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "marker": "marks/citywalls.png",
+      "colour": "#FF2F00",
+      "time": " ",
+      "title": "\u042d\u043a\u0441\u043a\u0443\u0440\u0441\u0438\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "marker": "marks/iceskating.png",
+      "colour": "#F2FF00",
+      "time": " ",
+      "title": "\u041a\u0430\u0442\u043a\u0438"
+    },
+    "model": "geography.typeofsights",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "marker": "marks/diving.png",
+      "colour": "#2FFF00",
+      "time": " ",
+      "title": "\u0411\u0430\u0441\u0441\u0435\u0439\u043d\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "marker": "marks/fitness.png",
+      "colour": "#FFFF01",
+      "time": " ",
+      "title": "\u0422\u0440\u0435\u043d\u0430\u0436\u0435\u0440\u043d\u044b\u0435 \u0437\u0430\u043b\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "marker": "marks/paintball.png",
+      "colour": "#FF1F00",
+      "time": " ",
+      "title": "\u041f\u0435\u0439\u043d\u0442\u0431\u043e\u043b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "marker": "marks/hunting.png",
+      "colour": "#FFFF10",
+      "time": " ",
+      "title": "\u0421\u0442\u0440\u0430\u0439\u043a\u0431\u043e\u043b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "marker": "marks/zombie-outbreak1.png",
+      "colour": "#F1FF00",
+      "time": " ",
+      "title": "\u041b\u0430\u0437\u0435\u0440\u0442\u0430\u0433"
+    },
+    "model": "geography.typeofsights",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "marker": "marks/badminton-2.png",
+      "colour": "#FFF100",
+      "time": " ",
+      "title": "\u0422\u0435\u043d\u043d\u0438\u0441\u043d\u044b\u0435 \u043a\u043e\u0440\u0442\u044b"
+    },
+    "model": "geography.typeofsights",
+    "pk": 38
+  }
+]
