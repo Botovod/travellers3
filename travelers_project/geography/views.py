@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import MultipleObjectMixin, ListView
 from geography.models import City, Sight, Region, TypeOfSights, SightPhoto
 
 
@@ -11,10 +12,16 @@ class RegionList(ListView):
     paginate_by = 10
 
 
-class RegionDetail(DetailView):
+class RegionDetail(DetailView, MultipleObjectMixin):
     model = Region
     template_name = 'geography/region_detail.html'
     context_object_name = 'region_detail'
+    paginate_by = 6
+
+    def get_context_data(self, **kwrags):
+        object_list = City.objects.filter(region=self.get_object())
+        context = super().get_context_data(object_list=object_list, **kwrags)
+        return context
 
 
 class CityList(ListView):
