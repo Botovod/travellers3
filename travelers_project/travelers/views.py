@@ -10,5 +10,5 @@ class BaseTemplate(TemplateView):
 
     def get_context_data(self, **kwrags):
         context = super().get_context_data(**kwrags)
-        context['sights'] = Sight.objects.all()
+        context['sights'] = Sight.objects.all()[:4]
         return context
