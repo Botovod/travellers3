@@ -28,7 +28,8 @@ class CityManager(models.Manager):
 
 
 class City(BaseModel):
-    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="city",default=None, blank=True, null=True, verbose_name="Регион")
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="city", default=None, blank=True,
+                               null=True, verbose_name="Регион")
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     description = models.TextField(default='', blank=True, verbose_name='Описание')
     slug = models.SlugField(max_length=255, db_index=True, verbose_name='Адрес')
@@ -64,7 +65,8 @@ class TypeOfSights(BaseModel):
 
 class Sight(BaseModel):
     type = models.ManyToManyField(TypeOfSights, related_name='type_sight', verbose_name='Достопримечательности')
-    city = models.ForeignKey(City, on_delete=models.DO_NOTHING, related_name='sight', blank=True, null=True, verbose_name='Город')
+    city = models.ForeignKey(City, on_delete=models.DO_NOTHING, related_name='sight', blank=True, null=True,
+                             verbose_name='Город')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     text = models.TextField(default='', verbose_name='Описание')
     original_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Стянутные координаты')
@@ -94,7 +96,10 @@ class SectionOfSights(BaseModel):
 
 
 class SightPhoto(models.Model):
-    sight = models.ForeignKey(Sight, on_delete=models.CASCADE, related_name='sight_photo', null=True, verbose_name='Достпримечательность')
+    sight = models.ForeignKey(Sight, on_delete=models.CASCADE,
+                              related_name='sight_photo',
+                              null=True,
+                              verbose_name='Достпримечательность')
     file = models.ImageField(default='', upload_to='photo/', verbose_name='Изображение')
     posted = models.BooleanField('Опубликовано', default=True)
 

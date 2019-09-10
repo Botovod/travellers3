@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from geography.models import City, Sight, Region, TypeOfSights, SightPhoto
 
+from geography.models import City, Sight, Region, TypeOfSights, SightPhoto
 
 
 class RegionList(ListView):
