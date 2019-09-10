@@ -8,7 +8,7 @@ class RegionList(ListView):
     model = Region
     template_name = 'geography/regions.html'
     context_object_name = 'region_list'
-    paginate_by = 4
+    paginate_by = 10
 
 
 class RegionDetail(DetailView):
@@ -21,7 +21,7 @@ class CityList(ListView):
     model = City
     template_name = 'geography/city_list.html'
     context_object_name = 'city_list'
-    paginate_by = 20
+    paginate_by = 10
 
 
 class CityDetail(DetailView):
