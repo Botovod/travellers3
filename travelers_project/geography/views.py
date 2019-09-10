@@ -3,6 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
 from geography.models import City, Sight, Region, TypeOfSights, SightPhoto
 
+from geography.models import City, Sight, Region, TypeOfSights, SightPhoto
 
 
 class RegionList(ListView):
