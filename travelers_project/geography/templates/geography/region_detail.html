@@ -18,12 +18,16 @@
                       <img class="img-responsive " src="{% static 'images/not-foto.png' %}" alt="">
                     {% endif %}
                     <h6>{{ city.title }}</h6>
-                    <p>
-                      {{ city.description }}
-                      There are many variations of passages of Lorem Ipsum available,
-                      but the majority have suffered alteration in some form, by injected humour,
-                      or randomised word. Richard McClintock.
-                    </p>
+
+                    {% if city.description %}
+                        <p>{{ city.description|truncatewords:20 }}</p>
+                    {% else %}
+                      <p>
+                        There are many variations of passages of Lorem Ipsum available,
+                        but the majority have suffered alteration in some form, by injected humour,
+                        or randomised word. Richard McClintock.
+                      </p>
+                    {% endif %}
                   </div>
                 </a>
               {% endfor %}
