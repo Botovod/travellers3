@@ -38,8 +38,7 @@
             </span>
           </p>
             <div class="col-md-4 date">
-              <p><strong>Sights:</strong>
-              </p>
+              <p><strong>Sights:</strong></p>
                   {% with sights=city_detail.sight.all %}
                       {% for sight in sights %}
                         <a href="{% url 'sight_detail_url' pk=sight.pk %}">
