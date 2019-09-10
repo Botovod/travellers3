@@ -1,13 +1,19 @@
 #!/bin/bash
 
-python travelers_project/manage.py flush
-python travelers_project/manage.py makemigrations
-python travelers_project/manage.py migrate
 
 cd travelers_project
+
 python manage.py loaddata geography/fixtures/region.json
-python manage.py loaddata geography/fixtures/type_of_sights.json
 python manage.py loaddata geography/fixtures/city.json
-python manage.py loaddata geography/fixtures/sight.json
-python manage.py loaddata geography/fixtures/section_of_sights.json
-python manage.py loaddata geography/fixtures/sight_photo.json
+python manage.py loaddata geography/fixtures/typeofsights.json
+python manage.py loaddata geography/fixtures/sectionofsights.json
+python manage.py loaddata geography/fixtures/sight0.json
+python manage.py loaddata geography/fixtures/sight1.json
+python manage.py loaddata geography/fixtures/sight2.json
+python manage.py loaddata geography/fixtures/sight3.json
+python manage.py loaddata geography/fixtures/sight4.json
+python manage.py loaddata geography/fixtures/sight5.json
+python manage.py loaddata geography/fixtures/sight6.json
+python manage.py loaddata geography/fixtures/sightphoto0.json
+python manage.py loaddata geography/fixtures/sightphoto1.json
+python manage.py loaddata geography/fixtures/sightphoto2.json
