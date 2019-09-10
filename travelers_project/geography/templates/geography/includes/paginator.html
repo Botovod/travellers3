@@ -13,10 +13,17 @@
             {% endif %}
 
             {% for n in page_obj.paginator.page_range %}
-              <li class="page-item">
-                <a class="page-link" href="?page={{n}}">{{ n }}</a>
-              </li>
+              {% if n == page_obj.number %}
+                <li class="page-item active">
+                  <a class="page-link" href="?page={{n}}">{{ n }}</a>
+                </li>
+              {% elif n > page_obj.number|add:'-5' and n < page_obj.number|add:'5' %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{n}}">{{ n }}</a>
+                </li>
+              {% endif %}
             {% endfor %}
+
 
 
             {% if page_obj.has_next %}
