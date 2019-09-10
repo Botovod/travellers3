@@ -6,7 +6,7 @@
         <center>
           <h1>{{ region_detail.title }}</h1>
         </center>
-        {% with cities=region_detail.city.all %}
+        {% with cities=object_list %}
 
             <div class="story">
               {% for city in cities %}
@@ -30,5 +30,7 @@
               <div class="clearfix"> </div>
             </div>
         {% endwith %}
+
+        {% include 'geography/includes/paginator.html' %}
       </div>
 {% endblock %}
