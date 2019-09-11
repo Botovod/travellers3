@@ -1,7 +1,5 @@
-from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
-from geography.models import City, Sight, Region, TypeOfSights, SightPhoto
 
 from geography.models import City, Sight, Region, TypeOfSights, SightPhoto
 
@@ -48,3 +46,5 @@ class SightDetail(DetailView):
     model = Sight
     template_name = 'geography/sight_detail.html'
     context_object_name = 'sight_detail'
+
+
