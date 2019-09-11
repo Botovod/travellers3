@@ -26,6 +26,9 @@ INSTALLED_APPS = [
     'geography',
     'travelers.apps.TravelersConfig',
     'traces.apps.TracesConfig',
+    'rest_framework',
+    'geography.api',
+
 ]
 
 MIDDLEWARE = [
@@ -100,7 +103,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
