@@ -8,6 +8,8 @@ urlpatterns = [
     path('', include('travelers.urls')),
     path('geography/', include('geography.urls')),
     path('traces/', include('traces.urls')),
+    path('api/v1/geography/', include('geography.api.urls')),
+
 ]
 
 if settings.DEBUG:
