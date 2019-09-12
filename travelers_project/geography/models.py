@@ -37,7 +37,7 @@ class City(BaseModel):
     default_zoom = models.PositiveSmallIntegerField(default=0, blank=True, verbose_name='Масштаб')
     centre_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Координаты')
     posted = models.BooleanField(default=False, verbose_name='Опубликовано')
-    show_on_mainmap = models.BooleanField(verbose_name='Показывать на гавной карте')
+    show_on_mainmap = models.BooleanField(verbose_name='Показывать на главной карте')
     regional_center = models.BooleanField(default=True, verbose_name='Региональный центр')
     add_date = models.DateTimeField(null=True, auto_now_add=True, verbose_name='Дата добавления')
     last_modified_date = models.DateTimeField(null=True, auto_now=True, verbose_name='Дата последнего изменения')
