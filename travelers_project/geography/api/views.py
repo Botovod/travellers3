@@ -3,6 +3,7 @@ from rest_framework import generics
 from geography.models import City
 from geography.models import Region
 from geography.models import Sight
+from geography.models import SightPhoto
 from geography.models import SectionOfSights
 from geography.models import TypeOfSights
 
@@ -11,6 +12,8 @@ from geography.api.serializers import RegionDetailSerializer
 from geography.api.serializers import CityListSerializer
 from geography.api.serializers import CityDetailSerializer
 from geography.api.serializers import SightListSerializer
+from geography.api.serializers import SightPhotoListSerializer
+from geography.api.serializers import SightPhotoDetailSerializer
 from geography.api.serializers import SightDetailSerializer
 from geography.api.serializers import SectionOfSightsListSerializer
 from geography.api.serializers import SectionOfSightsDetailSerializer
@@ -46,6 +49,16 @@ class SightList(generics.ListCreateAPIView):
 class SightDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Sight.objects.all()
     serializer_class = SightDetailSerializer
+
+
+class SightPhotoList(generics.ListCreateAPIView):
+    queryset = SightPhoto.objects.order_by('id')
+    serializer_class = SightPhotoListSerializer
+
+
+class SightPhotoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SightPhoto.objects.all()
+    serializer_class = SightPhotoDetailSerializer
 
 
 class SectionOfSightsList(generics.ListCreateAPIView):
