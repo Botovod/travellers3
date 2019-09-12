@@ -4,6 +4,7 @@ from geography.models import Region
 from geography.models import City
 from geography.models import Sight
 from geography.models import TypeOfSights
+from geography.models import SectionOfSights
 
 
 class RegionListSerializer(serializers.ModelSerializer):
@@ -51,4 +52,16 @@ class TypeOfSightsListSerializer(serializers.ModelSerializer):
 class TypeOfSightsDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = TypeOfSights
+        fields = '__all__'
+
+
+class SectionOfSightsListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SectionOfSights
+        fields = '__all__'
+
+
+class SectionOfSightsDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SectionOfSights
         fields = '__all__'
