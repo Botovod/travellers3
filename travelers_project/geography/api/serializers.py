@@ -3,6 +3,7 @@ from rest_framework import serializers
 from geography.models import Region
 from geography.models import City
 from geography.models import Sight
+from geography.models import TypeOfSights
 
 
 class RegionListSerializer(serializers.ModelSerializer):
@@ -27,8 +28,8 @@ class CityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = '__all__'
-        
-        
+
+
 class SightListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sight
@@ -38,4 +39,16 @@ class SightListSerializer(serializers.ModelSerializer):
 class SightDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sight
+        fields = '__all__'
+
+
+class TypeOfSightsListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TypeOfSights
+        fields = '__all__'
+
+
+class TypeOfSightsDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TypeOfSights
         fields = '__all__'
