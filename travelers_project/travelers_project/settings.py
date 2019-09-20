@@ -111,3 +111,6 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+VK_TOKEN = local_settings.token
+VK_API_VERSION = '5.101'
