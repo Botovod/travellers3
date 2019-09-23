@@ -20,3 +20,8 @@ source venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
+Каталог nginx:
+файл default скопировать в каталог /etc/nginx/sites-available/
+
+Каталог supervisor:
+файл travelers_project.conf скопировать в каталог /etc/nginx/sites-available//etc/supervisor/conf.d/
