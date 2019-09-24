@@ -5,12 +5,6 @@ from django.core.management.base import BaseCommand
 from travelers_project.settings import VK_TOKEN
 from travelers_project.settings import VK_API_VERSION
 
-# from django.conf.settings import VK_TOKEN
-# from django.conf.settings import VK_API_VERSION
-
-# from travelers_project.travelers_project.settings import
-# from travelers_project.travelers_project.settings import VK_API_VERSION
-
 messages = [
     ('1', 'photo562731269_457239032',),
     ('2', 'photo562731269_457239030'),

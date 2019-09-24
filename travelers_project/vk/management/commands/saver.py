@@ -4,10 +4,10 @@ import json
 import os
 
 from vk.management.commands.photos import filename
+from travelers_project.settings import MEDIA_ROOT
 
-image_folder = 'images'
-curDirectory = os.path.dirname(os.path.abspath(__file__))
-dirMainName = os.path.join(curDirectory, image_folder)
+image_folder = 'photo'
+dirMainName = os.path.join(MEDIA_ROOT, image_folder)
 
 
 async def download_photo(info, session):
