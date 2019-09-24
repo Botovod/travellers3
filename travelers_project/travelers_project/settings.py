@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'traces.apps.TracesConfig',
     'rest_framework',
     'geography.api',
+    'vk',
 
 ]
 
