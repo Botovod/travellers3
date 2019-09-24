@@ -7,7 +7,6 @@ from vk.management.commands.photos import filename
 from travelers_project.settings import MEDIA_ROOT
 
 image_folder = 'photo'
-# curDirectory = os.path.dirname(os.path.abspath(__file__))
 dirMainName = os.path.join(MEDIA_ROOT, image_folder)
 
 
