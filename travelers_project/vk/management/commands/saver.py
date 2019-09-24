@@ -2,9 +2,8 @@ import aiohttp
 import asyncio
 import json
 import os
-from time import time
 
-from vk.photos import filename
+from vk.management.commands.photos import filename
 
 image_folder = 'images'
 curDirectory = os.path.dirname(os.path.abspath(__file__))
@@ -18,6 +17,9 @@ async def download_photo(info, session):
 
 
 def write_image(data, info):
+    if not os.path.exists(dirMainName):
+        os.mkdir(dirMainName)
+
     dir1 = os.path.join(dirMainName, info['album'])
     if not os.path.exists(dir1):
         os.mkdir(dir1)
@@ -45,9 +47,3 @@ async def main():
             task = asyncio.create_task(download_photo(i, session))
             tasks.append(task)
         await asyncio.gather(*tasks)
-
-
-if __name__ == '__main__':
-    t0 = time()
-    asyncio.run(main())
-    print(time() - t0)

@@ -2,12 +2,10 @@ import asyncio
 import aiohttp
 import json
 
-from time import time
+from travelers_project.settings import VK_TOKEN
+from travelers_project.settings import VK_API_VERSION
 
-from travelers_project.travelers_project.settings import VK_TOKEN
-from travelers_project.travelers_project.settings import VK_API_VERSION
-
-queries = ['Достопримечательность']
+queries = ['python django']
 photos = []
 filename = 'album.json'
 
@@ -67,15 +65,9 @@ async def main():
                 tasks.append(task2)
         await asyncio.gather(*tasks)
 
+    write_json(photos)
+
 
 def write_json(data):
     with open(filename, 'w') as file:
         json.dump(data, file, indent=2, ensure_ascii=False)
-
-
-if __name__ == '__main__':
-    start = time()
-    asyncio.run(main())
-
-    write_json(photos)
-    print(time() - start)

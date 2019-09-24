@@ -1,12 +1,24 @@
 import asyncio
 import aiohttp
 
-from travelers_project.travelers_project.settings import VK_TOKEN
-from travelers_project.travelers_project.settings import VK_API_VERSION
+from django.core.management.base import BaseCommand
+from travelers_project.settings import VK_TOKEN
+from travelers_project.settings import VK_API_VERSION
+
+# from django.conf.settings import VK_TOKEN
+# from django.conf.settings import VK_API_VERSION
+
+# from travelers_project.travelers_project.settings import
+# from travelers_project.travelers_project.settings import VK_API_VERSION
 
 messages = [
-    ('first post', 'photo562731269_457239020',),
-    ('second_post', 'photo562731269_457239019'),
+    ('1', 'photo562731269_457239032',),
+    ('2', 'photo562731269_457239030'),
+    ('3', 'photo562731269_457239027'),
+    ('4', 'photo562731269_457239025'),
+    ('5', 'photo562731269_457239023'),
+    ('6', 'photo562731269_457239024'),
+
 ]
 
 
@@ -29,5 +41,6 @@ async def main():
         await asyncio.gather(*tasks)
 
 
-if __name__ == '__main__':
-    asyncio.run(main())
+class Command(BaseCommand):
+    def handle(self, **options):
+        asyncio.run(main())
