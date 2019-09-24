@@ -31,7 +31,7 @@ pip install -r requirements.txt
 ```
 python manage.py poster
 ```
-Для создания автоматического поста vk на стене сообщества
+Для загрузки фотографий
 перейти в корневой каталог и выполнить:
 ```
 python manage.py loader
