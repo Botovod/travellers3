@@ -41,10 +41,6 @@ async def main():
         await asyncio.gather(*tasks)
 
 
-def handle(self, *args, **options):
-    pass
-
-
 class Command(BaseCommand):
     def handle(self, **options):
         asyncio.run(main())
