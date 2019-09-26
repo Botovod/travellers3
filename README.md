@@ -24,7 +24,7 @@ pip install -r requirements.txt
 файл default скопировать в каталог /etc/nginx/sites-available/
 
 Каталог supervisor:
-файл travelers_project.conf скопировать в каталог /etc/nginx/sites-available//etc/supervisor/conf.d/
+файл travelers_project.conf скопировать в каталог /etc/supervisor/conf.d/
 
 Для создания автоматического поста vk на стене сообщества
 перейти в корневой каталог и выполнить:
