@@ -113,8 +113,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_PHOTO_PATH = os.path.join(MEDIA_ROOT, 'images', 'not-foto.png')
 
 VK_TOKEN = local_settings.token
 VK_API_VERSION = '5.101'
