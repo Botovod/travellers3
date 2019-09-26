@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Route Sights:</h1>
+    {% for route_sight in route_sights_list %}
+        <p>{{ route_sight.title }}</p>
+    {% endfor %}
+{% endblock %}

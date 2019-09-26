@@ -1,0 +1,29 @@
+{% extands 'base.html' %}
+
+{% block content %}
+  <div class="single-middle">
+    <div class="col-md-7 need">
+      <img class="img-responsive" src="images/si1.jpg" alt="">
+    </div>
+    <div class="col-md-5 tag">
+      <div class="social-in">
+        <div class="col-md-4 date">
+          <p>Date <span>April 15,2014</span></p>
+        </div>
+        <div class="col-md-4 date">
+          <p>Tags<span><a href="#">Website </a> | <a href="#"> Design	</a></span></p>
+        </div>
+        <div class="col-md-4 date">
+          <p>Author<span>Michael Reimer	</span></p>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    <p class="tag-in">Lorem ipsum dolor sit amet, mollis epicuri pri ei, perpetua honestatis ad vix. Ne duo ludus putent, cu causae tamquam voluptua duo. Agam officiis no duo, ut reque decore sea. Cu eripuit accusam vix. Facete blandit detraxit pri cu, sea soluta doming civibus ea.
+      <span>Eum eu tale clita iuvaret, cu est saperet forensibus interesset, cum ne case iusto oportere. Id idque indoctum eum, menandri mediocrem has ei. At usu modo quaerendum. Sit ei dicunt tacimates, mea ea enim eirmod suscipiantur, amet dicit ancillae vel in. Ex mea augue eloquentiam, his postea dolorem suavitate ea. Mel hendrerit accommodare concludaturque ex.</span></p>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+    {% for sight in sight_list %}
+        <h3>{{ sight.title }}</h3>
+    {% endfor %}
+{% endblock %}

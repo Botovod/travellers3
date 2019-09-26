@@ -105,3 +105,11 @@ venv.bak/
 
 #PyCharm
 .idea/
+
+# photos
+photo/
+
+travelers.sql
+media/
+
+album.json

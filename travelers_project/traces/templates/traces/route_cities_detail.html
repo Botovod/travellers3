@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if route_city_detail %}
+        <h1>{{ route_city_detail.title }}</h1>
+        {% with cities=route_city_detail.cities.all %}
+            {% for city in cities %}
+                <p>{{ city.title }}</p>
+            {% endfor %}
+        {% endwith %}
+    {% else %}
+
+        <p>None</p>
+
+    {% endif%}
+{% endblock %}

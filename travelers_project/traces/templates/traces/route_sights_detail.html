@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ route_sight_detail.title }}</h1>
+    {% with sights=route_sight_detail.sights.all %}
+        {% for sight in sights %}
+            <p>{{ sight.title }}</p>
+        {% endfor %}
+    {% endwith %}
+{% endblock %}

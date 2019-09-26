@@ -1,12 +1,8 @@
 from django.urls import path
 
-from .views import TravelerDetail
-from .views import TravelerList
+from .views import BaseTemplate
 
 urlpatterns = [
-    # ex: /travelers/
-    path('', TravelerList.as_view()),
-    # ex: /travelers/5/
-    path('<int:pk>/', TravelerDetail.as_view()),
-
+    # ex: /
+    path('', BaseTemplate.as_view(), name='base_url'),
 ]

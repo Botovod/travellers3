@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    {% for type_sight in type_sights %}
-        <a href="{{ type_sight.get_absolute_url }}"><h3>{{ type_sight.title }}</h3></a>
-    {% endfor %}
-{% endblock %}
