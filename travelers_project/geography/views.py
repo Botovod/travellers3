@@ -17,9 +17,9 @@ class RegionDetail(DetailView, MultipleObjectMixin):
     context_object_name = 'region_detail'
     paginate_by = 6
 
-    def get_context_data(self, **kwrags):
+    def get_context_data(self, **kwargs):
         object_list = City.objects.filter(region=self.get_object())
-        context = super().get_context_data(object_list=object_list, **kwrags)
+        context = super().get_context_data(object_list=object_list, **kwargs)
         return context
 
 
@@ -28,6 +28,14 @@ class CityList(ListView):
     template_name = 'geography/city_list.html'
     context_object_name = 'city_list'
     paginate_by = 10
+
+    def get_context_data(self, *args, **kwargs):
+        s = """There are many variations of passages of Lorem Ipsum available,
+            but the majority have suffered alteration in some form, by injected humour, or randomised word.
+            Richard McClintock."""
+        context = super(CityList, self).get_context_data(*args, **kwargs)
+        context['mock_text'] = s
+        return context
 
 
 class CityDetail(DetailView):
@@ -46,5 +54,3 @@ class SightDetail(DetailView):
     model = Sight
     template_name = 'geography/sight_detail.html'
     context_object_name = 'sight_detail'
-
-
