@@ -23,13 +23,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'geography',
-    'travelers.apps.TravelersConfig',
-    'traces.apps.TracesConfig',
+    # extern libs
     'rest_framework',
+    'sorl.thumbnail',
+
+    # own apps
+    'geography',
+    'travelers',
+    'traces',
     'geography.api',
     'vk',
-
 ]
 
 MIDDLEWARE = [
