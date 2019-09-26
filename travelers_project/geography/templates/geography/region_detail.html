@@ -1,40 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load thumbnail%}
 
 {% block content %}
-      <div class="container">
-        <center>
-          <h1>{{ region_detail.title }}</h1>
-        </center>
-        {% with cities=object_list %}
+<div class="container">
+    <center>
+        <h1>{{ region_detail.title }}</h1>
+    </center>
+    {% with cities=object_list %}
 
-            <div class="story">
-              {% for city in cities %}
-                <a href="{% url 'city_detail_url' pk=city.pk %}">
-                  <div class="col-md-6 story-popular">
-                    {% if city.image %}
-                      <img class="img-responsive " src="{{ city.image.url }}" alt="">
-                    {% else %}
-                      <img class="img-responsive " src="{% static 'images/not-foto.png' %}" alt="">
-                    {% endif %}
-                    <h6>{{ city.title }}</h6>
-
+    <div class="story">
+        {% for city in cities %}
+        <a href="{% url 'city_detail_url' pk=city.pk %}">
+            <div class="col-md-4 story-popular">
+                {% thumbnail city.image "x150" as im %}
+                <img class="img-responsive " src="{{ im.url }}" alt="">
+                {% empty %}
+                <img class="img-responsive " src="{{ default_image.url }}" alt="">
+                {% endthumbnail %}
+                <h6>{{ city.title }}</h6>
+                <p>
                     {% if city.description %}
-                        <p>{{ city.description|truncatewords:20 }}</p>
+                    {{ city.description|truncatewords:20 }}
                     {% else %}
-                      <p>
-                        There are many variations of passages of Lorem Ipsum available,
-                        but the majority have suffered alteration in some form, by injected humour,
-                        or randomised word. Richard McClintock.
-                      </p>
+                    {{ mock_text|truncatewords:14}}
                     {% endif %}
-                  </div>
-                </a>
-              {% endfor %}
-              <div class="clearfix"> </div>
+                </p>
             </div>
-        {% endwith %}
+        </a>
+        {% endfor %}
+        <div class="clearfix"></div>
+    </div>
+    {% endwith %}
 
-        {% include 'geography/includes/paginator.html' %}
-      </div>
+    {% include 'geography/includes/paginator.html' %}
+</div>
 {% endblock %}
