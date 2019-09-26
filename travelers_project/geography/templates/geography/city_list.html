@@ -4,43 +4,40 @@
 
 {% block content %}
 <div class="container">
-
-
     <div class="story">
         <center>
             <h1>CITIES</h1>
             <br>
         </center>
         {% for city in city_list %}
-        <a href="{% url 'city_detail_url' pk=city.pk %}">
-            <div class="col-md-4 story-popular">
-                <div class="image">
-                    {% if city.image %}
-                    {% thumbnail city.image "220" as im %}
-                    <a href="{{ city.image.url }}">
-                        <img class="img-responsive"
-                             src="{{ im.url }}"
-                             alt="">
-                    </a>
-                    {% endthumbnail %}
-                    {% else %}
+
+        <div class="col-md-3 story-popular">
+            <div class="feature text-center">
+                {% thumbnail city.image "x150" crop="center" as im %}
+                <a href="{{ city.image.url }}">
                     <img class="img-responsive"
-                         src="{% static 'images/not-foto.png' %}"
+                         src="{{ im.url }}"
                          alt="">
-                    {% endif %}
-                </div>
-                <div>
-                    <h6>{{ city.title }}</h6>
-                    <p>
-                        {% if city.description %}
-                        {{ city.description|truncatewords:10 }}
-                        {% else %}
-                        {{ mock_text|truncatewords:10}}
-                        {% endif %}
-                    </p>
-                </div>
+                </a>
+                {% empty %}
+                <img class="img-responsive"
+                     src="{{ default_image.url }}"
+                     alt="">
+                {% endthumbnail %}
             </div>
-        </a>
+            <div class="feature text-left">
+                <a href="{% url 'city_detail_url' pk=city.pk %}">
+                    <h6>{{ city.title }}</h6>
+                </a>
+                <p>
+                    {% if city.description %}
+                    {{ city.description|truncatewords:14 }}
+                    {% else %}
+                    {{ mock_text|truncatewords:14 }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
         {% endfor %}
         <div class="clearfix"></div>
     </div>
