@@ -83,6 +83,20 @@ class SightList(ListView):
     model = Sight
     template_name = 'geography/sight_list.html'
     context_object_name = 'sight_list'
+    paginate_by = 12
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SightList, self).get_context_data(*args, **kwargs)
+        context['mock_text'] = mock_text
+
+        try:
+            file = open(DEFAULT_PHOTO_PATH)
+            default_image = get_thumbnail(file, 'x150', crop='center')
+            context['default_image'] = default_image
+        except FileExistsError:
+            pass
+
+        return context
 
 
 class SightDetail(DetailView):

@@ -69,6 +69,10 @@ class Sight(BaseModel):
                              verbose_name='Город')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     text = models.TextField(default='', verbose_name='Описание')
+    image = models.FileField(upload_to='photo/sights/',
+                             blank=True,
+                             null=True,
+                             verbose_name='Фотография достопримечательности')
     original_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Стянутные координаты')
     coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Координаты')
     posted = models.BooleanField(default=False, verbose_name='Опубликовано')
