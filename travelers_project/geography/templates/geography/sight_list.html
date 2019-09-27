@@ -30,10 +30,10 @@
                     <h6>{{ sight.title }}</h6>
                 </a>
                 <p>
-                    {% if sight.description %}
-                    {{ sight.description|truncatewords:14 }}
+                    {% if sight.text %}
+                    {{ sight.text | truncatechars:50 }}
                     {% else %}
-                    {{ mock_text|truncatewords:14 }}
+                    {{ mock_text | truncatechars:50 }}
                     {% endif %}
                 </p>
             </div>
