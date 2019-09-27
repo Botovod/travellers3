@@ -12,7 +12,7 @@ SECRET_KEY = '$xvw65i1h0gy33=6f)(q*!3-!pump0*0k5777(r00pl*se#0qm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '0.0.0.0']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'geography',
     'travelers.apps.TravelersConfig',
     'traces.apps.TracesConfig',
+    'autotraveler_parser',
     'rest_framework',
     'geography.api',
     'vk',
@@ -47,7 +48,7 @@ ROOT_URLCONF = 'travelers_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'travalers/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,16 +107,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-<<<<<<< HEAD
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-=======
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-VK_TOKEN = local_settings.token
+# VK_TOKEN = local_settings.token
 VK_API_VERSION = '5.101'
->>>>>>> 2218f58066aa793c09d6c3e0a7fe0ef3a26f0fa0
