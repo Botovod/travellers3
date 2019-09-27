@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'traces',
     'geography.api',
     'vk',
+    'autotraveler_parser'
 ]
 
 MIDDLEWARE = [
