@@ -28,9 +28,14 @@ INSTALLED_APPS = [
     'traces.apps.TracesConfig',
     'autotraveler_parser',
     'rest_framework',
+    'sorl.thumbnail',
+
+    # own apps
+    'geography',
+    'travelers',
+    'traces',
     'geography.api',
     'vk',
-
 ]
 
 MIDDLEWARE = [
@@ -112,8 +117,11 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 #     os.path.join(BASE_DIR, 'static'),
 # )
 
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# VK_TOKEN = local_settings.token
+DEFAULT_PHOTO_PATH = os.path.join(MEDIA_ROOT, 'images', 'not-foto.png')
+
+VK_TOKEN = local_settings.token
 VK_API_VERSION = '5.101'
