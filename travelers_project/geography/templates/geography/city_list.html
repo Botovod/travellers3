@@ -20,10 +20,7 @@
                 {% endif %}
               <h6>{{ city.title }}</h6>
               <p>
-                {{ city.description }}
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some form, by injected humour,
-                or randomised word. Richard McClintock.
+                {{ city.description|truncatewords:'15' }}
               </p>
             </div>
           </a>
