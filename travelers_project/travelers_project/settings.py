@@ -23,9 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'travelers.apps.TravelersConfig',
-    'traces.apps.TracesConfig',
-    'autotraveler_parser',
     'rest_framework',
     'sorl.thumbnail',
 
@@ -33,6 +30,7 @@ INSTALLED_APPS = [
     'geography',
     'geography.api',
     'vk',
+    'autotraveler_parser'
 ]
 
 MIDDLEWARE = [
@@ -113,6 +111,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'static'),
 # )
+
 
 
 

@@ -5,8 +5,8 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
 
     def handle(self, *args, **kwrags):
-        Region.objects.all().delete()
         Sight.objects.all().delete()
+        Region.objects.all().delete()
         City.objects.all().delete()
 
         print("All is deleted!!!")
