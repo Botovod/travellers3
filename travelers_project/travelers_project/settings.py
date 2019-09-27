@@ -23,7 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'geography',
     'travelers.apps.TravelersConfig',
     'traces.apps.TracesConfig',
     'autotraveler_parser',
@@ -32,8 +31,6 @@ INSTALLED_APPS = [
 
     # own apps
     'geography',
-    'travelers',
-    'traces',
     'geography.api',
     'vk',
 ]
@@ -124,5 +121,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_PHOTO_PATH = os.path.join(MEDIA_ROOT, 'images', 'not-foto.png')
 
-VK_TOKEN = local_settings.token
+# VK_TOKEN = local_settings.token
 VK_API_VERSION = '5.101'
