@@ -104,7 +104,7 @@ class SightPhoto(models.Model):
                               related_name='sight_photo',
                               null=True,
                               verbose_name='Достпримечательность')
-    file = models.ImageField(default='', upload_to='photo/', verbose_name='Изображение')
+    file = models.ImageField(default='', upload_to='photo/sights/', verbose_name='Изображение')
     posted = models.BooleanField('Опубликовано', default=True)
 
     class Meta:
