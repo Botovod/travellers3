@@ -1,11 +1,7 @@
 from rest_framework import serializers
 
-from geography.models import Region
-from geography.models import City
-from geography.models import Sight
-from geography.models import SightPhoto
-from geography.models import TypeOfSights
-from geography.models import SectionOfSights
+from geography.models import City, Region, Sight
+from geography.models import SectionOfSights, SightPhoto, TypeOfSights
 
 
 class RegionListSerializer(serializers.ModelSerializer):

@@ -9,7 +9,6 @@ urlpatterns = [
     path('geography/', include('geography.urls')),
     path('travelers/', include('travelers.urls')),
     path('traces/', include('traces.urls')),
-    path('api/v1/geography/', include('geography.api.urls')),
 
 ]
 

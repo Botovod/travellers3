@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'geography',
     'travelers',
     'traces',
-    'geography.api',
     'vk',
     'autotraveler_parser'
 ]
