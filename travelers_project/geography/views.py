@@ -116,61 +116,61 @@ class SightDetail(DetailView):
 
 # api views
 
-class RegionList(generics.ListCreateAPIView):
+class RegionListAPI(generics.ListCreateAPIView):
     queryset = Region.objects.order_by('id')
     serializer_class = RegionListSerializer
 
 
-class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
+class RegionDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Region.objects.all()
     serializer_class = RegionDetailSerializer
 
 
-class CityList(generics.ListCreateAPIView):
+class CityListAPI(generics.ListCreateAPIView):
     queryset = City.objects.order_by('id')
     serializer_class = CityListSerializer
 
 
-class CityDetail(generics.RetrieveUpdateDestroyAPIView):
+class CityDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = City.objects.all()
     serializer_class = CityDetailSerializer
 
 
-class SightList(generics.ListCreateAPIView):
+class SightListAPI(generics.ListCreateAPIView):
     queryset = Sight.objects.order_by('id')
     serializer_class = SightListSerializer
 
 
-class SightDetail(generics.RetrieveUpdateDestroyAPIView):
+class SightDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Sight.objects.all()
     serializer_class = SightDetailSerializer
 
 
-class SightPhotoList(generics.ListCreateAPIView):
+class SightPhotoListAPI(generics.ListCreateAPIView):
     queryset = SightPhoto.objects.order_by('id')
     serializer_class = SightPhotoListSerializer
 
 
-class SightPhotoDetail(generics.RetrieveUpdateDestroyAPIView):
+class SightPhotoDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = SightPhoto.objects.all()
     serializer_class = SightPhotoDetailSerializer
 
 
-class SectionOfSightsList(generics.ListCreateAPIView):
+class SectionOfSightsListAPI(generics.ListCreateAPIView):
     queryset = SectionOfSights.objects.order_by('id')
     serializer_class = SectionOfSightsListSerializer
 
 
-class SectionOfSightsDetail(generics.RetrieveUpdateDestroyAPIView):
+class SectionOfSightsDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = SectionOfSights.objects.all()
     serializer_class = SectionOfSightsDetailSerializer
 
 
-class TypeOfSightsList(generics.ListCreateAPIView):
+class TypeOfSightsListAPI(generics.ListCreateAPIView):
     queryset = TypeOfSights.objects.order_by('id')
     serializer_class = TypeOfSightsListSerializer
 
 
-class TypeOfSightsDetail(generics.RetrieveUpdateDestroyAPIView):
+class TypeOfSightsDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = TypeOfSights.objects.all()
     serializer_class = TypeOfSightsDetailSerializer
