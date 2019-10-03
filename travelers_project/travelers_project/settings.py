@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'geography',
     'travelers',
     'traces',
-    'vk',
+    'vkapp',
     'autotraveler_parser'
 ]
 
@@ -69,7 +69,7 @@ REST_FRAMEWORK = {
 
 WSGI_APPLICATION = 'travelers_project.wsgi.application'
 
-from . import local_settings
+from travelers_project import local_settings
 
 DATABASES = local_settings.DATABASES
 
@@ -109,14 +109,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static_in_dev'),
-)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_PHOTO_PATH = os.path.join(MEDIA_ROOT, 'images', 'not-foto.png')
 
-VK_TOKEN = local_settings.token
-VK_API_VERSION = '5.101'
+VK_APP_ID = local_settings.VK_APP_ID
+VK_LOGIN = local_settings.VK_LOGIN
+VK_PASSWORD = local_settings.VK_PASSWORD
+VK_API_VERSION = local_settings.VK_API_VERSION
