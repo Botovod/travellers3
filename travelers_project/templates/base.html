@@ -16,6 +16,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="application/x-javascript">
          addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
 
+
     </script>
     <!--fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -30,6 +31,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 						});
 					});
+
 
     </script>
 
@@ -56,6 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						$(".top-nav ul").slideToggle(500, function(){
 						});
 					});
+
 
 
 
@@ -86,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     {% thumbnail sight.image "x150" crop="center" as im %}
                     <img class="img-responsive" src="{{ im.url }}" alt="">
                     {% empty %}
-                    <img class="img-responsive" src="{{ default_image.url }}" alt="">
+                    <img class="img-responsive" src="{% static 'images/not-foto.png' %}" style="height:150px;" alt="">
                     {% endthumbnail %}
                     <p> {{ sight.title }} </p>
                 </a>
@@ -165,6 +168,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							$().UItoTop({ easingType: 'easeOutQuart' });
 
 						});
+
 
 
     </script>
