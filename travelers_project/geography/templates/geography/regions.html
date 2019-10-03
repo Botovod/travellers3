@@ -11,19 +11,22 @@
             <div class="col-md-6 ">
                 <a href="{% url 'region_detail_url' pk=region.pk%}">
                     <div class="col-md-6 service-grid">
-                        {% thumbnail region.image "x100" as im %}
-                        <img class="img-responsive" src="{{ im.url }}"  alt=""/>
+                        {% thumbnail region.image "x150" as im %}
+                        <img class="img-responsive" src="{{ im.url }}" alt=""/>
                         {% empty %}
-                        <img class="img-responsive" src="{{ default_image.url }}" alt=""/>
+                        <img class="img-responsive"
+                             src="{% static 'images/not-foto.png' %}"
+                             style="height:150px;"
+                             alt=""/>
                         {% endthumbnail %}
                     </div>
                     <div class="col-md-6 top-grid-right">
                         <h4>{{ region.title }}</h4>
                         <p>
                             {% if region.description %}
-                            {{ region.description|truncatewords:20 }}
+                            {{ region.description|truncatewords:6 }}
                             {% else %}
-                            {{ mock_text|truncatewords:14}}
+                            {% lorem 6 w random %}
                             {% endif %}
                         </p>
                     </div>
