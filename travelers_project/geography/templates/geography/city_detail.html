@@ -2,55 +2,50 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
-      <h1>{{ city_detail.title }}</h1>
-      <div class="single-middle">
+<div class="container">
+    <h1>{{ city_detail.title }}</h1>
+    <div class="single-middle">
         <div class="col-md-7 need">
-          {% if city_detail.image %}
+            {% if city_detail.image %}
             <img class="img-responsive" src="{{ city_detail.image.url }}" alt="">
-          {% else %}
+            {% else %}
             <img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt="">
-          {% endif %}
+            {% endif %}
         </div>
         <div class="col-md-5 tag">
-          <div class="social-in">
-            <div class="col-md-4 date">
-              <p>Date add<span>{{ city_detail.add_date|date:"d m Y" }}</span></p>
+            <div class="social-in">
+                <div class="col-md-4 date">
+                    <p>Date add<span>{{ city_detail.add_date|date:"d m Y" }}</span></p>
+                </div>
+                <div class="col-md-4 date">
+                    <p>Region<a href="{% url 'region_detail_url' pk=city_detail.region.pk %}"><span>{{ city_detail.region.title }}</span></a>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
             </div>
+            <p class="tag-in">
+                <span>
+                    {% if city_detail.description %}
+                    {{ city_detail.description }}
+                    {% else %}
+
+                    {% endif%}
+                </span>`
+            </p>
             <div class="col-md-4 date">
-              <p>Region<a href="{% url 'region_detail_url' pk=city_detail.region.pk %}"><span>{{ city_detail.region.title }}</span></a></p>
-            </div>
-            <div class="clearfix"> </div>
-          </div>
-          <p class="tag-in">
-            {{ city_detail.description}}
-            Lorem ipsum dolor sit amet, mollis epicuri pri ei,
-            perpetua honestatis ad vix. Ne duo ludus putent,
-            cu causae tamquam voluptua duo. Agam officiis no duo,
-            ut reque decore sea. Cu eripuit accusam vix.
-            Facete blandit detraxit pri cu, sea soluta doming civibus ea.
-            <span>
-              Eum eu tale clita iuvaret, cu est saperet forensibus interesset,
-              cum ne case iusto oportere. Id idque indoctum eum, menandri mediocrem has ei.
-              At usu modo quaerendum. Sit ei dicunt tacimates, mea ea enim eirmod suscipiantur,
-              amet dicit ancillae vel in. Ex mea augue eloquentiam, his postea dolorem suavitate ea.
-              Mel hendrerit accommodare concludaturque ex.
-            </span>
-          </p>
-            <div class="col-md-4 date">
-              <p><strong>Sights:</strong></p>
-                  {% with sights=city_detail.sight.all %}
-                      {% for sight in sights %}
-                        <a href="{% url 'sight_detail_url' pk=sight.pk %}">
+                <p><strong>Sights:</strong></p>
+                {% with sights=city_detail.sight.all %}
+                {% for sight in sights %}
+                <a href="{% url 'sight_detail_url' pk=sight.pk %}">
                           <span>
                               {{ sight.title }},
                           </span>
-                        </a>
-                      {% endfor %}
-                  {% endwith %}
+                </a>
+                {% endfor %}
+                {% endwith %}
             </div>
-          </div>
-          <div class="clearfix"> </div>
         </div>
+        <div class="clearfix"></div>
     </div>
+</div>
 {% endblock %}

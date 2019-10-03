@@ -21,7 +21,8 @@
                 </a>
                 {% empty %}
                 <img class="img-responsive"
-                     src="{{ default_image.url }}"
+                     src="{% static 'images/not-foto.png' %}"
+                     style="height:150px;"
                      alt="">
                 {% endthumbnail %}
             </div>
@@ -33,7 +34,7 @@
                     {% if sight.text %}
                     {{ sight.text | truncatechars:50 }}
                     {% else %}
-                    {{ mock_text | truncatechars:50 }}
+                    {% lorem 4 w random %}
                     {% endif %}
                 </p>
             </div>
