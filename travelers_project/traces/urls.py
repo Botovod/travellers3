@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import RouteByCitiesDetail
-from .views import RouteByCitiesList
-from .views import RouteBySightsDetail
-from .views import RouteBySightsList
+from traces.views import RouteByCitiesDetail
+from traces.views import RouteByCitiesList
+from traces.views import RouteBySightsDetail
+from traces.views import RouteBySightsList
 
 urlpatterns = [
     # ex: traces/route_cities
