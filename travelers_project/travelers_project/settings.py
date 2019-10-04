@@ -28,8 +28,9 @@ INSTALLED_APPS = [
 
     # own apps
     'geography',
-    'geography.api',
-    'vk',
+    'travelers',
+    'traces',
+    'vkapp',
     'autotraveler_parser'
 ]
 
@@ -48,7 +49,9 @@ ROOT_URLCONF = 'travelers_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'travalers/templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +71,7 @@ REST_FRAMEWORK = {
 
 WSGI_APPLICATION = 'travelers_project.wsgi.application'
 
-from . import local_settings
+from travelers_project import local_settings
 
 DATABASES = local_settings.DATABASES
 
@@ -93,9 +96,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'Ru-tu'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -107,18 +110,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
-
-
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_PHOTO_PATH = os.path.join(MEDIA_ROOT, 'images', 'not-foto.png')
 
-# VK_TOKEN = local_settings.token
+VK_TOKEN = local_settings.token
 VK_API_VERSION = '5.101'
+VK_APP_ID = local_settings.VK_APP_ID
+VK_LOGIN = local_settings.VK_LOGIN
+VK_PASSWORD = local_settings.VK_PASSWORD
+VK_API_VERSION = local_settings.VK_API_VERSION

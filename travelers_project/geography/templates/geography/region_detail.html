@@ -16,14 +16,17 @@
                 {% thumbnail city.image "x150" as im %}
                 <img class="img-responsive " src="{{ im.url }}" alt="">
                 {% empty %}
-                <img class="img-responsive " src="{{ default_image.url }}" alt="">
+                <img class="img-responsive "
+                     src="{% static 'images/not-foto.png' %}"
+                     style="height:150px;"
+                     alt="">
                 {% endthumbnail %}
                 <h6>{{ city.title }}</h6>
                 <p>
                     {% if city.description %}
-                    {{ city.description|truncatewords:20 }}
+                    {{ city.description|truncatewords:14 }}
                     {% else %}
-                    {{ mock_text|truncatewords:14}}
+                    {% lorem 14 w random %}
                     {% endif %}
                 </p>
             </div>
