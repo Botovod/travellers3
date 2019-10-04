@@ -1,8 +1,8 @@
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from .models import RouteByCities
-from .models import RouteBySights
+from traces.models import RouteByCities
+from traces.models import RouteBySights
 
 
 class RouteByCitiesList(ListView):
