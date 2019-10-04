@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 from geography.models import City
 from geography.models import Sight
@@ -6,7 +7,7 @@ from geography.models import Sight
 
 class RouteByCities(models.Model):
     title = models.CharField(max_length=255, default='', verbose_name='Название маршрута')
-    cities = models.ManyToManyField(City, blank=False, verbose_name='Города маршрута')
+    cities = models.ManyToManyField(City, blank=True, related_name='cities_in_route')
 
     class Meta:
         verbose_name = 'Маршрут по городам'
