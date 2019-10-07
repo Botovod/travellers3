@@ -5,12 +5,13 @@ class Album(models.Model):
     vk_id = models.PositiveIntegerField(blank=False, null=True, default=0)
     owner_id = models.PositiveIntegerField(blank=False, null=True, default=0)
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(default='')
     created = models.DateTimeField(null=True)
     updated = models.DateTimeField(null=True)
 
     class Meta:
         unique_together = [['vk_id', 'owner_id']]
+        ordering = ['title']
 
     def __str__(self):
         return self.title
