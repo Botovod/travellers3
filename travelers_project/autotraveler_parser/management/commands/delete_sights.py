@@ -1,13 +1,16 @@
-from geography.models import City
+import os
+import shutil
+from django.conf import settings
+from geography.models import Sight
 from django.core.management.base import BaseCommand
 
 # Clean test's objects
 class Command(BaseCommand):
 
     def handle(self, *args, **kwrags):
-        City.objects.all().delete()
+        Sight.objects.all().delete()
 
-        folder_with_images = os.path.join(settings.MEDIA_ROOT, 'images/cities')
+        folder_with_images = os.path.join(settings.MEDIA_ROOT, 'images/sights')
 
         dirs_with_images = os.listdir(folder_with_images)
 
