@@ -1,13 +1,14 @@
-from geography.models import City
+from geography.models import Region
 from django.core.management.base import BaseCommand
 
 # Clean test's objects
 class Command(BaseCommand):
 
     def handle(self, *args, **kwrags):
-        City.objects.all().delete()
 
-        folder_with_images = os.path.join(settings.MEDIA_ROOT, 'images/cities')
+        Region.objects.all().delete()
+
+        folder_with_images = os.path.join(settings.MEDIA_ROOT, 'images/regions')
 
         dirs_with_images = os.listdir(folder_with_images)
 

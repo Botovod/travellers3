@@ -1,26 +1,33 @@
+import os
 import asyncio
+import logging
+from time import time
 from django.core.management.base import BaseCommand
-from autotraveler_parser.regions import region, regions
-from autotraveler_parser.cities import town, towns
+from autotraveler_parser.regions import main as regions
+from autotraveler_parser.cities import main as cities
+from autotraveler_parser.sights import main as sights
 
+path_to_log = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "info.log")
+logging.basicConfig(filename=path_to_log, filemode='w', level=logging.INFO)
 
 async def main():
-    semaphore = asyncio.Semaphore(20)
+    start = time()
 
-    links_regions = await regions(semaphore)
-    links_towns = await towns(semaphore)
+    print("Add regions..........\n")
+    await regions()
+    print()
 
-    tasks = []
+    print("Add cities..........\n")
+    await cities()
+    print()
 
-    for link in links_regions:
-        task = asyncio.create_task(region(link, semaphore))
-        tasks.append(task)
+    print("Add sights..........\n")
+    await sights()
+    print()
 
-    for link in links_towns:
-        task = asyncio.create_task(town(link, semaphore))
-        tasks.append(task)
-
-    await asyncio.gather(*tasks)
+    print("Done....!!!")
+    total_time = time() - start
+    logging.info(f"{total_time}")
 
 
 class Command(BaseCommand):

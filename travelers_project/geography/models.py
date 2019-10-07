@@ -1,5 +1,17 @@
 from django.db import models
 from django.shortcuts import reverse
+from slugify import slugify
+
+
+def image_region(instance, filename):
+    return "images/regions/{}/{}".format(slugify(filename), filename)
+
+def image_city(instance, filename):
+    return "images/cities/{}/{}".format(slugify(filename), filename)
+
+def image_sight(instance, filename):
+    return "images/sights/{}/{}".format(slugify(filename), filename)
+
 
 
 class BaseModel(models.Model):
@@ -14,7 +26,7 @@ class BaseModel(models.Model):
 class Region(BaseModel):
     title = models.CharField('Название', max_length=255, default='')
     description = models.TextField('Описание', default='', blank=True)
-    image = models.FileField(upload_to='photo/regions/', blank=True, null=True, verbose_name='Изображение')
+    image = models.FileField(upload_to=image_region, blank=True, null=True, verbose_name='Изображение')
 
     class Meta:
         verbose_name = 'Регион'
@@ -33,7 +45,7 @@ class City(BaseModel):
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     description = models.TextField(default='', blank=True, verbose_name='Описание')
     slug = models.SlugField(max_length=255, db_index=True, verbose_name='Адрес')
-    image = models.FileField(upload_to='photo/cities/', blank=True, null=True, verbose_name='Изображение')
+    image = models.FileField(upload_to=image_city, blank=True, null=True, verbose_name='Изображение')
     default_zoom = models.PositiveSmallIntegerField(default=0, blank=True, verbose_name='Масштаб')
     centre_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Координаты')
     posted = models.BooleanField(default=False, verbose_name='Опубликовано')
@@ -69,7 +81,7 @@ class Sight(BaseModel):
                              verbose_name='Город')
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     text = models.TextField(default='', verbose_name='Описание')
-    image = models.FileField(upload_to='photo/sights/',
+    image = models.FileField(upload_to=image_sight,
                              blank=True,
                              null=True,
                              verbose_name='Фотография достопримечательности')
@@ -104,8 +116,8 @@ class SightPhoto(models.Model):
                               related_name='sight_photo',
                               null=True,
                               verbose_name='Достпримечательность')
-    file = models.ImageField(default='', upload_to='photo/sights/', verbose_name='Изображение')
-    posted = models.BooleanField('Опубликовано', default=True)
+    file = models.ImageField(default='', upload_to=image_sight, verbose_name='Изображение')
+    posted = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Фотография достопримечательности'
