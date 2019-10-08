@@ -69,15 +69,15 @@ async def sight(url, s):
 
 async def save_db(title, sity, desc, img_list, coordinat):
 
-    if sity != None:
+    if sity:
         city, _ = City.objects.get_or_create(title=sity)
 
     sight, status = Sight.objects.get_or_create(title=title)
-    if status and city:
+    if status:
         sight.city = city
         sight.text = desc
         sight.original_coordinates = coordinat
-        sight.image = img_list[0] if len(img_list) else None
+        sight.image = img_list[0]
         sight.save()
 
         for img in img_list:
