@@ -6,12 +6,13 @@ from slugify import slugify
 def image_region(instance, filename):
     return "images/regions/{}/{}".format(slugify(filename), filename)
 
+
 def image_city(instance, filename):
     return "images/cities/{}/{}".format(slugify(filename), filename)
 
+
 def image_sight(instance, filename):
     return "images/sights/{}/{}".format(slugify(filename), filename)
-
 
 
 class BaseModel(models.Model):
