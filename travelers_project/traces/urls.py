@@ -11,7 +11,7 @@ urlpatterns = [
     # ex: traces/route_cities/1/
     path('route-cities/<int:pk>/', RouteByCitiesDetail.as_view(), name='routes-cities-detail-url'),
     # ex: traces/route_sigths
-    path('route-sights/', RouteBySightsList.as_view()),
+    path('route-sights/', RouteBySightsList.as_view(), name='routes-sights-list-url'),
     # ex: traces/route_sights/1/
-    path('route-sights/<int:pk>/', RouteBySightsDetail.as_view()),
+    path('route-sights/<int:pk>/', RouteBySightsDetail.as_view(), name='routes-detail-list-url'),
 ]
