@@ -1,3 +1,6 @@
+import os
+import shutil
+from django.conf import settings
 from geography.models import Region
 from django.core.management.base import BaseCommand
 
