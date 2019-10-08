@@ -1,9 +1,12 @@
 import asyncio
 import aiohttp
+import logging
+from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from autotraveler_parser.connect import connect, connect_for_images
 from autotraveler_parser.utils import create_path_for_image
 from geography.models import City, Region
 
+logger = logging.getLogger(__name__)
 
 async def cities():
 
@@ -11,9 +14,13 @@ async def cities():
     soup = await connect(url)
 
     list_url = []
-    for div in soup.find_all('div', class_='tblock'):
-        for a in div.find_all('a'):
-            list_url.append(a.get('href'))
+    try:
+        for div in soup.find_all('div', class_='tblock'):
+            for a in div.find_all('a'):
+                list_url.append(a.get('href'))
+    except AttributeError as e:
+        logger.error(e)
+
     return list_url
 
 
@@ -30,40 +37,59 @@ def write_image(data, title):
 async def city(c):
 
     soup = await connect(c)
-    title = soup.find('ol', class_='breadcrumb').find('h1').text
-    region = soup.select_one('li:nth-child(2) .travell5n span').text
-
     try:
-        # Получить путь до большой картинки
-        path_img = soup.find_all('img', class_='sp-image')[1].get('data-image')     # /album/170.jpg
-        # Конектится по полученному пути и получить фаил с бинарными данными картинки
-        data = await connect_for_images(path_img)
-        # Записать их в media/images/...
-        image = write_image(data, title)
-    except Exception as e:
-        image = None
+        title = soup.find('ol', class_='breadcrumb').find('h1').text
+    except AttributeError as e:
+        title = ''
+        logger.error(e)
 
-    try:
-        desc = soup.find('div', class_='col-xs-12 well tj t0').contents
+    if title:
+        try:
+            region = soup.select_one('li:nth-child(2) .travell5n span').text
+        except AttributeError as e:
+            region = ''
+            logger.error(e)
+
+        try:
+            # Получить путь до большой картинки
+            path_img = soup.find_all('img', class_='sp-image')[1].get('data-image')     # /album/170.jpg
+        except (AttributeError, IndexError) as e:
+            logger.error(e)
+            path_img = ''
+
+        if path_img:
+            # Конектится по полученному пути и получить фаил с бинарными данными картинки
+            data = await connect_for_images(path_img)
+            # Записать их в media/images/...
+            image = write_image(data, title)
+        else:
+            image = ''
+
+        try:
+            desc = soup.find('div', class_='col-xs-12 well tj t0').contents
+        except AttributeError as e:
+            desc = ''
+            logger.error(e)
+
+        if not desc:
+            text = ''
         text = "\n\n".join(list(elem.string for elem in desc if isinstance(elem.string, str)))
-    except:
-        text = ''
 
-    await save_in_db(title, region, image, text)
+        await save_in_db(title, region, image, text)
 
 
 async def save_in_db(title, region, image, text):
 
     try:
         region = Region.objects.get(title=region)
-    except:
+    except (MultipleObjectsReturned, ObjectDoesNotExist) as e:
         region = None
+        logger.error(e)
 
 
-    title, status = City.objects.get_or_create(title=title)
+    city, status = City.objects.get_or_create(title=title)
 
     if status:
-        city = City.objects.get(title=title)
         city.region = region
         city.image = image
         city.description = text

@@ -83,6 +83,7 @@ class Sight(BaseModel):
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     text = models.TextField(default='', verbose_name='Описание')
     image = models.FileField(upload_to=image_sight,
+                             max_length=200,
                              blank=True,
                              null=True,
                              verbose_name='Фотография достопримечательности')
@@ -117,7 +118,7 @@ class SightPhoto(models.Model):
                               related_name='sight_photo',
                               null=True,
                               verbose_name='Достпримечательность')
-    file = models.ImageField(default='', upload_to=image_sight, verbose_name='Изображение')
+    file = models.ImageField(default='', upload_to=image_sight, max_length=200, verbose_name='Изображение')
     posted = models.BooleanField(default=True)
 
     class Meta:
