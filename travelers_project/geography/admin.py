@@ -19,7 +19,13 @@ class CityAdmin(admin.ModelAdmin):
     search_fields = ['id', 'title']
 
 
-admin.site.register(Region)
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'description')
+    list_display_links = ('title', 'description')
+    search_fields = ['id', 'title']
+
+
+admin.site.register(Region, RegionAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.register(TypeOfSights)
 admin.site.register(Sight, SightAdmin)
