@@ -1,131 +1,116 @@
 [
   {
     "model": "traces.routebycities",
-    "pk": 5,
     "fields": {
       "title": "\u0417\u043e\u043b\u043e\u0442\u043e\u0435 \u043a\u043e\u043b\u044c\u0446\u043e \u0420\u043e\u0441\u0441\u0438\u0438"
     }
   },
   {
     "model": "traces.routebycities",
-    "pk": 6,
     "fields": {
       "title": "\u041f\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u0435 \u043f\u043e \u0440\u0430\u044e"
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 2,
     "fields": {
-      "city": 1917,
+      "city": 2644,
       "route": 5,
       "position": 1
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 3,
     "fields": {
-      "city": 1644,
+      "city": 2635,
       "route": 5,
       "position": 2
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 4,
     "fields": {
-      "city": 1830,
+      "city": 2649,
       "route": 5,
       "position": 3
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 5,
     "fields": {
-      "city": 2434,
+      "city": 2706,
       "route": 5,
       "position": 4
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 6,
     "fields": {
-      "city": 1084,
+      "city": 2682,
       "route": 5,
       "position": 5
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 7,
     "fields": {
-      "city": 840,
+      "city": 2634,
       "route": 5,
       "position": 6
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 8,
     "fields": {
-      "city": 2038,
+      "city": 2708,
       "route": 5,
       "position": 7
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 9,
     "fields": {
-      "city": 462,
+      "city": 2624,
       "route": 5,
       "position": 8
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 10,
     "fields": {
-      "city": 4,
+      "city": 2631,
       "route": 6,
       "position": 1
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 11,
     "fields": {
-      "city": 160,
+      "city": 2596,
       "route": 6,
       "position": 2
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 12,
     "fields": {
-      "city": 1523,
+      "city": 2610,
       "route": 6,
       "position": 3
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 13,
     "fields": {
-      "city": 554,
+      "city": 2627,
       "route": 6,
       "position": 4
     }
   },
   {
     "model": "traces.citiesrelationship",
-    "pk": 14,
     "fields": {
-      "city": 1988,
+      "city": 2702,
       "route": 6,
       "position": 5
     }
