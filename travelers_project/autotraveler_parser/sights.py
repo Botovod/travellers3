@@ -1,3 +1,4 @@
+import re
 import asyncio
 import aiohttp
 import logging
@@ -6,6 +7,8 @@ from autotraveler_parser.utils import create_path_for_image
 from geography.models import City, Region, Sight, SightPhoto
 
 # '/otklik.php/1'
+
+logger = logging.getLogger(__name__)
 
 def write_image(data, title):
     path_to_image, image = create_path_for_image('sights', title)
@@ -21,37 +24,50 @@ async def sight(url, s):
 
     try:
         title = soup.find('div', class_='panel-heading').find('h1').text
-    except Exception as e:
-        logging.info(f"{e}, .....{url}.")
+    except AttributeError as e:
+        title = ''
+        logger.error(f"{e}, .....{url}.")
 
-    try:
-        city = soup.find('ol', class_='breadcrumb').select_one('li:nth-child(3)').find('a').text
-    except:
-        city = None
+    if title:
 
-    try:
-        desc = soup.find('p', class_="tl").text
-    except:
-        desc = ''
+        try:
+            city = soup.find('ol', class_='breadcrumb').select_one('li:nth-child(3)').find('a').text
+        except AttributeError as e:
+            city = ''
+            logger.error(e)
 
-    img_list = []
+        try:
+            desc = soup.find('p', class_="tl").text
+        except AttributeError as e:
+            desc = ''
+            logger.error(e)
 
-    try:
-        for a in soup.find('div', id='fotoimages').find_all('a', class_='atcbox'):
-            data = await connect_for_images(a.get('href'))
-            image = write_image(data, title)
-            img_list.append(image)
-            if len(img_list) >= 10:
-                break
-    except:
-        pass
+        try:
+            coordinat = soup.select_one('span.t13').text
+            coordinat = re.sub('[)(]', '', coordinat).strip()
+        except AttributeError as e:
+            logger.error(e)
+            coordinat = ''
 
-    try:
-        await save_db(title, city, desc, img_list)
-    except:
-        pass
+        img_list = []
+        links = []
+        try:
+            for a in soup.find('div', id='fotoimages').find_all('a', class_='atcbox'):
+                links.append(a.get('href'))
+                if len(links) >= 10:
+                    break
+        except AttributeError as e:
+            logger.error(e)
 
-async def save_db(title, sity, desc, img_list):
+        if links:
+            for link in links:
+                data = await connect_for_images(link)
+                image = write_image(data, title)
+                img_list.append(image)
+
+        await save_db(title, city, desc, img_list, coordinat)
+
+async def save_db(title, sity, desc, img_list, coordinat):
 
     if sity != None:
         city, _ = City.objects.get_or_create(title=sity)
@@ -60,6 +76,7 @@ async def save_db(title, sity, desc, img_list):
     if status and city:
         sight.city = city
         sight.text = desc
+        sight.original_coordinates = coordinat
         sight.image = img_list[0] if len(img_list) else None
         sight.save()
 
