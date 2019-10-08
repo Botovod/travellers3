@@ -1,8 +1,39 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
 
 {% block content %}
-    <h1>Route Cities:</h1>
-      {% for route_city in route_cities_list %}
-        <p>{{ route_city.title }}</p>
-      {% endfor %}
-{% endblock %}
+<center>
+    <h1>Route Cities</h1>
+    <br>
+</center>
+{% for route in route_cities_list %}
+<div class="col-sm-12">
+    <h2>
+        <a href="{% url 'routes-cities-detail-url' pk=route.pk %}">{{ route.title }}</a>
+    </h2>
+    <hr>
+    {% for city in route.cities.all %}
+    <div class="col-sm-3">
+        {% thumbnail city.image "x200" as im %}
+        <img src="{{ im.url }}" style="width:70%; height:200px;">
+        {% empty %}
+        <img src="{% static 'images/not-foto.png' %}" style="width:100%; height:300px;">
+        {% endthumbnail %}
+        <p class="text-center" style="font-size:25px;">
+            <a href="{% url 'city_detail_url' pk=city.pk %}">{{ city.title }}</a>
+        </p>
+
+        <p class="text-center">
+            <a href="#" class="text-center">
+                <button class="btn btn-danger">Показать на карте</button>
+            </a>
+        </p>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+
+
+{% endblock content %}

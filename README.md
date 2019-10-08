@@ -26,13 +26,9 @@ pip install -r requirements.txt
 Каталог supervisor:
 файл travelers_project.conf скопировать в каталог /etc/supervisor/conf.d/
 
-Для создания автоматического поста vk на стене сообщества
+Для загрузки изображений из vk необходимо в файле local_settings.py
+задать значение полям VK_LOGIN, VK_PASSWORD,
 перейти в корневой каталог и выполнить:
 ```
-python manage.py poster
-```
-Для загрузки фотографий
-перейти в корневой каталог и выполнить:
-```
-python manage.py loader
+python manage.py vkloader
 ```
