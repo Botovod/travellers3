@@ -7,9 +7,9 @@ from traces.views import RouteBySightsList
 
 urlpatterns = [
     # ex: traces/route_cities
-    path('route-cities/', RouteByCitiesList.as_view()),
+    path('route-cities/', RouteByCitiesList.as_view(), name='routes-cities-list-url'),
     # ex: traces/route_cities/1/
-    path('route-cities/<int:pk>/', RouteByCitiesDetail.as_view()),
+    path('route-cities/<int:pk>/', RouteByCitiesDetail.as_view(), name='routes-cities-detail-url'),
     # ex: traces/route_sigths
     path('route-sights/', RouteBySightsList.as_view()),
     # ex: traces/route_sights/1/
