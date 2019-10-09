@@ -21,10 +21,10 @@ class RouteBySightsList(ListView):
     model = RouteBySights
     context_object_name = 'route_sights_list'
     template_name = 'traces/route_sights_list.html'
+    paginate_by = 2
 
 
 class RouteBySightsDetail(DetailView):
     model = RouteBySights
     context_object_name = 'route_sight_detail'
     template_name = 'traces/route_sights_detail.html'
-
