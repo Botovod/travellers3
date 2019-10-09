@@ -13,5 +13,5 @@ urlpatterns = [
     # ex: traces/route_sigths
     path('route-sights/', RouteBySightsList.as_view(), name='routes-sights-list-url'),
     # ex: traces/route_sights/1/
-    path('route-sights/<int:pk>/', RouteBySightsDetail.as_view(), name='routes-detail-list-url'),
+    path('route-sights/<int:pk>/', RouteBySightsDetail.as_view(), name='routes-sights-detail-url'),
 ]

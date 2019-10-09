@@ -59,6 +59,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'travelers.context_processors.get_vars',
             ],
         },
     },
@@ -125,3 +126,4 @@ VK_APP_ID = local_settings.VK_APP_ID
 VK_LOGIN = local_settings.VK_LOGIN
 VK_PASSWORD = local_settings.VK_PASSWORD
 VK_API_VERSION = local_settings.VK_API_VERSION
+YMAPS_KEY = local_settings.YMAPS_KEY
