@@ -2,10 +2,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
 from rest_framework import generics
 
-from sorl.thumbnail import get_thumbnail
-
-from travelers_project.settings import DEFAULT_PHOTO_PATH
-
 from geography.models import City, Sight, Region
 from geography.models import TypeOfSights, SightPhoto, SectionOfSights
 
