@@ -26,7 +26,7 @@ async def sight(url, s):
         title = soup.find('div', class_='panel-heading').find('h1').text
     except AttributeError as e:
         title = ''
-        logger.error(f"{e}, .....{url}.")
+        logger.error(f"{e}, title.....{url}.")
 
     if title:
 
@@ -40,13 +40,13 @@ async def sight(url, s):
             desc = soup.find('p', class_="tl").text
         except AttributeError as e:
             desc = ''
-            logger.error(e)
+            logger.error(f'{e}......description')
 
         try:
             coordinat = soup.select_one('span.t13').text
             coordinat = re.sub('[)(]', '', coordinat).strip()
         except AttributeError as e:
-            logger.error(e)
+            logger.error(f'{e}......coordinat')
             coordinat = ''
 
         img_list = []
@@ -57,7 +57,7 @@ async def sight(url, s):
                 if len(links) >= 10:
                     break
         except AttributeError as e:
-            logger.error(e)
+            logger.error(f'{e}......fotoimages......{s}')
 
         if links:
             for link in links:
@@ -71,21 +71,28 @@ async def save_db(title, sity, desc, img_list, coordinat):
 
     if sity:
         city, _ = City.objects.get_or_create(title=sity)
+    else:
+        city = ''
 
     sight, status = Sight.objects.get_or_create(title=title)
     if status:
-        sight.city = city
-        sight.text = desc
-        sight.original_coordinates = coordinat
-        sight.image = img_list[0]
-        sight.save()
+        if city:
+            sight.city = city
+        if desc:
+            sight.text = desc
+        if coordinat:
+            sight.original_coordinates = coordinat
+        if img_list:
+            sight.image = img_list[0]
 
-        for img in img_list:
-            image = SightPhoto.objects.create(
-                sight=sight,
-                file=img
-            )
-            image.save()
+            for img in img_list:
+                image = SightPhoto.objects.create(
+                    sight=sight,
+                    file=img
+                )
+                image.save()
+
+        sight.save()
 
         print(f"Saved {title}")
 

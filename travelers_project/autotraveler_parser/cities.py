@@ -19,7 +19,7 @@ async def cities():
             for a in div.find_all('a'):
                 list_url.append(a.get('href'))
     except AttributeError as e:
-        logger.error(e)
+        logger.error(f'{e}......{url}')
 
     return list_url
 
@@ -41,20 +41,20 @@ async def city(c):
         title = soup.find('ol', class_='breadcrumb').find('h1').text
     except AttributeError as e:
         title = ''
-        logger.error(e)
+        logger.error(f'{e}......title {c}')
 
     if title:
         try:
             region = soup.select_one('li:nth-child(2) .travell5n span').text
         except AttributeError as e:
             region = ''
-            logger.error(e)
+            logger.error(f'{e}......region')
 
         try:
             # Получить путь до большой картинки
             path_img = soup.find_all('img', class_='sp-image')[1].get('data-image')     # /album/170.jpg
         except (AttributeError, IndexError) as e:
-            logger.error(e)
+            logger.error(f'{e}......sp-image')
             path_img = ''
 
         if path_img:
@@ -69,7 +69,7 @@ async def city(c):
             desc = soup.find('div', class_='col-xs-12 well tj t0').contents
         except AttributeError as e:
             desc = ''
-            logger.error(e)
+            logger.error(f'{e}......description')
 
         if not desc:
             text = ''
@@ -81,18 +81,21 @@ async def city(c):
 async def save_in_db(title, region, image, text):
 
     try:
-        region = Region.objects.get(title=region)
+        region, _ = Region.objects.get_or_create(title=region)
     except (MultipleObjectsReturned, ObjectDoesNotExist) as e:
-        region = None
-        logger.error(e)
+        region = ''
+        logger.error(f'{e}......region in db')
 
 
     city, status = City.objects.get_or_create(title=title)
 
     if status:
-        city.region = region
-        city.image = image
-        city.description = text
+        if region:
+            city.region = region
+        if image:
+            city.image = image
+        if text:
+            city.description = text
         city.save()
         print(f"{title} added.......{city.id}")
 

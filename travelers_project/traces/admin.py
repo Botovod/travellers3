@@ -14,4 +14,3 @@ admin.site.register(RouteByCities)
 admin.site.register(RouteBySights)
 admin.site.register(CitiesRelationship)
 admin.site.register(SightsRelationship, SightsRelationshipAdmin)
-
