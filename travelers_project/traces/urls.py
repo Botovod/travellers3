@@ -27,7 +27,7 @@ urlpatterns = [
     # ex: traces/route_sigths
     path('route-sights/', RouteBySightsList.as_view(), name='routes-sights-list-url'),
     # ex: traces/route_sights/1/
-    path('route-sights/<int:pk>/', RouteBySightsDetail.as_view(), name='routes-detail-list-url'),
-    # api/v1
-    path('api/v1/', include(router.urls))
+    path('route-sights/<int:pk>/', RouteBySightsDetail.as_view(), name='routes-sights-detail-url'),
+    # ex: api/v1/
+    path('api/v1/', include(router.urls)),
 ]
