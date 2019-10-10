@@ -23,16 +23,20 @@
                 </div>
                 <div class="col-md-4 date">
                     <p>City
+                        {% if sight_detail.city.pk %}
                         <a href="{% url 'city_detail_url' pk=sight_detail.city.pk %}">
                             <span>{{ sight_detail.city.title }}</span>
                         </a>
+                        {% endif %}
                     </p>
                 </div>
                 <div class="col-md-4 date">
                     <p>Region
+                        {% if sight_detail.city.region.pk %}
                         <a href="{% url 'region_detail_url' pk=sight_detail.city.region.pk %}">
                             <span>{{ sight_detail.city.region.title }}</span>
                         </a>
+                        {% endif %}
                     </p>
                 </div>
                 <div class="clearfix"></div>
