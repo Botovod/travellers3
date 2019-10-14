@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
         username = settings.INST_USERNAME
         password = settings.INST_PASSWORD
-        cookie_file = os.path.join(settings.BASE_DIR, 'travelers_project/user_ig.json')
+        # cookie_file = os.path.join(settings.BASE_DIR, 'travelers_project/user_ig.json')
 
         try:
             post = Post.objects.first()
@@ -26,6 +26,6 @@ class Command(BaseCommand):
             image = os.path.join(settings.MEDIA_ROOT, str(post.image))
             text = post.comment
 
-            with client(username, password, cookie_file=cookie_file, write_cookie_file=True) as cli:
+            with client(username, password) as cli:
                 cli.upload(image, text)
                 print(f"Post {text[:10]}... Done!!!")
