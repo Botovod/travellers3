@@ -89,6 +89,10 @@ class Sight(BaseModel):
                              verbose_name='Фотография достопримечательности')
     original_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Стянутные координаты')
     coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Координаты')
+    #широта
+    latitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Широта')
+    # долгота
+    longitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Долгота')
     posted = models.BooleanField(default=False, verbose_name='Опубликовано')
     regional = models.BooleanField(default=False, verbose_name='В регионе')
     price = models.CharField(max_length=100, null=True, blank=True, verbose_name='Цена')
