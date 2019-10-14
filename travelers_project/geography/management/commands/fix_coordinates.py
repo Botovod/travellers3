@@ -8,7 +8,7 @@ def get_coords(original_coords):
     coords = original_coords.replace(' ', '').replace('.', '').split(',')
     latitude = coords[0][2:4] + '.' + coords[0][4:]
     longitude = coords[1][2:4] + '.' + coords[1][4:]
-    return latitude + " " + longitude
+    return latitude, longitude
 
 
 def fix_coords():
@@ -16,8 +16,10 @@ def fix_coords():
     for sight in sights:
         original_coords = sight.original_coordinates
         if original_coords:
-            coords = get_coords(original_coords)
-            sight.coordinates = coords
+            latitude,  longitude = get_coords(original_coords)
+            sight.coordinates = latitude + " " + longitude
+            sight.latitude = latitude
+            sight.longitude = longitude
             sight.save()
 
 

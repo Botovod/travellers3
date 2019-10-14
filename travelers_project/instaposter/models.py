@@ -1,5 +1,7 @@
 from django.db import models
+
 from instaposter.utils import load_image
+
 
 class Post(models.Model):
     comment = models.TextField()
