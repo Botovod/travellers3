@@ -14,7 +14,8 @@
       "slug": "barnaul",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 1
   },
   {
     "fields": {
@@ -31,7 +32,8 @@
       "slug": "petropavlovsk-kamchatskij",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 2
   },
   {
     "fields": {
@@ -48,7 +50,8 @@
       "slug": "habarovsk",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 3
   },
   {
     "fields": {
@@ -65,7 +68,8 @@
       "slug": "krasnodar",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 4
   },
   {
     "fields": {
@@ -82,7 +86,8 @@
       "slug": "krasnojarsk",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 5
   },
   {
     "fields": {
@@ -99,7 +104,8 @@
       "slug": "perm",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 6
   },
   {
     "fields": {
@@ -116,7 +122,8 @@
       "slug": "vladivostok",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 7
   },
   {
     "fields": {
@@ -133,7 +140,8 @@
       "slug": "stavropol",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 8
   },
   {
     "fields": {
@@ -150,7 +158,8 @@
       "slug": "chita",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 9
   },
   {
     "fields": {
@@ -167,7 +176,8 @@
       "slug": "majkop",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 10
   },
   {
     "fields": {
@@ -184,7 +194,8 @@
       "slug": "gorno-Altajsk",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 11
   },
   {
     "fields": {
@@ -201,7 +212,8 @@
       "slug": "ufa",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 12
   },
   {
     "fields": {
@@ -218,7 +230,8 @@
       "slug": "ulan-Udje",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 13
   },
   {
     "fields": {
@@ -235,7 +248,8 @@
       "slug": "mahachkala",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 14
   },
   {
     "fields": {
@@ -252,7 +266,8 @@
       "slug": "magas",
       "posted": true
     },
-    "model": "geography.city"
+    "model": "geography.city",
+    "pk": 15
   },
   {
     "fields": {
