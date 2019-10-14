@@ -7,6 +7,7 @@ class Post(models.Model):
 
     class Meta:
         db_table = 'posts'
+        ordering = ['-id']
 
     def __str__(self):
         return f'{self.comment[:20]}....'

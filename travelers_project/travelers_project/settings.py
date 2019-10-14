@@ -128,3 +128,6 @@ VK_LOGIN = local_settings.VK_LOGIN
 VK_PASSWORD = local_settings.VK_PASSWORD
 VK_API_VERSION = local_settings.VK_API_VERSION
 YMAPS_KEY = local_settings.YMAPS_KEY
+
+INST_USERNAME = local_settings.INST_USERNAME
+INST_PASSWORD = local_settings.INST_PASSWORD
