@@ -32,9 +32,9 @@
                 </a>
                 <p>
                     {% if city.description %}
-                    {{ city.description|truncatewords:6 }}
+                    {{ city.description|truncatewords:10 }}
                     {% else %}
-                    {% lorem 6 w random %}
+                    {% lorem 10 w random %}
                     {% endif %}
                 </p>
             </div>
