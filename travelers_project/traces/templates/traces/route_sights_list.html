@@ -12,14 +12,35 @@
     <div class=" col-md-6 contact-left">
         <script type="text/javascript">
             ymaps.ready(init);
+
             function init(){
                 var myMap = new ymaps.Map("map", {
-                    center: [55.76, 37.64],
-                    zoom: 7
+                        {% with route=route_sights_list|first %}
+                            {% with sight=route.sights.all|first %}
+                                    {% if sight.latitude %}
+                                        center: [{{ sight.latitude }}, {{ sight.longitude }}],
+                                    {% else %}
+                                        center: [59.92, 30.3461],
+                                    {% endif %}
+                            {% endwith %}
+                        {% endwith %}
+                        zoom: 6,
+                        controls: ['zoomControl'],
+                        behaviors: ['drag']
                 });
+                {% for route in route_sights_list %}
+                    {% for sight in route.sights.all %}
+                        myPlacemark = new ymaps.Placemark([{{ sight.latitude }},  {{ sight.longitude }}],
+                                        {
+                                            balloonContentHeader: "Балун метки",
+                                            balloonContentBody: "Body",
+                                            balloonContentFooter: "Подвал",
+                                            hintContent: "Ничего"
+                                        });
+                        myMap.geoObjects.add(myPlacemark);
+                    {% endfor %}
+                {% endfor %}
             }
-
-
         </script>
 
         <div id="map" style="wight:600px;height:500px;"></div>
@@ -31,7 +52,7 @@
         <div class="row">
             <center><strong>{{ route.title }}</strong></center>
             <div class="col-md-3 contact-left">
-                {% thumbnail route_sights_list.0.image "150x150" as im %}
+                {% thumbnail route_sights_list.sights.first.image "150x150" as im %}
                 <img src="{{ im.url }}" style="width:150px;height:150px;">
                 {% empty %}
                 <img src="{% static 'images/not-foto.png' %}" style="width:150px;height:150px;">
@@ -51,11 +72,19 @@
                     {% else %}
                     {% lorem 6 w random %}
                     {% endif %}
+
+                    {% with route_sights_list.all as routes %}
+                        {% with routes.sights.all.first as sight %}
+                            {{ sight.title }}
+                        {% endwith%}
+                    {% endwith %}
+
                 </p>
             </div>
         </div>
         {% endfor %}
     </div>
+
 </div>
 {% include 'geography/includes/paginator.html' %}
 
