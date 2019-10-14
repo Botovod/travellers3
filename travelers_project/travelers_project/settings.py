@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'travelers',
     'traces',
     'vkapp',
-    'autotraveler_parser'
+    'autotraveler_parser',
+    'instaposter',
 ]
 
 MIDDLEWARE = [
