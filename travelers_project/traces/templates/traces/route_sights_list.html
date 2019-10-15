@@ -32,10 +32,11 @@
                     {% for sight in route.sights.all %}
                         myPlacemark = new ymaps.Placemark([{{ sight.latitude }},  {{ sight.longitude }}],
                                         {
-                                            balloonContentHeader: "Балун метки",
-                                            balloonContentBody: "Body",
-                                            balloonContentFooter: "Подвал",
-                                            hintContent: "Ничего"
+                                            balloonContentHeader: '<a href = "{% url 'sight_detail_url' pk=sight.pk %}">{{ sight.title }}</a><br>',
+                                            balloonContentBody: '{% thumbnail sight.image "150x150" as im %} ' +
+                                                                '<img src="{{ im.url }}" style="width:150px;height:150px;">' +
+                                                                '{% empty %}{% endthumbnail %}',
+                                            hintContent: '{{ sight.title }}'
                                         });
                         myMap.geoObjects.add(myPlacemark);
                     {% endfor %}
@@ -52,7 +53,7 @@
         <div class="row">
             <center><strong>{{ route.title }}</strong></center>
             <div class="col-md-3 contact-left">
-                {% thumbnail route_sights_list.sights.first.image "150x150" as im %}
+                {% thumbnail route_sights_list.first.sights.first.image "150x150" as im %}
                 <img src="{{ im.url }}" style="width:150px;height:150px;">
                 {% empty %}
                 <img src="{% static 'images/not-foto.png' %}" style="width:150px;height:150px;">
