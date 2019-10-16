@@ -1,76 +1,21 @@
 from rest_framework import serializers
 
 from geography.models import City, Region, Sight
-from geography.models import SectionOfSights, SightPhoto, TypeOfSights
 
 
-class RegionListSerializer(serializers.ModelSerializer):
+class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region
-        fields = '__all__'
+        fields = ('id', 'title', 'description',)
 
 
-class RegionDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Region
-        fields = '__all__'
-
-
-class CityListSerializer(serializers.ModelSerializer):
+class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = '__all__'
+        fields = ('id', 'title', 'description', 'region',)
 
 
-class CityDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
-        fields = '__all__'
-
-
-class SightListSerializer(serializers.ModelSerializer):
+class SightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sight
-        fields = '__all__'
-
-
-class SightDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Sight
-        fields = '__all__'
-
-
-class SightPhotoListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SightPhoto
-        fields = '__all__'
-
-
-class SightPhotoDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SightPhoto
-        fields = '__all__'
-
-
-class TypeOfSightsListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TypeOfSights
-        fields = '__all__'
-
-
-class TypeOfSightsDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TypeOfSights
-        fields = '__all__'
-
-
-class SectionOfSightsListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SectionOfSights
-        fields = '__all__'
-
-
-class SectionOfSightsDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SectionOfSights
-        fields = '__all__'
+        fields = ('id', 'title', 'type', 'text', 'city', 'latitude', 'longitude')
