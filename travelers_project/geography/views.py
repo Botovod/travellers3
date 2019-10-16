@@ -1,16 +1,9 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
-from rest_framework import generics
+from rest_framework import viewsets
 
-from geography.models import City, Sight, Region
-from geography.models import TypeOfSights, SightPhoto, SectionOfSights
-
-from geography.serializers import RegionListSerializer, RegionDetailSerializer
-from geography.serializers import CityListSerializer, CityDetailSerializer
-from geography.serializers import SightListSerializer, SightDetailSerializer
-from geography.serializers import SightPhotoListSerializer, SightPhotoDetailSerializer
-from geography.serializers import SectionOfSightsListSerializer, SectionOfSightsDetailSerializer
-from geography.serializers import TypeOfSightsListSerializer, TypeOfSightsDetailSerializer
+from geography.models import Region, City, Sight
+from geography.serializers import RegionSerializer, CitySerializer, SightSerializer
 
 
 class RegionList(ListView):
@@ -18,6 +11,11 @@ class RegionList(ListView):
     template_name = 'geography/regions.html'
     context_object_name = 'region_list'
     paginate_by = 10
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sights'] = Sight.objects.all()[:4]
+        return context
 
 
 class RegionDetail(DetailView, MultipleObjectMixin):
@@ -59,62 +57,16 @@ class SightDetail(DetailView):
 
 
 # api views
-
-class RegionListAPI(generics.ListCreateAPIView):
-    queryset = Region.objects.order_by('id')
-    serializer_class = RegionListSerializer
-
-
-class RegionDetailAPI(generics.RetrieveUpdateDestroyAPIView):
+class RegionViewSet(viewsets.ModelViewSet):
     queryset = Region.objects.all()
-    serializer_class = RegionDetailSerializer
+    serializer_class = RegionSerializer
 
 
-class CityListAPI(generics.ListCreateAPIView):
-    queryset = City.objects.order_by('id')
-    serializer_class = CityListSerializer
-
-
-class CityDetailAPI(generics.RetrieveUpdateDestroyAPIView):
+class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
-    serializer_class = CityDetailSerializer
+    serializer_class = CitySerializer
 
 
-class SightListAPI(generics.ListCreateAPIView):
-    queryset = Sight.objects.order_by('id')
-    serializer_class = SightListSerializer
-
-
-class SightDetailAPI(generics.RetrieveUpdateDestroyAPIView):
+class SightViewSet(viewsets.ModelViewSet):
     queryset = Sight.objects.all()
-    serializer_class = SightDetailSerializer
-
-
-class SightPhotoListAPI(generics.ListCreateAPIView):
-    queryset = SightPhoto.objects.order_by('id')
-    serializer_class = SightPhotoListSerializer
-
-
-class SightPhotoDetailAPI(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SightPhoto.objects.all()
-    serializer_class = SightPhotoDetailSerializer
-
-
-class SectionOfSightsListAPI(generics.ListCreateAPIView):
-    queryset = SectionOfSights.objects.order_by('id')
-    serializer_class = SectionOfSightsListSerializer
-
-
-class SectionOfSightsDetailAPI(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SectionOfSights.objects.all()
-    serializer_class = SectionOfSightsDetailSerializer
-
-
-class TypeOfSightsListAPI(generics.ListCreateAPIView):
-    queryset = TypeOfSights.objects.order_by('id')
-    serializer_class = TypeOfSightsListSerializer
-
-
-class TypeOfSightsDetailAPI(generics.RetrieveUpdateDestroyAPIView):
-    queryset = TypeOfSights.objects.all()
-    serializer_class = TypeOfSightsDetailSerializer
+    serializer_class = SightSerializer
