@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('geography.urls')),
     path('traces/', include('traces.urls')),
-
+    path('feedback/', include('feedback.urls')),
 ]
 
 if settings.DEBUG:
