@@ -2,8 +2,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
 from rest_framework import viewsets
 
-from geography.models import Region, City, Sight
+from geography.models import Region, City, Sight, SightPhoto, SectionOfSights, TypeOfSights
 from geography.serializers import RegionSerializer, CitySerializer, SightSerializer
+from geography.serializers import SightPhotoSerializer, SectionOfSightsSerializer, TypeOfSightsSerializer
 
 
 class RegionList(ListView):
@@ -70,3 +71,18 @@ class CityViewSet(viewsets.ModelViewSet):
 class SightViewSet(viewsets.ModelViewSet):
     queryset = Sight.objects.all()
     serializer_class = SightSerializer
+
+
+class SightPhotoViewSet(viewsets.ModelViewSet):
+    queryset = SightPhoto.objects.all()
+    serializer_class = SightPhotoSerializer
+
+
+class SectionOfSightsViewSet(viewsets.ModelViewSet):
+    queryset = SectionOfSights.objects.all()
+    serializer_class = SectionOfSightsSerializer
+
+
+class TypeOfSightsViewSet(viewsets.ModelViewSet):
+    queryset = TypeOfSights.objects.all()
+    serializer_class = TypeOfSightsSerializer
