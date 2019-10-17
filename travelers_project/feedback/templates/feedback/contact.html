@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Contacts
+{% endblock %}
+
+{% block content %}
+
+    <div class="banner banner-in">
+      <div class="container">
+        <h6>
+          <a href="index.html">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">ГЛАВНАЯ</font>
+            </font></a>
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;"> / </font>
+            </font>
+            <span>
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">КОНТАКТ</font>
+              </font>
+            </span>
+          </h6>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="contact">
+        <div class="contact-in">
+          <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CONTACT</font></font></h3>
+          <div class=" col-md-9 contact-left">
+            <form action="{% url 'feedback_url' %}" method="post">
+              {% csrf_token %}
+              <div>
+                <span>
+                  <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">имя</font></font></span>
+                <!-- <input name="userName" type="text" class="textbox"> -->
+                {{ form.fullname }}
+              </div>
+              <div>
+                <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Эл. почта</font></font></span>
+                <!-- <input name="userEmail" type="text" class="textbox"> -->
+                {{ form.email }}
+              </div>
+              <div>
+                <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Тема</font></font></span>
+                {{ form.text }}
+              </div>
+              <div>
+                <span>
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">
+                      <input type="submit" value="представить">
+                    </font>
+                  </font>
+                </span>
+              </div>
+            </form>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
