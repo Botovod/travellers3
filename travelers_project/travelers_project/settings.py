@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'vkapp',
     'autotraveler_parser',
     'instaposter',
+    'feedback',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,10 @@ YMAPS_KEY = local_settings.YMAPS_KEY
 
 INST_USERNAME = local_settings.INST_USERNAME
 INST_PASSWORD = local_settings.INST_PASSWORD
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = local_settings.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = local_settings.EMAIL_HOST_PASSWORD
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
