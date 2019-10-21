@@ -21,28 +21,50 @@
                     <p class="tag-in">
                         <span>
                             <strong>
-                                <center><a href="{% url 'routes-cities-detail-url' pk=route.pk %}">{{ route.title }}</a></center>
+                                <center>
+                                    <a href="{% url 'routes-cities-detail-url' pk=route.pk %}">{{ route.title }}</a>
+                                </center>
                             </strong>
                         </span>
                     </p>
 
-                    {% for city in route.cities.all %}
+                    <div class="col-md-4 date"><p>Город</p></div>
+                    <div class="col-md-4 date"><p>Регион</p></div>
+                    <div class="col-md-4 date"><p>Достопримечательность</p></div>
+                    <div class="clearfix"></div>
 
-                        <div class="col-md-6 date">
-                            <p>Регион
-                                <a href="{% url 'region_detail_url' pk=city.region.pk %}">
-                                    <span>{{ city.region }}</span>
-                                </a>
-                            </p>
-                        </div>
-                        <div class="col-md-6 date">
-                            <p>Достопримечательности
-                                <span>
-                                    <a href="#">Website </a> |
-                                    <a href="#"> Design</a>
-                                </span></p>
-                        </div>
-                        <div class="clearfix"></div>
+
+                    {% for city in route.cities.all %}
+                    <div class="col-md-4 date">
+                        <p>
+                            <a href="{% url 'city_detail_url' pk=city.pk %}">
+                                <span>{{ city.title }}</span>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="col-md-4 date padding: 20px;">
+                        <p>
+                            <a href="{% url 'region_detail_url' pk=city.region.pk %}">
+                                <span>{{ city.region }}</span>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="col-md-4 date ">
+                        <p>
+                            {% if city.sight.first %}
+                            <a href="{% url 'sight_detail_url' pk=city.sight.first.pk %}">
+                                        <span>
+                                            {{ city.sight.first.title }}
+                                        </span>
+                            </a>
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <br>
 
                     {% endfor %}
                 </div>
