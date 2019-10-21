@@ -55,6 +55,8 @@ class City(BaseModel):
     add_date = models.DateTimeField(null=True, auto_now_add=True, verbose_name='Дата добавления')
     last_modified_date = models.DateTimeField(null=True, auto_now=True, verbose_name='Дата последнего изменения')
     autotravel_url = models.CharField(max_length=255, default='', blank=True, verbose_name="URL")
+    latitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Широта')
+    longitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Долгота')
 
     objects = CityManager()
 
