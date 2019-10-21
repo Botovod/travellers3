@@ -21,6 +21,7 @@ class CitiesRelationship(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     route = models.ForeignKey(RouteByCities, on_delete=models.CASCADE)
     position = models.PositiveIntegerField()
+    ordering = ['position']
 
     class Meta:
         unique_together = [['route', 'position']]
@@ -48,6 +49,7 @@ class SightsRelationship(models.Model):
     sight = models.ForeignKey(Sight, on_delete=models.CASCADE)
     route = models.ForeignKey(RouteBySights, on_delete=models.CASCADE)
     position = models.PositiveIntegerField()
+    ordering = ['position']
 
     class Meta:
         unique_together = [['route', 'position']]
