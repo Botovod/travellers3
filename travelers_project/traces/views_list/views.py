@@ -16,6 +16,12 @@ class RouteByCitiesDetail(DetailView):
     context_object_name = 'route_city_detail'
     template_name = 'traces/route_cities_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        index_middle_city = len(self.object.cities.all()) // 2
+        context['middle_city'] = self.object.cities.all()[index_middle_city]
+        return context
+
 
 class RouteBySightsList(ListView):
     model = RouteBySights
