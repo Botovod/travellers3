@@ -11,24 +11,33 @@
             <div class="col-md-7 need">
                 <script type="text/javascript">
                     ymaps.ready(init);
-                    function init(){
-                        var myMap = new ymaps.Map("map", {
-                                    {% if middle_city.latitude %}
-                                        center: [{{ middle_city.latitude }}, {{ middle_city.longitude }}],
-                                    {% else %}
-                                        center: [59.92, 30.3461],
-                                    {% endif %}
-                                zoom: 4,
-                                controls: ['zoomControl'],
-                                behaviors: ['drag']
+                    function init () {
+                        var multiRoute = new ymaps.multiRouter.MultiRoute({
+                            // Описание опорных точек мультимаршрута.
+                            referencePoints: [
+                                [{{ first_city.latitude }}, {{ first_city.longitude }}],
+                                [{{ last_city.latitude }}, {{ last_city.longitude }}]
+                            ],
+                            // Параметры маршрутизации.
+                            params: {
+                                // Ограничение на максимальное количество маршрутов, возвращаемое маршрутизатором.
+                                results: 2
+                            }
+                        }, {
+                            // Автоматически устанавливать границы карты так, чтобы маршрут был виден целиком.
+                            boundsAutoApply: true
                         });
-                        {% for city in route_city_detail.cities.all %}
-                                myPlacemark = new ymaps.Placemark([{{ city.latitude }},  {{ city.longitude }}],
-                                                {
-                                                    hintContent: '{{ city.title }}'
-                                                });
-                                myMap.geoObjects.add(myPlacemark);
-                        {% endfor %}
+
+                        // Создаем карту с добавленными на нее кнопками.
+                        var myMap = new ymaps.Map('map', {
+                            center: [{{ middle_city.latitude }}, {{ middle_city.longitude }}],
+                            zoom: 7,
+                            controls: ['zoomControl'],
+                            behaviors: ['drag']
+                        });
+
+                        // Добавляем мультимаршрут на карту.
+                        myMap.geoObjects.add(multiRoute);
                     }
                 </script>
                 <div id="map" style="wight:600px;height:500px;"></div>
