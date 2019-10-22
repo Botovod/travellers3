@@ -15,8 +15,8 @@ class SightAdmin(admin.ModelAdmin):
 
 
 class CityAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'region', 'description')
-    list_display_links = ('title', 'region', 'description')
+    list_display = ('id', 'title', 'region', 'description', 'centre_coordinates')
+    list_display_links = ('title', 'region', 'description', )
     search_fields = ['id', 'title']
 
 
