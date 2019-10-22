@@ -18,8 +18,11 @@ class RouteByCitiesDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        index_middle_city = len(self.object.cities.all()) // 2
-        context['middle_city'] = self.object.cities.all()[index_middle_city]
+        cities = self.object.cities.all()
+        index_middle_city = len(cities) // 2
+        context['first_city'] = cities[0]
+        context['middle_city'] = cities[index_middle_city]
+        context['last_city'] = cities[len(cities) - 1]
         return context
 
 
