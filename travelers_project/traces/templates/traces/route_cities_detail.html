@@ -4,7 +4,6 @@
 {% block content %}
 
 <center><h1>{{ route_city_detail.title }}</h1><br></center>
-
 <div class="container">
     <div class="single">
         <div class="single-middle">
@@ -14,14 +13,12 @@
                     ymaps.ready(init);
                     function init(){
                         var myMap = new ymaps.Map("map", {
-                                {% with city=route_city_detail.cities.all|first %}
-                                    {% if sight.latitude %}
-                                        center: [{{ city.latitude }}, {{ city.longitude }}],
+                                    {% if middle_city.latitude %}
+                                        center: [{{ middle_city.latitude }}, {{ middle_city.longitude }}],
                                     {% else %}
                                         center: [59.92, 30.3461],
                                     {% endif %}
-                                {% endwith %}
-                                zoom: 6,
+                                zoom: 4,
                                 controls: ['zoomControl'],
                                 behaviors: ['drag']
                         });
@@ -39,22 +36,41 @@
 
             <div class="col-md-5 tag">
                 <div class="social-in">
-                    <div class="col-md-4 date">
-                        <p>Date <span>April 15,2014</span></p>
-                    </div>
-                    <div class="col-md-4 date">
-                        <p>Tags<span><a href="#">Website </a> | <a href="#"> Design	</a></span></p>
-                    </div>
-                    <div class="col-md-4 date">
-                        <p>Author<span>Michael Reimer</span></p>
-                    </div>
+
+                    <div class="col-md-4 date"><p>Город</p></div>
+                    <div class="col-md-4 date"><p>Регион</p></div>
+                    <div class="col-md-4 date"><p>Достопримечательность</p></div>
                     <div class="clearfix"></div>
+
+                    {% for city in route_city_detail.cities.all %}
+                        <div class="col-md-4 date">
+                            <p>
+                                <span>{{ city.title }}</span>
+                            </p>
+                        </div>
+
+                        <div class="col-md-4 date">
+                            <p>
+                                <span>{{ city.region.title }}</span>
+                            </p>
+                        </div>
+
+
+                        <div class="col-md-4 date">
+                            <p>
+                                {% for sight in city.sight.all %}
+                                    <span>
+                                        <a href="#">{{ sight.title }} </a>
+                                    </span>
+                                {% endfor%}
+                            </p>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    {% endfor %}
                 </div>
-                <p class="tag-in">Lorem ipsum dolor sit amet, mollis epicuri pri ei, perpetua honestatis ad vix. Ne duo
-                    ludus putent, cu causae tamquam voluptua duo. Agam officiis no duo, ut reque decore sea. Cu eripuit
-                    accusam vix. Facete blandit detraxit pri cu, sea soluta doming civibus ea.
-                    <span>Eum eu tale clita iuvaret, cu est saperet forensibus interesset, cum ne case iusto oportere. Id idque indoctum eum, menandri mediocrem has ei. At usu modo quaerendum. Sit ei dicunt tacimates, mea ea enim eirmod suscipiantur, amet dicit ancillae vel in. Ex mea augue eloquentiam, his postea dolorem suavitate ea. Mel hendrerit accommodare concludaturque ex.</span>
-                </p>
+                <p class="tag-in">{{ route_city_detail.description }}</p>
+
             </div>
 
             <div class="clearfix"></div>
