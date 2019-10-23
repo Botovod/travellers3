@@ -13,7 +13,11 @@
     <div class="single">
         <div class="single-middle">
             <div class="col-md-7 need">
-                <img class="img-responsive" src="{{ route.cities.first.image.url }}" alt="">
+                {% if route.cities.first.image %}
+                    <img class="img-responsive" src="{{ route.cities.first.image.url }}" alt="{{ route.title }}">
+                {% else %}
+                    <img class="img-responsive" src="{% static ''images/not-foto.png'' %}" alt="{{ route.title }}">
+                {% endif %}
             </div>
 
             <div class="col-md-5 tag">

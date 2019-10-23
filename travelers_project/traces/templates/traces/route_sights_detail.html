@@ -1,10 +1,92 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block content %}
-    <h1>{{ route_sight_detail.title }}</h1>
-    {% with sights=route_sight_detail.sights.all %}
-        {% for sight in sights %}
-            <p>{{ sight.title }}</p>
-        {% endfor %}
-    {% endwith %}
+
+<center><h1>{{ route_sight_detail.title }}</h1><br></center>
+<div class="container">
+    <div class="single">
+        <div class="single-middle">
+
+            <div class="col-md-7 need">
+                <script type="text/javascript">
+                    function init () {
+                        var points = [];
+                        {% for sight in route_sight_detail.sights.all %}
+                            points.push([{{ sight.latitude }}, {{ sight.longitude }}])
+                        {% endfor %}
+
+                        var multiRoute = new ymaps.multiRouter.MultiRoute({
+                            // Описание опорных точек мультимаршрута.
+                            referencePoints: points,
+                            // Параметры маршрутизации.
+                            params: {
+                                // Ограничение на максимальное количество маршрутов, возвращаемое маршрутизатором.
+                                results: 2
+                            }
+                            }, {
+                                // Автоматически устанавливать границы карты так, чтобы маршрут был виден целиком.
+                                boundsAutoApply: true
+                        });
+
+                        // Создаем карту с добавленными на нее кнопками.
+                        var myMap = new ymaps.Map('map', {
+                            center: [{{ middle_sight.latitude }}, {{ middle_sight.longitude }}],
+                            zoom: 7,
+                            controls: ['zoomControl'],
+                            behaviors: ['drag']
+                        });
+                        myMap.geoObjects.add(multiRoute);
+                    }
+                    ymaps.ready(init);
+                </script>
+                <div id="map" style="wight:600px;height:500px;"></div>
+            </div>
+
+            <div class="col-md-5 tag">
+                <div class="social-in">
+
+                    <div class="col-md-4 date"><p>Название</p></div>
+                    <div class="col-md-4 date"><p>Город</p></div>
+                    <div class="col-md-4 date"><p>Описание</p></div>
+
+                    <div class="clearfix"></div>
+                    <br>
+
+                    {% for sight in route_sight_detail.sights.all %}
+                        <div class="col-md-4 date">
+                            <p>
+                                <a href="{% url 'sight_detail_url' pk=sight.pk %}"><span>{{ sight.title }}</span></a>
+                            </p>
+                        </div>
+
+                        <div class="col-md-4 date">
+                            <p>
+                                <a href="{% url 'city_detail_url' pk=sight.city.pk %}"><span>{{ sight.city.title }}</span></a>
+                            </p>
+                        </div>
+
+
+                        <div class="col-md-4 date">
+                            <p>
+                                    <span>
+                                        {{ sight.text | truncatewords:7 }}
+                                    </span>
+                            </p>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <br>
+                    {% endfor %}
+                </div>
+                <p class="tag-in">{{ route_sight_detail.description }}</p>
+
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
+
