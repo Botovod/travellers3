@@ -37,3 +37,12 @@ class RouteBySightsDetail(DetailView):
     model = RouteBySights
     context_object_name = 'route_sight_detail'
     template_name = 'traces/route_sights_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        sights = self.object.sights.all()
+        index_middle_sight = len(sights) // 2
+        context['first_sight'] = sights[0]
+        context['middle_sight'] = sights[index_middle_sight]
+        context['last_sight'] = sights[len(sights) - 1]
+        return context
