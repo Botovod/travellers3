@@ -10,22 +10,23 @@
 
             <div class="col-md-7 need">
                 <script type="text/javascript">
-                    ymaps.ready(init);
                     function init () {
+                        var points = [];
+                        {% for city in route_city_detail.cities.all %}
+                            points.push([{{ city.latitude }}, {{ city.longitude }}])
+                        {% endfor %}
+
                         var multiRoute = new ymaps.multiRouter.MultiRoute({
                             // Описание опорных точек мультимаршрута.
-                            referencePoints: [
-                                [{{ first_city.latitude }}, {{ first_city.longitude }}],
-                                [{{ last_city.latitude }}, {{ last_city.longitude }}]
-                            ],
+                            referencePoints: points,
                             // Параметры маршрутизации.
                             params: {
                                 // Ограничение на максимальное количество маршрутов, возвращаемое маршрутизатором.
                                 results: 2
                             }
-                        }, {
-                            // Автоматически устанавливать границы карты так, чтобы маршрут был виден целиком.
-                            boundsAutoApply: true
+                            }, {
+                                // Автоматически устанавливать границы карты так, чтобы маршрут был виден целиком.
+                                boundsAutoApply: true
                         });
 
                         // Создаем карту с добавленными на нее кнопками.
@@ -36,9 +37,9 @@
                             behaviors: ['drag']
                         });
 
-                        // Добавляем мультимаршрут на карту.
                         myMap.geoObjects.add(multiRoute);
                     }
+                    ymaps.ready(init);
                 </script>
                 <div id="map" style="wight:600px;height:500px;"></div>
             </div>
@@ -49,7 +50,9 @@
                     <div class="col-md-4 date"><p>Город</p></div>
                     <div class="col-md-4 date"><p>Регион</p></div>
                     <div class="col-md-4 date"><p>Достопримечательность</p></div>
+
                     <div class="clearfix"></div>
+                    <br>
 
                     {% for city in route_city_detail.cities.all %}
                         <div class="col-md-4 date">
@@ -76,6 +79,7 @@
                         </div>
 
                         <div class="clearfix"></div>
+                        <br>
                     {% endfor %}
                 </div>
                 <p class="tag-in">{{ route_city_detail.description }}</p>
