@@ -19,7 +19,7 @@ def fix_sight_coords():
     sights = Sight.objects.all()
     for sight in sights:
         original_coords = sight.original_coordinates
-        if original_coords:
+        if original_coords and not sight.coordinates:
             latitude, longitude = get_coords(original_coords)
             sight.coordinates = latitude + " " + longitude
             sight.latitude = latitude
@@ -31,7 +31,7 @@ def fix_city_coords():
     cities = City.objects.all()
     for city in cities:
         original_coords = city.centre_coordinates
-        if original_coords:
+        if original_coords and not city.centre_coordinates:
             latitude, longitude = get_coords(original_coords)
             city.centre_coordinates = f'{latitude} {longitude}'
             city.latitude = latitude
