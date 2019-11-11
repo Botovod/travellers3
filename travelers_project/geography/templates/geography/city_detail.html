@@ -18,7 +18,10 @@
                     <p>Date add<span>{{ city_detail.add_date|date:"d m Y" }}</span></p>
                 </div>
                 <div class="col-md-4 date">
-                    <p>Region<a href="{% url 'region_detail_url' pk=city_detail.region.pk %}"><span>{{ city_detail.region.title }}</span></a>
+                    <p>Регион
+                        <a href="{% url 'region_detail_url' pk=city_detail.region.pk %}">
+                            <span>{{ city_detail.region.title }}</span>
+                        </a>
                     </p>
                 </div>
                 <div class="clearfix"></div>
@@ -27,13 +30,11 @@
                 <span>
                     {% if city_detail.description %}
                     {{ city_detail.description }}
-                    {% else %}
-
                     {% endif%}
                 </span>`
             </p>
             <div class="col-md-4 date">
-                <p><strong>Sights:</strong></p>
+                <p><strong>Достопримечательности:</strong></p>
                 {% with sights=city_detail.sight.all %}
                 {% for sight in sights %}
                 <a href="{% url 'sight_detail_url' pk=sight.pk %}">
