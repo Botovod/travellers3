@@ -28,13 +28,13 @@
     <div class="container">
       <div class="contact">
         <div class="contact-in">
-          <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CONTACT</font></font></h3>
+          <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Контакт</font></font></h3>
           <div class=" col-md-9 contact-left">
             <form action="{% url 'feedback_url' %}" method="post">
               {% csrf_token %}
               <div>
                 <span>
-                  <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">имя</font></font></span>
+                  <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Имя</font></font></span>
                 <!-- <input name="userName" type="text" class="textbox"> -->
                 {{ form.fullname }}
               </div>
