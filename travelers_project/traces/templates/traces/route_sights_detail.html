@@ -56,13 +56,17 @@
                     {% for sight in route_sight_detail.sights.all %}
                         <div class="col-md-4 date">
                             <p>
-                                <a href="{% url 'sight_detail_url' pk=sight.pk %}"><span>{{ sight.title }}</span></a>
+                                <a href="{% url 'sight_detail_url' pk=sight.pk %}">
+                                    <span>{{ sight.title }}</span>
+                                </a>
                             </p>
                         </div>
 
                         <div class="col-md-4 date">
                             <p>
-                                <a href="{% url 'city_detail_url' pk=sight.city.pk %}"><span>{{ sight.city.title }}</span></a>
+                                <a href="{% url 'city_detail_url' pk=sight.city.pk %}">
+                                    <span>{{ sight.city.title }}</span>
+                                </a>
                             </p>
                         </div>
 
