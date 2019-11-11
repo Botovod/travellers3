@@ -51,22 +51,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="top-nav">
             <span class="menu"><img src="{% static 'images/menu.png' %}" alt=""> </span>
             <ul>
-                <li class="nav-item active"><a href="{% url 'region_list_url' %}">Regions</a></li>
-                <li class="nav-item"><a href="{% url 'city_list_url' %}">Cities</a></li>
-                <li class="nav-item"><a href="{% url 'sight_list_url' %}">Sights</a></li>
+                <li class="nav-item active"><a href="{% url 'region_list_url' %}">Регионы</a></li>
+                <li class="nav-item"><a href="{% url 'city_list_url' %}">Города</a></li>
+                <li class="nav-item"><a href="{% url 'sight_list_url' %}">Достопримечательности</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle"
                        data-toggle="dropdown"
                        role="button"
-                       aria-expanded="false">Traces
+                       aria-expanded="false">Маршруты
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{% url 'routes-cities-list-url' %}"> Cities routes </a></li>
-                        <li><a href="{% url 'routes-sights-list-url' %}"> Sights routes </a></li>
+                        <li><a href="{% url 'routes-cities-list-url' %}">По городам</a></li>
+                        <li><a href="{% url 'routes-sights-list-url' %}">По достопримечательностям</a></li>
                     </ul>
                 </li>
 
-                <li class="nav-item"><a href="{% url 'feedback_url' %}">Contacts</a></li>
+                <li class="nav-item"><a href="{% url 'feedback_url' %}">Контакты</a></li>
             </ul>
             <!--script-->
             <script>
@@ -111,7 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 
 <div class="content-bottom-in">
