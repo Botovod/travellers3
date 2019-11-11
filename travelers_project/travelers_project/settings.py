@@ -28,6 +28,7 @@ INSTALLED_APPS = [
 
     # own apps
     'geography',
+    'laboratory',
     'travelers',
     'traces',
     'vkapp',
