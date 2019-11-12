@@ -11,14 +11,19 @@
             <td>Самая главная достопримечательность</td>
             <td>Лучшее Фото</td>
         </tr>
-
+        {% for region in regions %}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ region }}</td>
+            <td>{{ region.city }}</td>
+            <td>{{ region.sight }}</td>
+            <td>{{ region.photo }}</td>
         </tr>
+
+        {% endfor %}
 
     </table>
 </center>
 
 {% endblock content %}
+
+{% include 'geography/includes/paginator.html' %}
