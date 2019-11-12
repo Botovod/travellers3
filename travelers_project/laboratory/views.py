@@ -14,31 +14,45 @@ class TopCitiesList(ListView):
 
     def get(self, request):
         regions = get_data()
-        context = {'regions': regions}
 
-        return render(request, template_name=self.template_name, context=context)
+        return render(request, template_name=self.template_name, context={'regions': regions})
 
 
 def get_data():
-    regions = []
+    data = []
     try:
         conn = psycopg2.connect(dbname=settings.DATABASES['default']['NAME'],
                                 user=settings.DATABASES['default']['USER'],
                                 host=settings.DATABASES['default']['HOST'],
-                                password=settings.DATABASES['default']['PASSWORD']
-                                )
+                                password=settings.DATABASES['default']['PASSWORD'])
     except (OperationalError, KeyError):
         logging.exception('Unable to open DB')
     else:
         cur = conn.cursor()
         cur.execute('''SELECT id, title 
                        FROM geography_region;''')
-        regions_qs = cur.fetchall()
-        for _, title in regions_qs:
-            regions.append(title)
-
+        regions = cur.fetchall()
+        for region_id, title in regions:
+            dictionary = dict()
+            dictionary['region'] = title
+            cur.execute('''SELECT t2.id, t2.title 
+                                  FROM geography_region t1
+                                  LEFT JOIN geography_city t2
+                                  ON t1.id = t2.region_id
+                                  WHERE t1.id = {} 
+                                  AND t2.rating = 
+                                  (SELECT Max(t2.rating)
+                                  FROM geography_region t1
+                                  LEFT JOIN geography_city t2
+                                  ON t1.id = t2.region_id
+                                  WHERE t1.id = {}) ;'''.format(region_id, region_id))
+            city = cur.fetchall()
+            try:
+                dictionary['city'] = city[0][1]
+            except IndexError:
+                dictionary['city'] = ''
+            data.append(dictionary)
         conn.commit()
         cur.close()
-    finally:
         conn.close()
-    return regions
+    return data
