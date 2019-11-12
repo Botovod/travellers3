@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('geography.urls')),
     path('traces/', include('traces.urls')),
     path('feedback/', include('feedback.urls')),
+    path('laboratory/', include('laboratory.urls')),
 ]
 
 if settings.DEBUG:
