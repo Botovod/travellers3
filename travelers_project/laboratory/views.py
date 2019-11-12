@@ -6,6 +6,7 @@ from django.shortcuts import render
 from psycopg2 import OperationalError
 
 from django.views.generic.list import ListView
+from laboratory.db_connector import ConnPsql
 
 
 class TopCitiesList(ListView):
@@ -31,7 +32,7 @@ def get_data():
         logging.exception('Unable to open DB')
     else:
         cur = conn.cursor()
-        cur.execute('''SELECT id, title 
+        cur.execute('''SELECT id, title
                        FROM geography_region;''')
         regions_qs = cur.fetchall()
         for _, title in regions_qs:
@@ -42,3 +43,15 @@ def get_data():
     finally:
         conn.close()
     return regions
+
+
+class TopTracesListView(ListView):
+    template_name = 'laboratory/toptraces.html'
+
+    def get(self, request):
+        with ConnPsql() as conn:
+            cursor = conn.cursor()
+            cursor.execute('''SELECT id, title FROM traces_routebycities;''')
+            traces = cursor.fetchall()
+
+        return render(request, self.template_name, {'traces': traces})
