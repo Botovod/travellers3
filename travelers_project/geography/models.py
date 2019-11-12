@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 from django.shortcuts import reverse
 from slugify import slugify
@@ -57,6 +59,7 @@ class City(BaseModel):
     autotravel_url = models.CharField(max_length=255, default='', blank=True, verbose_name="URL")
     latitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Широта')
     longitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Долгота')
+    rating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
 
     objects = CityManager()
 
@@ -91,7 +94,7 @@ class Sight(BaseModel):
                              verbose_name='Фотография достопримечательности')
     original_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Стянутные координаты')
     coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Координаты')
-    #широта
+    # широта
     latitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Широта')
     # долгота
     longitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Долгота')
@@ -102,6 +105,7 @@ class Sight(BaseModel):
     fix_date = models.DateTimeField(null=True, auto_now=True, verbose_name='Дата исправления')
     address = models.CharField(max_length=255, default='', blank=True, verbose_name='Адрес')
     autotravel_url = models.CharField(max_length=255, default='', blank=True, verbose_name='URL')
+    rating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
 
     class Meta:
         verbose_name = 'Достопримечательность'
@@ -120,12 +124,14 @@ class SectionOfSights(BaseModel):
 
 
 class SightPhoto(models.Model):
+    title = models.CharField(max_length=255, default='', verbose_name='Название')
     sight = models.ForeignKey(Sight, on_delete=models.CASCADE,
                               related_name='sight_photo',
                               null=True,
                               verbose_name='Достпримечательность')
     file = models.ImageField(default='', upload_to=image_sight, max_length=200, verbose_name='Изображение')
     posted = models.BooleanField(default=True)
+    rating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
 
     class Meta:
         verbose_name = 'Фотография достопримечательности'

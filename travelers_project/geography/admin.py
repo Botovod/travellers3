@@ -9,13 +9,13 @@ class SightPhotoInline(admin.TabularInline):
 
 class SightAdmin(admin.ModelAdmin):
     inlines = [SightPhotoInline]
-    list_display = ('id', 'title', 'city', 'text', 'coordinates')
+    list_display = ('id', 'title', 'city', 'text', 'coordinates', 'rating')
     list_display_links = ('title', 'city', 'text')
     search_fields = ['id', 'title']
 
 
 class CityAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'region', 'description', 'centre_coordinates')
+    list_display = ('id', 'title', 'region', 'description', 'centre_coordinates', 'rating')
     list_display_links = ('title', 'region', 'description', )
     search_fields = ['id', 'title']
 
