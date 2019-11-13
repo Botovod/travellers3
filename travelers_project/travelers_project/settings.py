@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'sorl.thumbnail',
     'debug_toolbar',
+    'django_extensions',
 
     # own apps
     'geography',
