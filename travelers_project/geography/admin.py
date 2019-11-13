@@ -21,8 +21,13 @@ class CityAdmin(admin.ModelAdmin):
 
 
 class RegionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'description')
+    list_display = ('id', 'title', 'description',)
     list_display_links = ('title', 'description')
+    search_fields = ['id', 'title']
+
+
+class SightPhotoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'file', 'rating', 'sight')
     search_fields = ['id', 'title']
 
 
@@ -31,3 +36,4 @@ admin.site.register(City, CityAdmin)
 admin.site.register(TypeOfSights)
 admin.site.register(Sight, SightAdmin)
 admin.site.register(SectionOfSights)
+admin.site.register(SightPhoto, SightPhotoAdmin)
