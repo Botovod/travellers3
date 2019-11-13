@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load thumbnail %}
 
 {% block content %}
 
 <center>
     <table border="1" cellpadding="5px" cellspacing="5px">
-        <tr>
+        <tr align="center">
             <td>Регион</td>
             <td>Главный Город</td>
             <td>Самая главная достопримечательность</td>
@@ -15,8 +16,16 @@
         <tr>
             <td>{{ region.region }}</td>
             <td>{{ region.city }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ region.sight }}</td>
+            <td>
+                {% if region.photo %}
+                <img class="img-responsive"
+                     width="150px;"
+                     height="150px;"
+                     src="{% static '{{ region.photo }}' %}"
+                     alt=""/>
+                {% endif %}
+            </td>
         </tr>
 
         {% endfor %}
@@ -25,5 +34,3 @@
 </center>
 
 {% endblock content %}
-
-{% include 'geography/includes/paginator.html' %}
