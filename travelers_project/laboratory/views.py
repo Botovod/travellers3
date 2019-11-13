@@ -40,7 +40,7 @@ def get_data():
                            FROM geography_city
                            WHERE region_id = {} 
                            AND rating = 
-                           (SELECT Max(rating)
+                           (SELECT max(rating)
                            FROM geography_city
                            WHERE region_id = {}) ;'''.format(region_id, region_id))
             city = cur.fetchall()
@@ -48,6 +48,46 @@ def get_data():
                 dictionary['city'] = city[0][1]
             except IndexError:
                 dictionary['city'] = ''
+            cur.execute('''SELECT sight.id, sight.title 
+                           FROM geography_city city
+                           LEFT JOIN geography_sight sight
+                           ON city.id = sight.city_id
+                           WHERE city.region_id = {}
+                           AND sight.rating = 
+                           (SELECT max(sight.rating)
+                           FROM geography_city city
+                           LEFT JOIN geography_sight sight
+                           ON city.id = sight.city_id
+                           WHERE city.region_id = {}) ;'''.format(region_id, region_id))
+            sight = cur.fetchall()
+            try:
+                dictionary['sight'] = sight[0][1]
+            except IndexError:
+                dictionary['sight'] = ''
+
+            cur.execute('''SELECT photo.id, photo.file
+                           FROM geography_sight sight
+                           LEFT JOIN geography_sightphoto photo
+                           ON photo.sight_id = sight.id
+                           WHERE sight.city_id 
+                           IN (SELECT city.id
+                           FROM geography_city city
+                           WHERE city.region_id={})
+                           AND photo.rating =
+                           (SELECT max(photo.rating)
+                           FROM geography_sight sight
+                           LEFT JOIN geography_sightphoto photo
+                           ON photo.sight_id = sight.id
+                           WHERE sight.city_id
+                           IN (SELECT city.id
+                           FROM geography_city city
+                           WHERE city.region_id={}));'''.format(region_id, region_id))
+            photo = cur.fetchall()
+            try:
+                dictionary['photo'] = photo[0][1]
+            except IndexError:
+                dictionary['photo'] = ''
+
             data.append(dictionary)
         conn.commit()
         cur.close()
