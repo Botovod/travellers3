@@ -36,17 +36,13 @@ def get_data():
         for region_id, title in regions:
             dictionary = dict()
             dictionary['region'] = title
-            cur.execute('''SELECT t2.id, t2.title 
-                                  FROM geography_region t1
-                                  LEFT JOIN geography_city t2
-                                  ON t1.id = t2.region_id
-                                  WHERE t1.id = {} 
-                                  AND t2.rating = 
-                                  (SELECT Max(t2.rating)
-                                  FROM geography_region t1
-                                  LEFT JOIN geography_city t2
-                                  ON t1.id = t2.region_id
-                                  WHERE t1.id = {}) ;'''.format(region_id, region_id))
+            cur.execute('''SELECT id, title 
+                           FROM geography_city
+                           WHERE region_id = {} 
+                           AND rating = 
+                           (SELECT Max(rating)
+                           FROM geography_city
+                           WHERE region_id = {}) ;'''.format(region_id, region_id))
             city = cur.fetchall()
             try:
                 dictionary['city'] = city[0][1]

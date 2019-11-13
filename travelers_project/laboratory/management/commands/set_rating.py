@@ -41,7 +41,7 @@ def set_rating_all_objects():
 
 
 def get_random_number():
-    return random.randint(0, 10)
+    return random.randint(1, 10)
 
 
 def get_object(cursor, table):
