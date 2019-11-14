@@ -1,6 +1,7 @@
 import logging
 import psycopg2
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.conf import settings
 from django.shortcuts import render
 from psycopg2 import OperationalError
@@ -13,12 +14,24 @@ from laboratory.db_connector import ConnPsql
 
 class TopCitiesList(ListView):
     template_name = 'laboratory/topcities.html'
-    paginate_by = 10
 
     def get(self, request):
         regions = get_data()
 
-        return render(request, template_name=self.template_name, context={'regions': regions})
+        paginator = Paginator(regions, 17)
+        page = request.GET.get('page')
+        contacts = paginator.get_page(page)
+        #
+        # try:
+        #     catalog = paginator.page(page)
+        # except PageNotAnInteger:
+        #     catalog = paginator.page(1)
+        # except EmptyPage:
+        #     catalog = paginator.page(paginator.num_pages)
+
+        return render(request,
+                      template_name=self.template_name,
+                      context={'catalog': contacts})
 
 
 def get_data():
