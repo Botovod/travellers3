@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load thumbnail %}
 
 {% block content %}
@@ -17,13 +16,14 @@
             <td>{{ region.region }}</td>
             <td>{{ region.city }}</td>
             <td>{{ region.sight }}</td>
-            <td>
+            <td align="center">
                 {% if region.photo %}
-                <img class="img-responsive"
-                     width="150px;"
-                     height="150px;"
-                     src="{% static '{{ region.photo }}' %}"
-                     alt=""/>
+<!--                        <img src="{{ region.photo }}">-->
+                    {% thumbnail 'media/images/sights/dom-muzei-v-v-veresaeva/file-1571042280220.jpg' "x150" crop="center" as im %}
+                    <img class="img-responsive"
+                         src="{{ im.url }}"
+                         alt=""/>
+                    {% endthumbnail %}
                 {% endif %}
             </td>
         </tr>
