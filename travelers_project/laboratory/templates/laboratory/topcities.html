@@ -11,26 +11,37 @@
             <td>Самая главная достопримечательность</td>
             <td>Лучшее Фото</td>
         </tr>
-        {% for region in regions %}
+        {% for region in catalog %}
         <tr>
             <td>{{ region.region }}</td>
             <td>{{ region.city }}</td>
             <td>{{ region.sight }}</td>
             <td align="center">
-                {% if region.photo %}
-<!--                        <img src="{{ region.photo }}">-->
-                    {% thumbnail 'media/images/sights/dom-muzei-v-v-veresaeva/file-1571042280220.jpg' "x150" crop="center" as im %}
-                    <img class="img-responsive"
-                         src="{{ im.url }}"
-                         alt=""/>
-                    {% endthumbnail %}
-                {% endif %}
             </td>
         </tr>
 
         {% endfor %}
 
     </table>
+
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if catalog.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ catalog.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ catalog.number }} of {{ catalog.paginator.num_pages }}.
+            </span>
+
+            {% if catalog.has_next %}
+                <a href="?page={{ catalog.next_page_number }}">next</a>
+                <a href="?page={{ catalog.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </center>
 
 {% endblock content %}
