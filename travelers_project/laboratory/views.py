@@ -40,8 +40,8 @@ def get_data():
             dictionary['region'] = title
             cur.execute('''SELECT id, title
                            FROM geography_city
-                           WHERE region_id = {} 
-                           AND rating = 
+                           WHERE region_id = {}
+                           AND rating =
                            (SELECT max(rating)
                            FROM geography_city
                            WHERE region_id = {}) ;'''.format(region_id, region_id))
@@ -50,12 +50,12 @@ def get_data():
                 dictionary['city'] = city[0][1]
             except IndexError:
                 dictionary['city'] = ''
-            cur.execute('''SELECT sight.id, sight.title 
+            cur.execute('''SELECT sight.id, sight.title
                            FROM geography_city city
                            LEFT JOIN geography_sight sight
                            ON city.id = sight.city_id
                            WHERE city.region_id = {}
-                           AND sight.rating = 
+                           AND sight.rating =
                            (SELECT max(sight.rating)
                            FROM geography_city city
                            LEFT JOIN geography_sight sight
@@ -71,7 +71,7 @@ def get_data():
                            FROM geography_sight sight
                            LEFT JOIN geography_sightphoto photo
                            ON photo.sight_id = sight.id
-                           WHERE sight.city_id 
+                           WHERE sight.city_id
                            IN (SELECT city.id
                            FROM geography_city city
                            WHERE city.region_id={})
@@ -104,7 +104,7 @@ class TopTracesListView(ListView):
     def get(self, request):
         with ConnPsql() as conn:
             cursor = conn.cursor()
-
+            # traces
             cursor.execute(
                 '''
                     SELECT id, title FROM traces_routebycities;
@@ -114,16 +114,31 @@ class TopTracesListView(ListView):
 
             routes = {}                     # {(1, 'Москва - Санкт-Петербург'): [[(1, Moscow), (2, Sbp), ...], Kremle, image_url}
             for trace in traces:
+                # cities
                 cursor.execute(
                     f'''
                         SELECT geography_city.id, title
                         FROM geography_city
                         INNER JOIN traces_citiesrelationship
                         ON (geography_city.id = traces_citiesrelationship.city_id)
-                        WHERE traces_citiesrelationship.route_id = {trace[0]}
+                        WHERE traces_citiesrelationship.route_id = {trace[0]};
                     '''
                 )
                 cities = cursor.fetchall()
-                routes[trace] = cities
+
+                # popoular sight
+                cursor.execute(
+                    f'''
+                        SELECT id, title, rating
+                        FROM geography_sight
+                        WHERE city_id IN {tuple(i[0] for i in cities)}
+                        AND rating = (SELECT MAX(rating) FROM geography_sight
+                        WHERE city_id IN {tuple(i[0] for i in cities)})
+                        LIMIT 1
+                    '''
+                )
+                sights = cursor.fetchall()
+
+                routes[trace] = [cities, sights]
 
         return render(request, self.template_name, {'routes': routes})

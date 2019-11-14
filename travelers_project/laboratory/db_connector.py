@@ -36,5 +36,5 @@ class ConnPsql:
         self.conn.commit()
         self.conn.close()
         if exc_val:
-            logging
+            logging.info()
             raise OperationalError
