@@ -21,19 +21,23 @@
         <th scope="col">Популярная достопримечательнотсь</th>
         <th scope="col">Популярная картинка</th>
       </tr>
-      {% for route, cities in routes.items %}
+      {% for route, data in routes.items %}
         <tr>
           <td><a href="{% url 'routes-cities-detail-url' pk=route.0 %}">{{ route.1 }}</a></td>
           <td>
             <ul>
-              {% for id, city in cities %}
+              {% for id, city in data.0 %}
                 <li><a href="{% url 'city_detail_url' pk=id %}">{{ city }}</a></li>
               {% endfor %}
             </ul>
           </td>
           <td>
             <ul>
-              <li><a href="#">Достоапремечательность</a></li>
+              {% for id, sights, rating in data.1 %}
+                <li><a href="{% url 'sight_detail_url' pk=id %}">{{ sights }}</a>
+                    <span><i>{{ rating }}</i></span>
+                </li>
+              {% endfor %}
             </ul>
           </td>
           <td>
