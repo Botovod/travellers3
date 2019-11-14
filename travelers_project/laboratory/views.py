@@ -5,6 +5,8 @@ from django.conf import settings
 from django.shortcuts import render
 from psycopg2 import OperationalError
 
+from sorl.thumbnail import get_thumbnail
+
 from django.views.generic.list import ListView
 from laboratory.db_connector import ConnPsql
 
@@ -84,7 +86,8 @@ def get_data():
                            WHERE city.region_id={}));'''.format(region_id, region_id))
             photo = cur.fetchall()
             try:
-                dictionary['photo'] = photo[0][1]
+                im = get_thumbnail(photo[0][1], '100x100', crop='center', quality=99)
+                dictionary['photo'] = im.url
             except IndexError:
                 dictionary['photo'] = ''
 
