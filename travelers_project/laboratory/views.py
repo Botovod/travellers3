@@ -138,19 +138,22 @@ class TopTracesListView(ListView):
                     '''
                 )
                 sight = cursor.fetchall()
+                datas[trace] = [cities, sight]
 
-                cursor.execute(
-                    f'''
-                        SELECT id, file
-                        FROM geography_sightphoto
-                        WHERE sight_id = {sight[0][0]}
-                        AND rating = (SELECT MAX(rating) FROM geography_sightphoto
-                        WHERE sight_id = {sight[0][0]})
-                        LIMIT 1
-                    '''
-                )
-                image = cursor.fetchall()
+                # popular image
+                if sight:
+                    cursor.execute(
+                        f'''
+                            SELECT id, file
+                            FROM geography_sightphoto
+                            WHERE sight_id = {sight[0][0]}
+                            AND rating = (SELECT MAX(rating) FROM geography_sightphoto
+                            WHERE sight_id = {sight[0][0]})
+                            LIMIT 1
+                        '''
+                    )
+                    image = cursor.fetchall()
+                    datas[trace].append(image)
 
-                datas[trace] = [cities, sight, image]
 
         return render(request, self.template_name, {'datas': datas})
