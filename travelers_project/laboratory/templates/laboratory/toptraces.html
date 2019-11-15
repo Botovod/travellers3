@@ -41,11 +41,13 @@
             </ul>
           </td>
           <td>
-            {% for id, file in data.2 %}
+            {% if data.2 %}
+              {% for id, file in data.2 %}
                 <a href="/media/{{ file }}" data-lightbox="image-{{id}}" data-title="Популярная картинка">
                   <img width="150" src="/media/{{ file }}" alt="">
                 </a>
-            {% endfor %}
+              {% endfor %}
+            {% endif %}
           </td>
         </tr>
       {% endfor %}
