@@ -21,7 +21,7 @@
         <th scope="col">Популярная достопримечательнотсь</th>
         <th scope="col">Популярная картинка</th>
       </tr>
-      {% for route, data in routes.items %}
+      {% for route, data in datas.items %}
         <tr>
           <td><a href="{% url 'routes-cities-detail-url' pk=route.0 %}">{{ route.1 }}</a></td>
           <td>
@@ -33,17 +33,19 @@
           </td>
           <td>
             <ul>
-              {% for id, sights, rating in data.1 %}
-                <li><a href="{% url 'sight_detail_url' pk=id %}">{{ sights }}</a>
+              {% for id, sight, rating in data.1 %}
+                <li><a href="{% url 'sight_detail_url' pk=id %}">{{ sight }}</a>
                     <span><i>{{ rating }}</i></span>
                 </li>
               {% endfor %}
             </ul>
           </td>
           <td>
-            <a href="https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg" data-lightbox="image-1" data-title="Заголовок картинки">
-              <img width="150" src="https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg" alt="">
-            </a>
+            {% for id, file in data.2 %}
+                <a href="/media/{{ file }}" data-lightbox="image-{{id}}" data-title="Популярная картинка">
+                  <img width="150" src="/media/{{ file }}" alt="">
+                </a>
+            {% endfor %}
           </td>
         </tr>
       {% endfor %}
