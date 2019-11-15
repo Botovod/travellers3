@@ -112,7 +112,7 @@ class TopTracesListView(ListView):
             )
             traces = cursor.fetchall()      # [(1, 'Москва - Санкт-Петербург')]
 
-            routes = {}                     # {(1, 'Москва - Санкт-Петербург'): [[(1, Moscow), (2, Sbp), ...], Kremle, image_url}
+            datas = {}                     # {(1, 'Москва - Санкт-Петербург'): [[(1, Moscow), (2, Sbp), ...], Kremle, image_url}
             for trace in traces:
                 # cities
                 cursor.execute(
@@ -131,14 +131,26 @@ class TopTracesListView(ListView):
                     f'''
                         SELECT id, title, rating
                         FROM geography_sight
-                        WHERE city_id IN {tuple(i[0] for i in cities)}
+                        WHERE city_id IN {tuple(id[0] for id in cities)}
                         AND rating = (SELECT MAX(rating) FROM geography_sight
-                        WHERE city_id IN {tuple(i[0] for i in cities)})
+                        WHERE city_id IN {tuple(id[0] for id in cities)})
                         LIMIT 1
                     '''
                 )
-                sights = cursor.fetchall()
+                sight = cursor.fetchall()
 
-                routes[trace] = [cities, sights]
+                cursor.execute(
+                    f'''
+                        SELECT id, file
+                        FROM geography_sightphoto
+                        WHERE sight_id = {sight[0][0]}
+                        AND rating = (SELECT MAX(rating) FROM geography_sightphoto
+                        WHERE sight_id = {sight[0][0]})
+                        LIMIT 1
+                    '''
+                )
+                image = cursor.fetchall()
 
-        return render(request, self.template_name, {'routes': routes})
+                datas[trace] = [cities, sight, image]
+
+        return render(request, self.template_name, {'datas': datas})
