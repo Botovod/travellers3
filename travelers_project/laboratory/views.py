@@ -1,12 +1,11 @@
 import logging
+import os
 import psycopg2
 
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator
 from django.conf import settings
 from django.shortcuts import render
 from psycopg2 import OperationalError
-
-from sorl.thumbnail import get_thumbnail
 
 from django.views.generic.list import ListView
 from laboratory.db_connector import ConnPsql
@@ -18,17 +17,9 @@ class TopCitiesList(ListView):
     def get(self, request):
         regions = get_data()
 
-        paginator = Paginator(regions, 17)
+        paginator = Paginator(regions, settings.PAGINATION_COUNT_ONE)
         page = request.GET.get('page')
         contacts = paginator.get_page(page)
-        #
-        # try:
-        #     catalog = paginator.page(page)
-        # except PageNotAnInteger:
-        #     catalog = paginator.page(1)
-        # except EmptyPage:
-        #     catalog = paginator.page(paginator.num_pages)
-
         return render(request,
                       template_name=self.template_name,
                       context={'catalog': contacts})
@@ -99,8 +90,7 @@ def get_data():
                            WHERE city.region_id={}));'''.format(region_id, region_id))
             photo = cur.fetchall()
             try:
-                im = get_thumbnail(photo[0][1], '100x100', crop='center', quality=99)
-                dictionary['photo'] = im.url
+                dictionary['photo'] = os.path.join(settings.MEDIA_URL, photo[0][1])
             except IndexError:
                 dictionary['photo'] = ''
 
