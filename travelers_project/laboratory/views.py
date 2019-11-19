@@ -10,6 +10,8 @@ from psycopg2 import OperationalError
 from django.views.generic.list import ListView
 from laboratory.db_connector import ConnPsql
 
+from geography.models import SightPhoto
+
 
 class TopCitiesList(ListView):
     template_name = 'laboratory/topcities.html'
@@ -147,7 +149,7 @@ class TopTracesListView(ListView):
                 if sight:
                     cursor.execute(
                         f'''
-                            SELECT id, file
+                            SELECT id
                             FROM geography_sightphoto
                             WHERE sight_id = {sight[0][0]}
                             AND rating = (SELECT MAX(rating) FROM geography_sightphoto
@@ -156,7 +158,12 @@ class TopTracesListView(ListView):
                         '''
                     )
                     image = cursor.fetchall()
-                    datas[trace].append(image)
+                    if image:
+                        img = SightPhoto.objects.only('file').get(id=image[0][0])
+                        if img.file.url.split('.')[-1] not in ("jpg", "JPG", "JPEG", "jpeg"):
+                            from travelers.convector_image import convector_to_sight
+                            convector_to_sight(img)
+                        datas[trace].append(img)
 
 
         return render(request, self.template_name, {'datas': datas})

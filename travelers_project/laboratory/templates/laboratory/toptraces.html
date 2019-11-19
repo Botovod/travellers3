@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block title %}
     TopTraces
@@ -40,19 +41,20 @@
               {% endfor %}
             </ul>
           </td>
-          <td>
+          <td style='text-align: center'>
             {% if data.2 %}
-              {% for id, file in data.2 %}
-                <a href="/media/{{ file }}" data-lightbox="image-{{id}}" data-title="Популярная картинка">
-                  <img width="150" src="/media/{{ file }}" alt="">
+              {% with img=data.2 %}
+                <a href="{{ img.file.url }}" data-lightbox="image-{{img.id}}" data-title="Популярная картинка">
+                  {% thumbnail img.file "x150" as im %}
+                    <img src="{{ im.url }}" alt="">
+                  {% endthumbnail %}
                 </a>
-              {% endfor %}
+              {% endwith %}
             {% endif %}
           </td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
-
 </div>
 {% endblock %}
