@@ -91,11 +91,12 @@ def get_data():
                            FROM geography_city city
                            WHERE city.region_id={}));'''.format(region_id, region_id))
             photo = cur.fetchall()
-            try:
-                dictionary['photo'] = os.path.join(settings.MEDIA_URL, photo[0][1])
-            except IndexError:
-                dictionary['photo'] = ''
-
+            if photo:
+                image = SightPhoto.objects.get(id=photo[0][0])
+                if image.file.url.split('.')[-1] not in ("jpg", "JPG", "JPEG", "jpeg"):
+                    from travelers.convector_image import convector_to_sight
+                    convector_to_sight(image)
+                dictionary['photo'] = image
             data.append(dictionary)
         conn.commit()
         cur.close()

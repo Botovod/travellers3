@@ -17,8 +17,10 @@
             <td>{{ region.city }}</td>
             <td>{{ region.sight }}</td>
             <td align="center">
-                <a href="{{ region.photo }}">
-                    <img height="80" src="{{ region.photo }}">
+                <a href="{{ region.photo.file.url }}">
+                    {% thumbnail region.photo.file "x150" as im %}
+                    <img src="{{ im.url }}">
+                    {% endthumbnail %}
                 </a>
             </td>
         </tr>
