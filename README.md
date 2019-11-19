@@ -6,7 +6,7 @@ GraphQL:
 запрос списка городов с максимальным рейтином в регионе (по id региона)
 ~~~
 {
-  bestCities(id: 143){
+  bestCities(region_id: 143){
     title
     rating
   }
