@@ -1,6 +1,8 @@
 # travellers3
 
-GraphQL: 127.0.0.1/graphql/
+GraphQL: 
+127.0.0.1:8000/graphql/
+
 запрос списка городов в базе:
 ~~~
 {
