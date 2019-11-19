@@ -27,9 +27,11 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'debug_toolbar',
     'django_extensions',
+    'graphene_django',
 
     # own apps
     'geography',
+    'graphql_api',
     'laboratory',
     'travelers',
     'traces',
@@ -72,6 +74,10 @@ TEMPLATES = [
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
+
+GRAPHENE = {
+    'SCHEMA': 'travelers_project.schema.schema'
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
