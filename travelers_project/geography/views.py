@@ -35,7 +35,7 @@ class CityList(ListView):
     model = City
     template_name = 'geography/city_list.html'
     context_object_name = 'city_list'
-    paginate_by = 12
+    paginate_by = 8
 
 
 class CityDetail(DetailView):
@@ -48,7 +48,7 @@ class SightList(ListView):
     model = Sight
     template_name = 'geography/sight_list.html'
     context_object_name = 'sight_list'
-    paginate_by = 12
+    paginate_by = 8
 
 
 class SightDetail(DetailView):
