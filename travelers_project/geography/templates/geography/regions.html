@@ -27,16 +27,14 @@
                         <h4>{{ region.title }}</h4>
                         <p>
                             {% if region.description %}
-                            {{ region.description|truncatewords:6 }}
+                            {{ region.description|truncatechars:30 }}
                             {% else %}
                             {% lorem 6 w random %}
                             {% endif %}
                         </p>
                     </div>
                 </a>
-                <div class="clearfix"></div>
             </div>
-            <br>
             {% endfor %}
 
             <div class="clearfix"></div>
