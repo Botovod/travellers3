@@ -11,18 +11,19 @@
         </center>
         {% for city in city_list %}
 
-        <div class="col-md-3 story-popular">
+        <div class="col-md-3 story-popular need">
             <div class="feature text-center">
-                {% thumbnail city.image "x150" crop="center" as im %}
+                {% thumbnail city.image "x250" crop="center" as im %}
                 <a href="{{ city.image.url }}">
                     <img class="img-responsive"
                          src="{{ im.url }}"
+                         style="height:250px;"
                          alt="">
                 </a>
                 {% empty %}
                 <img class="img-responsive"
                      src="{% static 'images/not-foto.png' %}"
-                     style="height:150px;"
+                     style="height:250px;"
                      alt="">
                 {% endthumbnail %}
             </div>
@@ -32,9 +33,7 @@
                 </a>
                 <p>
                     {% if city.description %}
-                    {{ city.description|truncatewords:10 }}
-                    {% else %}
-                    {% lorem 10 w random %}
+                    {{ city.description|truncatechars:50 }}
                     {% endif %}
                 </p>
             </div>
