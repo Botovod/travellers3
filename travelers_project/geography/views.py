@@ -11,7 +11,7 @@ class RegionList(ListView):
     model = Region
     template_name = 'geography/regions.html'
     context_object_name = 'region_list'
-    paginate_by = 10
+    paginate_by = 8
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -23,7 +23,7 @@ class RegionDetail(DetailView, MultipleObjectMixin):
     model = Region
     template_name = 'geography/region_detail.html'
     context_object_name = 'region_detail'
-    paginate_by = 6
+    paginate_by = 8
 
     def get_context_data(self, **kwargs):
         object_list = City.objects.filter(region=self.get_object())
