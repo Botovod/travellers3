@@ -8,15 +8,18 @@
         <h3>Регионы</h3>
         <div class="grid-top-top">
             {% for region in region_list %}
-            <div class="col-md-6 ">
+            <div class="col-md-6 need">
                 <a href="{% url 'region_detail_url' pk=region.pk%}">
                     <div class="col-md-6 service-grid">
-                        {% thumbnail region.image "x150" as im %}
-                        <img class="img-responsive" src="{{ im.url }}" alt=""/>
+                        {% thumbnail region.image "x200" as im %}
+                        <img class="img-responsive"
+                             src="{{ im.url }}"
+                             style="height:200px;"
+                             alt=""/>
                         {% empty %}
                         <img class="img-responsive"
                              src="{% static 'images/not-foto.png' %}"
-                             style="height:150px;"
+                             style="height:200px;"
                              alt=""/>
                         {% endthumbnail %}
                     </div>
@@ -33,8 +36,8 @@
                 </a>
                 <div class="clearfix"></div>
             </div>
+            <br>
             {% endfor %}
-
 
             <div class="clearfix"></div>
         </div>
