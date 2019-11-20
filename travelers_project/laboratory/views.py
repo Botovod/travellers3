@@ -11,6 +11,7 @@ from django.views.generic.list import ListView
 from laboratory.db_connector import ConnPsql
 
 from geography.models import SightPhoto
+from travelers.convector_image import GetNormalImage
 
 
 class TopCitiesList(ListView):
@@ -162,8 +163,7 @@ class TopTracesListView(ListView):
                     if image:
                         img = SightPhoto.objects.only('file').get(id=image[0][0])
                         if img.file.url.split('.')[-1] not in ("jpg", "JPG", "JPEG", "jpeg"):
-                            from travelers.convector_image import convector_to_sight
-                            convector_to_sight(img)
+                            GetNormalImage(img).get_image()
                         datas[trace].append(img)
 
 
