@@ -3,6 +3,7 @@ from graphene_django.types import DjangoObjectType
 from django.db.models import Max
 
 from geography.models import City, Region, Sight, SightPhoto
+from traces.models import RouteByCities
 
 
 class CityType(DjangoObjectType):
@@ -25,6 +26,11 @@ class SightPhotoType(DjangoObjectType):
         model = SightPhoto
 
 
+class CityTraceType(DjangoObjectType):
+    class Meta:
+        model = RouteByCities
+
+
 class Query(graphene.ObjectType):
     all_cities = graphene.List(CityType)
     all_regions = graphene.List(RegionType)
@@ -32,6 +38,8 @@ class Query(graphene.ObjectType):
     best_cities = graphene.List(CityType, id=graphene.Int())
     best_sight_in_region = graphene.List(SightType, id=graphene.Int())
     best_sightphoto_in_region = graphene.List(SightPhotoType, id=graphene.Int())
+
+    city_traces = graphene.List(CityTraceType)
 
 
     def resolve_all_cities(self, info, **kwargs):
@@ -77,3 +85,6 @@ class Query(graphene.ObjectType):
         if region_id:
             return filtered_photos
         return None
+
+    def resolve_city_traces(self, info, **kwargs):
+        return RouteByCities.objects.all()
