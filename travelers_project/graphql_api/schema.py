@@ -3,7 +3,7 @@ from graphene_django.types import DjangoObjectType
 from django.db.models import Max
 
 from geography.models import City, Region, Sight, SightPhoto
-from traces.models import RouteByCities
+from traces.models import RouteByCities, CitiesRelationship
 
 
 class CityType(DjangoObjectType):
@@ -31,6 +31,11 @@ class CityTraceType(DjangoObjectType):
         model = RouteByCities
 
 
+class CitiesRelationshipType(DjangoObjectType):
+    class Meta:
+        model = CitiesRelationship
+
+
 class Query(graphene.ObjectType):
     all_cities = graphene.List(CityType)
     all_regions = graphene.List(RegionType)
@@ -40,7 +45,7 @@ class Query(graphene.ObjectType):
     best_sightphoto_in_region = graphene.List(SightPhotoType, id=graphene.Int())
 
     city_traces = graphene.List(CityTraceType)
-
+    cities_in_trace = graphene.List(CitiesRelationshipType, id=graphene.Int(), title=graphene.String())
 
     def resolve_all_cities(self, info, **kwargs):
         return City.objects.all()
@@ -88,3 +93,14 @@ class Query(graphene.ObjectType):
 
     def resolve_city_traces(self, info, **kwargs):
         return RouteByCities.objects.all()
+
+    def resolve_cities_in_trace(self, info, **kwargs):
+        trace_id = kwargs.get('id')
+        trace_title = kwargs.get('title')
+        if trace_id:
+            cities = CitiesRelationship.objects.filter(route__in=RouteByCities.objects.filter(id=trace_id))
+
+        if trace_title:
+            cities = CitiesRelationship.objects.filter(route__in=RouteByCities.objects.filter(title=trace_title))
+
+        return cities
