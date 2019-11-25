@@ -46,6 +46,7 @@ class Query(graphene.ObjectType):
 
     city_traces = graphene.List(CityTraceType)
     cities_in_trace = graphene.List(CitiesRelationshipType, id=graphene.Int(), title=graphene.String())
+    best_sights_in_trace = graphene.List(SightType, id=graphene.Int())
 
     def resolve_all_cities(self, info, **kwargs):
         return City.objects.all()
@@ -104,3 +105,11 @@ class Query(graphene.ObjectType):
             cities = CitiesRelationship.objects.filter(route__in=RouteByCities.objects.filter(title=trace_title))
 
         return cities
+
+    def resolve_best_sights_in_trace(self, info, **kwargs):
+        trace_id = kwargs.get('id')
+        cities_relationship = CitiesRelationship.objects.filter(route__in=RouteByCities.objects.filter(id=trace_id))
+        # cities = City.objects.filter(city__in=cities_relationship)
+        sights = Sight.objects.filter(sight__in=cities_relationship)
+        sight_max = sights.aggregate(Max('rating'))
+        filtered_sights = sights.filter(rating=sight_max['rating__max'])
