@@ -62,13 +62,18 @@ GraphQL:
 запрос информации о регионе по названию:
 ~~~
 {
-  region (title: "Ленинградская область") {
+  region(title: "Воронежская область") {
     id
     title
     description
     city {
+      id
       title
       rating
+      sight {
+        id
+        title
+      }
     }
   }
 }
@@ -81,6 +86,10 @@ GraphQL:
     title
     id
     description
+    sight{
+      id
+      title
+    }
   }
 }
 ~~~
