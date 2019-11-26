@@ -1,11 +1,6 @@
-import logging
-import os
-import psycopg2
-
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.shortcuts import render
-from psycopg2 import OperationalError
 
 from django.views.generic.list import ListView
 from laboratory.db_connector import ConnPsql
@@ -14,95 +9,83 @@ from geography.models import SightPhoto
 from travelers.convector_image import GetNormalImage
 
 
+def convert_image(image):
+    if image.file.url.split('.')[-1] not in ("jpg", "JPG", "JPEG", "jpeg"):
+        GetNormalImage(image).get_image()
+
+
 class TopCitiesList(ListView):
     template_name = 'laboratory/topcities.html'
 
     def get(self, request):
-        regions = get_data()
+        data = []
+        with ConnPsql() as conn:
+            cursor = conn.cursor()
+            cursor.execute('''SELECT id, title FROM geography_region;''')
+            regions = cursor.fetchall()
+            for region_id, title in regions:
+                dictionary = dict()
+                dictionary['region'] = title
+                cursor.execute('''SELECT id, title
+                                  FROM geography_city
+                                  WHERE region_id = {}
+                                  AND rating =
+                                  (SELECT max(rating)
+                                  FROM geography_city
+                                  WHERE region_id = {});'''.format(region_id, region_id))
+                city = cursor.fetchall()
+                try:
+                    dictionary['city'] = city[0][1]
+                except IndexError:
+                    dictionary['city'] = ''
 
-        paginator = Paginator(regions, settings.PAGINATION_COUNT_ONE)
-        page = request.GET.get('page')
-        contacts = paginator.get_page(page)
-        return render(request,
-                      template_name=self.template_name,
-                      context={'catalog': contacts})
+                cursor.execute('''SELECT sight.id, sight.title
+                                  FROM geography_city city
+                                  LEFT JOIN geography_sight sight
+                                  ON city.id = sight.city_id
+                                  WHERE city.region_id = {}
+                                  AND sight.rating =
+                                  (SELECT max(sight.rating)
+                                  FROM geography_city city
+                                  LEFT JOIN geography_sight sight
+                                  ON city.id = sight.city_id
+                                  WHERE city.region_id = {})
+                                  LIMIT 1;'''.format(region_id, region_id))
 
+                sight = cursor.fetchall()
+                try:
+                    dictionary['sight'] = sight[0][1]
+                except IndexError:
+                    dictionary['sight'] = ''
 
-def get_data():
-    data = []
-    try:
-        conn = psycopg2.connect(dbname=settings.DATABASES['default']['NAME'],
-                                user=settings.DATABASES['default']['USER'],
-                                host=settings.DATABASES['default']['HOST'],
-                                password=settings.DATABASES['default']['PASSWORD'])
-    except (OperationalError, KeyError):
-        logging.exception('Unable to open DB')
-    else:
-        cur = conn.cursor()
-        cur.execute('''SELECT id, title
-                       FROM geography_region;''')
-        regions = cur.fetchall()
-        for region_id, title in regions:
-            dictionary = dict()
-            dictionary['region'] = title
-            cur.execute('''SELECT id, title
-                           FROM geography_city
-                           WHERE region_id = {}
-                           AND rating =
-                           (SELECT max(rating)
-                           FROM geography_city
-                           WHERE region_id = {}) ;'''.format(region_id, region_id))
-            city = cur.fetchall()
-            try:
-                dictionary['city'] = city[0][1]
-            except IndexError:
-                dictionary['city'] = ''
-            cur.execute('''SELECT sight.id, sight.title
-                           FROM geography_city city
-                           LEFT JOIN geography_sight sight
-                           ON city.id = sight.city_id
-                           WHERE city.region_id = {}
-                           AND sight.rating =
-                           (SELECT max(sight.rating)
-                           FROM geography_city city
-                           LEFT JOIN geography_sight sight
-                           ON city.id = sight.city_id
-                           WHERE city.region_id = {}) ;'''.format(region_id, region_id))
-            sight = cur.fetchall()
-            try:
-                dictionary['sight'] = sight[0][1]
-            except IndexError:
-                dictionary['sight'] = ''
+                cursor.execute('''SELECT photo.id, photo.file
+                                  FROM geography_sight sight
+                                  LEFT JOIN geography_sightphoto photo
+                                  ON photo.sight_id = sight.id
+                                  WHERE sight.city_id
+                                  IN (SELECT city.id
+                                  FROM geography_city city
+                                  WHERE city.region_id={})
+                                  AND photo.rating =
+                                  (SELECT max(photo.rating)
+                                  FROM geography_sight sight
+                                  LEFT JOIN geography_sightphoto photo
+                                  ON photo.sight_id = sight.id
+                                  WHERE sight.city_id
+                                  IN (SELECT city.id
+                                  FROM geography_city city
+                                  WHERE city.region_id={}));'''.format(region_id, region_id))
+                photo = cursor.fetchall()
+                if photo:
+                    image = SightPhoto.objects.get(id=photo[0][0])
+                    convert_image(image)
+                    dictionary['photo'] = image
+                data.append(dictionary)
 
-            cur.execute('''SELECT photo.id, photo.file
-                           FROM geography_sight sight
-                           LEFT JOIN geography_sightphoto photo
-                           ON photo.sight_id = sight.id
-                           WHERE sight.city_id
-                           IN (SELECT city.id
-                           FROM geography_city city
-                           WHERE city.region_id={})
-                           AND photo.rating =
-                           (SELECT max(photo.rating)
-                           FROM geography_sight sight
-                           LEFT JOIN geography_sightphoto photo
-                           ON photo.sight_id = sight.id
-                           WHERE sight.city_id
-                           IN (SELECT city.id
-                           FROM geography_city city
-                           WHERE city.region_id={}));'''.format(region_id, region_id))
-            photo = cur.fetchall()
-            if photo:
-                image = SightPhoto.objects.get(id=photo[0][0])
-                if image.file.url.split('.')[-1] not in ("jpg", "JPG", "JPEG", "jpeg"):
-                    from travelers.convector_image import convector_to_sight
-                    convector_to_sight(image)
-                dictionary['photo'] = image
-            data.append(dictionary)
-        conn.commit()
-        cur.close()
-        conn.close()
-    return data
+            paginator = Paginator(data, settings.PAGINATION_COUNT_ONE)
+            page = request.GET.get('page')
+            contacts = paginator.get_page(page)
+        return render(request, template_name=self.template_name, context={'catalog': contacts})
 
 
 class TopTracesListView(ListView):
@@ -117,9 +100,9 @@ class TopTracesListView(ListView):
                     SELECT id, title FROM traces_routebycities;
                 '''
             )
-            traces = cursor.fetchall()      # [(1, 'Москва - Санкт-Петербург')]
+            traces = cursor.fetchall()  # [(1, 'Москва - Санкт-Петербург')]
 
-            datas = {}                     # {(1, 'Москва - Санкт-Петербург'): [[(1, Moscow), (2, Sbp), ...], Kremle, image_url}
+            datas = {}  # {(1, 'Москва - Санкт-Петербург'): [[(1, Moscow), (2, Sbp), ...], Kremle, image_url}
             for trace in traces:
                 # cities
                 cursor.execute(
@@ -162,14 +145,6 @@ class TopTracesListView(ListView):
                     image = cursor.fetchall()
                     if image:
                         img = SightPhoto.objects.only('file').get(id=image[0][0])
-                        if img.file.url.split('.')[-1] not in ("jpg", "JPG", "JPEG", "jpeg"):
-                            GetNormalImage(img).get_image()
+
                         datas[trace].append(img)
-
-
         return render(request, self.template_name, {'datas': datas})
-
-#new line
-
-
-# next line

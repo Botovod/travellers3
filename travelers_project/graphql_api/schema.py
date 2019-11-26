@@ -52,7 +52,11 @@ class Query(graphene.ObjectType):
         return City.objects.all()
 
     def resolve_region(self, info, **kwargs):
+        id = kwargs.get('id')
         title = kwargs.get('title')
+
+        if id:
+            return Region.objects.get(pk=id)
 
         if title:
             return Region.objects.get(title=title)
