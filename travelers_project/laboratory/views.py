@@ -14,6 +14,13 @@ def convert_image(image):
         GetNormalImage(image).get_image()
 
 
+def add_item(dictionary, item, value):
+    try:
+        dictionary[item] = value
+    except IndexError:
+        dictionary[item] = ''
+
+
 class TopCitiesList(ListView):
     template_name = 'laboratory/topcities.html'
 
@@ -25,7 +32,8 @@ class TopCitiesList(ListView):
             regions = cursor.fetchall()
             for region_id, title in regions:
                 dictionary = dict()
-                dictionary['region'] = title
+                add_item(dictionary, 'region', title)
+
                 cursor.execute('''SELECT id, title
                                   FROM geography_city
                                   WHERE region_id = {}
@@ -33,11 +41,7 @@ class TopCitiesList(ListView):
                                   (SELECT max(rating)
                                   FROM geography_city
                                   WHERE region_id = {});'''.format(region_id, region_id))
-                city = cursor.fetchall()
-                try:
-                    dictionary['city'] = city[0][1]
-                except IndexError:
-                    dictionary['city'] = ''
+                best_cities = cursor.fetchall()
 
                 cursor.execute('''SELECT sight.id, sight.title
                                   FROM geography_city city
@@ -49,14 +53,9 @@ class TopCitiesList(ListView):
                                   FROM geography_city city
                                   LEFT JOIN geography_sight sight
                                   ON city.id = sight.city_id
-                                  WHERE city.region_id = {})
-                                  LIMIT 1;'''.format(region_id, region_id))
+                                  WHERE city.region_id = {})'''.format(region_id, region_id))
 
-                sight = cursor.fetchall()
-                try:
-                    dictionary['sight'] = sight[0][1]
-                except IndexError:
-                    dictionary['sight'] = ''
+                best_sights = cursor.fetchall()
 
                 cursor.execute('''SELECT photo.id, photo.file
                                   FROM geography_sight sight
@@ -75,11 +74,18 @@ class TopCitiesList(ListView):
                                   IN (SELECT city.id
                                   FROM geography_city city
                                   WHERE city.region_id={}));'''.format(region_id, region_id))
-                photo = cursor.fetchall()
-                if photo:
-                    image = SightPhoto.objects.get(id=photo[0][0])
+                best_photos = cursor.fetchall()
+
+                add_item(dictionary, 'region', title)
+                if best_cities:
+                    add_item(dictionary, 'city', best_cities[0][1])
+                if best_sights:
+                    add_item(dictionary, 'sight', best_sights[0][1])
+                if best_photos:
+                    image = SightPhoto.objects.get(id=best_photos[0][0])
                     convert_image(image)
-                    dictionary['photo'] = image
+                    add_item(dictionary, 'photo', image)
+
                 data.append(dictionary)
 
             paginator = Paginator(data, settings.PAGINATION_COUNT_ONE)
