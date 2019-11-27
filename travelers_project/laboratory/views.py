@@ -15,9 +15,12 @@ def convert_image(image):
 
 
 def add_item(dictionary, item, value):
-    try:
+    if value:
+        if item == 'photo':
+            value = SightPhoto.objects.get(id=value)
+            convert_image(value)
         dictionary[item] = value
-    except IndexError:
+    else:
         dictionary[item] = ''
 
 
@@ -25,70 +28,55 @@ class TopCitiesList(ListView):
     template_name = 'laboratory/topcities.html'
 
     def get(self, request):
-        data = []
         with ConnPsql() as conn:
             cursor = conn.cursor()
-            cursor.execute('''SELECT id, title FROM geography_region;''')
-            regions = cursor.fetchall()
-            for region_id, title in regions:
+            cursor.execute(
+                '''
+                WITH
+                regions as 
+                (SELECT id, title 
+                FROM geography_region
+                ORDER BY id),
+                cities as
+                (SELECT city.region_id, city.id, city.title
+                FROM geography_city city
+                WHERE rating = (SELECT MAX(rating) FROM geography_city where region_id = city.region_id)
+                GROUP BY city.region_id, city.id),
+                sights as
+                (SELECT sight.city_id, sight.id, sight.title
+                FROM geography_sight sight
+                WHERE rating = (SELECT MAX(rating) FROM geography_sight where city_id = sight.city_id)
+                GROUP BY sight.city_id, sight.id),
+                photos as
+                (SELECT photo.sight_id, photo.id, photo.file
+                FROM geography_sightphoto photo
+                WHERE rating = (SELECT MAX(rating) FROM geography_sightphoto WHERE sight_id = photo.sight_id)
+                GROUP BY photo.sight_id, photo.id)
+                SELECT 
+                regions.id, regions.title,
+                cities.id, cities.title,
+                sights.id, sights.title,
+                photos.id, photos.file
+                FROM regions
+                LEFT JOIN cities
+                ON regions.id = cities.region_id
+                LEFT JOIN sights
+                ON cities.id = sights.city_id
+                LEFT JOIN photos
+                ON sights.id = photos.sight_id;
+                '''
+            )
+            data = cursor.fetchall()
+            context = []
+            for x in data:
                 dictionary = dict()
-                add_item(dictionary, 'region', title)
+                add_item(dictionary, 'region', x[1])
+                add_item(dictionary, 'city', x[3])
+                add_item(dictionary, 'sight', x[5])
+                add_item(dictionary, 'photo', x[6])
+                context.append(dictionary)
 
-                cursor.execute('''SELECT id, title
-                                  FROM geography_city
-                                  WHERE region_id = {}
-                                  AND rating =
-                                  (SELECT max(rating)
-                                  FROM geography_city
-                                  WHERE region_id = {});'''.format(region_id, region_id))
-                best_cities = cursor.fetchall()
-
-                cursor.execute('''SELECT sight.id, sight.title
-                                  FROM geography_city city
-                                  LEFT JOIN geography_sight sight
-                                  ON city.id = sight.city_id
-                                  WHERE city.region_id = {}
-                                  AND sight.rating =
-                                  (SELECT max(sight.rating)
-                                  FROM geography_city city
-                                  LEFT JOIN geography_sight sight
-                                  ON city.id = sight.city_id
-                                  WHERE city.region_id = {})'''.format(region_id, region_id))
-
-                best_sights = cursor.fetchall()
-
-                cursor.execute('''SELECT photo.id, photo.file
-                                  FROM geography_sight sight
-                                  LEFT JOIN geography_sightphoto photo
-                                  ON photo.sight_id = sight.id
-                                  WHERE sight.city_id
-                                  IN (SELECT city.id
-                                  FROM geography_city city
-                                  WHERE city.region_id={})
-                                  AND photo.rating =
-                                  (SELECT max(photo.rating)
-                                  FROM geography_sight sight
-                                  LEFT JOIN geography_sightphoto photo
-                                  ON photo.sight_id = sight.id
-                                  WHERE sight.city_id
-                                  IN (SELECT city.id
-                                  FROM geography_city city
-                                  WHERE city.region_id={}));'''.format(region_id, region_id))
-                best_photos = cursor.fetchall()
-
-                add_item(dictionary, 'region', title)
-                if best_cities:
-                    add_item(dictionary, 'city', best_cities[0][1])
-                if best_sights:
-                    add_item(dictionary, 'sight', best_sights[0][1])
-                if best_photos:
-                    image = SightPhoto.objects.get(id=best_photos[0][0])
-                    convert_image(image)
-                    add_item(dictionary, 'photo', image)
-
-                data.append(dictionary)
-
-            paginator = Paginator(data, settings.PAGINATION_COUNT_ONE)
+            paginator = Paginator(context, settings.PAGINATION_COUNT_ONE)
             page = request.GET.get('page')
             contacts = paginator.get_page(page)
         return render(request, template_name=self.template_name, context={'catalog': contacts})
