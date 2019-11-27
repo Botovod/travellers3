@@ -39,10 +39,12 @@ class CitiesRelationshipType(DjangoObjectType):
 class Query(graphene.ObjectType):
     all_cities = graphene.List(CityType)
     all_regions = graphene.List(RegionType)
-    region = graphene.Field(RegionType, title=graphene.String())
+    region = graphene.Field(RegionType, id=graphene.Int(), title=graphene.String())
     best_cities = graphene.List(CityType, id=graphene.Int())
     best_sight_in_region = graphene.List(SightType, id=graphene.Int())
     best_sightphoto_in_region = graphene.List(SightPhotoType, id=graphene.Int())
+    sights_in_city = graphene.List(SightType, id=graphene.Int())
+    photos_in_sight = graphene.List(SightPhotoType, id=graphene.Int())
 
     city_traces = graphene.List(CityTraceType)
     cities_in_trace = graphene.List(CitiesRelationshipType, id=graphene.Int(), title=graphene.String())
@@ -56,7 +58,7 @@ class Query(graphene.ObjectType):
         title = kwargs.get('title')
 
         if id:
-            return Region.objects.get(pk=id)
+            return Region.objects.get(id=id)
 
         if title:
             return Region.objects.get(title=title)
@@ -72,6 +74,14 @@ class Query(graphene.ObjectType):
             return filtered_cities
         return None
 
+    def resolve_sights_in_city(self, info, **kwargs):
+        city_id = kwargs.get('id')
+        sights = Sight.objects.filter(city=City.objects.get(id=city_id))
+
+        if city_id:
+            return sights
+        return None
+
     def resolve_all_regions(self, info, **kwargs):
         return Region.objects.all()
 
@@ -83,6 +93,14 @@ class Query(graphene.ObjectType):
 
         if region_id:
             return filtered_sights
+        return None
+
+    def resolve_photos_in_sight(self, info, **kwargs):
+        sight_id = kwargs.get('id')
+        photos = SightPhoto.objects.filter(sight=Sight.objects.get(id=sight_id))
+
+        if sight_id:
+            return photos
         return None
 
     def resolve_best_sightphoto_in_region(self, info, **kwargs):
