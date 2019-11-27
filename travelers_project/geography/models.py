@@ -26,6 +26,13 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class RatingMixin(models.Model):
+    rating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
+
+    class Meta:
+        abstract = True
+
+
 class Region(BaseModel):
     title = models.CharField('Название', max_length=255, default='')
     description = models.TextField('Описание', default='', blank=True)
@@ -42,7 +49,7 @@ class CityManager(models.Manager):
         return self.filter(posted=True)
 
 
-class City(BaseModel):
+class City(BaseModel, RatingMixin):
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="city", default=None, blank=True,
                                null=True, verbose_name="Регион")
     title = models.CharField(max_length=255, default='', verbose_name='Название')
@@ -59,7 +66,6 @@ class City(BaseModel):
     autotravel_url = models.CharField(max_length=255, default='', blank=True, verbose_name="URL")
     latitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Широта')
     longitude = models.CharField(max_length=100, default='', blank=True, verbose_name='Долгота')
-    rating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
 
     objects = CityManager()
 
@@ -81,7 +87,7 @@ class TypeOfSights(BaseModel):
         ordering = ['title']
 
 
-class Sight(BaseModel):
+class Sight(BaseModel, RatingMixin):
     type = models.ManyToManyField(TypeOfSights, related_name='type_sight', verbose_name='Достопримечательности')
     city = models.ForeignKey(City, on_delete=models.DO_NOTHING, related_name='sight', blank=True, null=True,
                              verbose_name='Город')
@@ -105,7 +111,6 @@ class Sight(BaseModel):
     fix_date = models.DateTimeField(null=True, auto_now=True, verbose_name='Дата исправления')
     address = models.CharField(max_length=255, default='', blank=True, verbose_name='Адрес')
     autotravel_url = models.CharField(max_length=255, default='', blank=True, verbose_name='URL')
-    rating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
 
     class Meta:
         verbose_name = 'Достопримечательность'
@@ -123,7 +128,7 @@ class SectionOfSights(BaseModel):
         ordering = ['title']
 
 
-class SightPhoto(models.Model):
+class SightPhoto(RatingMixin):
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     sight = models.ForeignKey(Sight, on_delete=models.CASCADE,
                               related_name='sight_photo',
@@ -131,7 +136,6 @@ class SightPhoto(models.Model):
                               verbose_name='Достпримечательность')
     file = models.ImageField(default='', upload_to=image_sight, max_length=200, verbose_name='Изображение')
     posted = models.BooleanField(default=True)
-    rating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
 
     class Meta:
         verbose_name = 'Фотография достопримечательности'
