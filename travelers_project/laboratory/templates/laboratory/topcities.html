@@ -1,19 +1,30 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 
+{% block title %}
+Лаборатория | Топ георгафических объектов по городам | Andersen
+{% endblock title %}
+
 {% block content %}
 
-<center>
-    <table border="1" cellpadding="5px" cellspacing="5px">
-        <tr align="center">
-            <td>Регион</td>
-            <td>Главный Город</td>
-            <td>Самая главная достопримечательность</td>
-            <td>Лучшее Фото</td>
+<!-- Lightbox. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox-plus-jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+
+
+<div class="container">
+    <table class="table mt-5">
+        <tbody>
+        <tr>
+            <th scope="col">Регион</th>
+            <th scope="col">Главный Город</th>
+            <th scope="col">Популярная достопримечательнотсь</th>
+            <th scope="col">Популярная картинка</th>
         </tr>
         {% for region in catalog %}
         <tr>
-            <td>{{ region.region }}</td>
+            <td>{{ region.region }}</a></td>
             <td>{{ region.city }}</td>
             <td>{{ region.sight }}</td>
             <td align="center">
@@ -24,29 +35,27 @@
                 </a>
             </td>
         </tr>
-
         {% endfor %}
-
+        </tbody>
     </table>
+    <center>
+        <div class="pagination">
+            <span class="step-links">
+                {% if catalog.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ catalog.previous_page_number }}">previous</a>
+                {% endif %}
 
+                <span class="current">
+                    Page {{ catalog.number }} of {{ catalog.paginator.num_pages }}.
+                </span>
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if catalog.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ catalog.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ catalog.number }} of {{ catalog.paginator.num_pages }}.
+                {% if catalog.has_next %}
+                    <a href="?page={{ catalog.next_page_number }}">next</a>
+                    <a href="?page={{ catalog.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
             </span>
-
-            {% if catalog.has_next %}
-                <a href="?page={{ catalog.next_page_number }}">next</a>
-                <a href="?page={{ catalog.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-</center>
-
-{% endblock content %}
+        </div>
+    </center>
+</div>
+{% endblock %}
