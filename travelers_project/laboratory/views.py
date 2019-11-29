@@ -88,57 +88,64 @@ class TopTracesListView(ListView):
     def get(self, request):
         with ConnPsql() as conn:
             cursor = conn.cursor()
-            # traces
             cursor.execute(
                 '''
-                    SELECT id, title FROM traces_routebycities;
+                    WITH t as(
+                    SELECT tr.route_id as route, 
+                    sight.id as sight_id, sight.title as sight, sight.rating as sight_rating,
+                    city.id as city_id, city.title as city, city.rating as city_rating,
+                    ph.id as photo_id,  ph.rating as photo_rating
+                    
+                    FROM traces_citiesrelationship tr
+                    LEFT JOIN geography_city city
+                    ON tr.city_id = city.id
+                    LEFT JOIN geography_sight sight
+                    ON sight.city_id = city.id
+                    LEFT JOIN geography_sightphoto ph
+                    ON ph.sight_id = sight.id
+                    ORDER BY tr.route_id
+                    ),
+                    
+                    city_table as (
+                    SELECT route, MIN(city) as city
+                    FROM t
+                    WHERE city_rating IN (SELECT max(city_rating) FROM t WHERE t.route = route GROUP BY route)
+                    GROUP BY route
+                    ORDER BY route),
+                    
+                    sight_table as (
+                    SELECT route, MIN(sight) as sight
+                    FROM t
+                    WHERE sight_rating IN (SELECT max(sight_rating) FROM t WHERE t.route = route GROUP BY route)
+                    GROUP BY route
+                    ORDER BY route),
+                    
+                    photo_table as (
+                    SELECT route, MIN(photo_id) as photo_id
+                    FROM t
+                    WHERE photo_rating IN (SELECT max(photo_rating) FROM t WHERE t.route = route GROUP BY route)
+                    GROUP BY route
+                    ORDER BY route
+                    )
+                    
+                    SELECT traces.title, city.city, sight.sight, photo.photo_id
+                    FROM traces_routebycities traces
+                    JOIN city_table city 
+                    ON traces.id = city.route
+                    JOIN sight_table sight
+                    ON city.route = sight.route
+                    JOIN photo_table photo
+                    ON sight.route = photo.route;
                 '''
             )
-            traces = cursor.fetchall()  # [(1, 'Москва - Санкт-Петербург')]
+            data = cursor.fetchall()
+            context = []
+            for x in data:
+                dictionary = dict()
+                add_item(dictionary, 'trace', x[0])
+                add_item(dictionary, 'city', x[1])
+                add_item(dictionary, 'sight', x[2])
+                add_item(dictionary, 'photo', x[3])
+                context.append(dictionary)
 
-            datas = {}  # {(1, 'Москва - Санкт-Петербург'): [[(1, Moscow), (2, Sbp), ...], Kremle, image_url}
-            for trace in traces:
-                # cities
-                cursor.execute(
-                    f'''
-                        SELECT geography_city.id, title
-                        FROM geography_city
-                        INNER JOIN traces_citiesrelationship
-                        ON (geography_city.id = traces_citiesrelationship.city_id)
-                        WHERE traces_citiesrelationship.route_id = {trace[0]};
-                    '''
-                )
-                cities = cursor.fetchall()
-
-                # popoular sight
-                cursor.execute(
-                    f'''
-                        SELECT id, title, rating
-                        FROM geography_sight
-                        WHERE city_id IN {tuple(id[0] for id in cities)}
-                        AND rating = (SELECT MAX(rating) FROM geography_sight
-                        WHERE city_id IN {tuple(id[0] for id in cities)})
-                        LIMIT 1
-                    '''
-                )
-                sight = cursor.fetchall()
-                datas[trace] = [cities, sight]
-
-                # popular image
-                if sight:
-                    cursor.execute(
-                        f'''
-                            SELECT id
-                            FROM geography_sightphoto
-                            WHERE sight_id = {sight[0][0]}
-                            AND rating = (SELECT MAX(rating) FROM geography_sightphoto
-                            WHERE sight_id = {sight[0][0]})
-                            LIMIT 1
-                        '''
-                    )
-                    image = cursor.fetchall()
-                    if image:
-                        img = SightPhoto.objects.only('file').get(id=image[0][0])
-
-                        datas[trace].append(img)
-        return render(request, self.template_name, {'datas': datas})
+        return render(request, self.template_name, {'context': context})
