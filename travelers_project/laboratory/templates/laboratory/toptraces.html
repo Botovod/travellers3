@@ -2,7 +2,7 @@
 {% load thumbnail %}
 
 {% block title %}
-    TopTraces
+TopTraces
 {% endblock title %}
 
 {% block content %}
@@ -14,47 +14,31 @@
 
 
 <div class="container">
-  <table class="table mt-5">
-    <tbody>
-      <tr>
-        <th scope="col">Маршруты по городам</th>
-        <th scope="col">Города</th>
-        <th scope="col">Популярная достопримечательнотсь</th>
-        <th scope="col">Популярная картинка</th>
-      </tr>
-      {% for route, data in datas.items %}
+    <table class="table mt-5">
+        <tbody>
         <tr>
-          <td><a href="{% url 'routes-cities-detail-url' pk=route.0 %}">{{ route.1 }}</a></td>
-          <td>
-            <ul>
-              {% for id, city in data.0 %}
-                <li><a href="{% url 'city_detail_url' pk=id %}">{{ city }}</a></li>
-              {% endfor %}
-            </ul>
-          </td>
-          <td>
-            <ul>
-              {% for id, sight, rating in data.1 %}
-                <li><a href="{% url 'sight_detail_url' pk=id %}">{{ sight }}</a>
-                    <span><i>{{ rating }}</i></span>
-                </li>
-              {% endfor %}
-            </ul>
-          </td>
-          <td style='text-align: center'>
-            {% if data.2 %}
-              {% with img=data.2 %}
-                <a href="{{ img.file.url }}" data-lightbox="image-{{img.id}}" data-title="Популярная картинка">
-                  {% thumbnail img.file "x150" as im %}
-                    <img src="{{ im.url }}" alt="">
-                  {% endthumbnail %}
-                </a>
-              {% endwith %}
-            {% endif %}
-          </td>
+            <th scope="col">Маршруты по городам</th>
+            <th scope="col">Популярный город</th>
+            <th scope="col">Популярная достопримечательность</th>
+            <th scope="col">Популярная картинка</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        {% for route in context %}
+        <tr>
+            <td>{{ route.trace }}</a></td>
+            <td>{{ route.city }}</td>
+            <td>{{ route.sight }}</td>
+            <td style='text-align: center'>
+                <a href="{{ route.photo.file.url }}"
+                   data-lightbox="image-{{img.id}}"
+                   data-title="Популярная картинка">
+                    {% thumbnail route.photo.file "x150" as im %}
+                    <img src="{{ im.url }}">
+                    {% endthumbnail %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
