@@ -7,7 +7,7 @@ from geography.models import Sight
 class RouteByCities(models.Model):
     title = models.CharField(max_length=255, default='', verbose_name='Название маршрута')
     cities = models.ManyToManyField(City, through='CitiesRelationship')
-    description = models.TextField(default="")
+    description = models.TextField(default="", blank=True)
 
     class Meta:
         verbose_name = 'Маршрут по городам'
@@ -35,7 +35,7 @@ class RouteBySights(models.Model):
     sights = models.ManyToManyField(Sight,
                                     through='SightsRelationship',
                                     verbose_name='Достопримечательности маршрута')
-    description = models.TextField(default="")
+    description = models.TextField(default="", blank=True)
 
     class Meta:
         verbose_name = 'Маршрут по достопримечательностям'
