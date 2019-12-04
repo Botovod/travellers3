@@ -10,39 +10,29 @@
             <br>
         </center>
         {% for city in city_list %}
-
-        <div class="col-md-3 story-popular need">
+        <div class="col-md-3 story-popular need" style="height:450px;">
             <div class="feature text-center">
                 {% thumbnail city.image "x250" crop="center" as im %}
                 <a href="{{ city.image.url }}">
-                    <img class="img-responsive"
-                         src="{{ im.url }}"
+                    <img src="{{ im.url }}"
                          style="height:250px;"
                          alt="">
                 </a>
                 {% empty %}
-                <img class="img-responsive"
-                     src="{% static 'images/not-foto.png' %}"
+                <img src="{% static 'images/not-foto.png' %}"
                      style="height:250px;"
                      alt="">
                 {% endthumbnail %}
-            </div>
-            <div class="feature text-left">
+
                 <a href="{% url 'city_detail_url' pk=city.pk %}">
                     <h6>{{ city.title }}</h6>
                 </a>
-                <p>
-                    {% if city.description %}
-                    {{ city.description|truncatechars:50 }}
-                    {% endif %}
-                </p>
+                <p>{{ city.description|truncatechars:80 }}</p>
             </div>
         </div>
         {% endfor %}
-        <div class="clearfix"></div>
     </div>
-
-    {% include 'geography/includes/paginator.html' %}
-
+    <div class="clearfix"></div>
 </div>
+{% include 'geography/includes/paginator.html' %}
 {% endblock %}

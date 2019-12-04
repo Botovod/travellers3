@@ -11,31 +11,24 @@
         </center>
         {% for sight in sight_list %}
 
-        <div class="col-md-4 story-popular">
+        <div class="col-md-4 story-popular" style="height:300px;">
             <div class="feature text-center">
                 {% thumbnail sight.image "x150" crop="center" as im %}
                 <a href="{{ sight.image.url }}">
-                    <img class="img-responsive"
-                         src="{{ im.url }}"
+                    <img src="{{ im.url }}"
                          alt="">
                 </a>
                 {% empty %}
-                <img class="img-responsive"
-                     src="{% static 'images/not-foto.png' %}"
+                <img src="{% static 'images/not-foto.png' %}"
                      style="height:150px;"
                      alt="">
                 {% endthumbnail %}
-            </div>
-            <div class="feature text-left">
+
                 <a href="{% url 'sight_detail_url' pk=sight.pk %}">
                     <h4>{{ sight.title | truncatechars:30 }}</h4>
                 </a>
                 <p>
-                    {% if sight.text %}
-                    {{ sight.text | truncatechars:30 }}
-                    {% else %}
-                    {% lorem 4 w random %}
-                    {% endif %}
+                    {{ sight.text | truncatechars:80 }}
                 </p>
             </div>
         </div>
