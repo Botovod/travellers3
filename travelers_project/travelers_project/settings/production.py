@@ -13,7 +13,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 THUMBNAIL_DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['91.240.85.84', 'lifeinpenza.fvds.ru']
 
 # Application definition
 
