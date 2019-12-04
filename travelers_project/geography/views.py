@@ -48,7 +48,7 @@ class SightList(ListView):
     model = Sight
     template_name = 'geography/sight_list.html'
     context_object_name = 'sight_list'
-    paginate_by = 8
+    paginate_by = 9
 
 
 class SightDetail(DetailView):

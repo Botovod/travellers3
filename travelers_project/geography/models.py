@@ -50,11 +50,11 @@ class CityManager(models.Manager):
 
 
 class City(BaseModel, RatingMixin):
-    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="city", default=None, blank=True,
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="city", default=None,
                                null=True, verbose_name="Регион")
     title = models.CharField(max_length=255, default='', verbose_name='Название')
     description = models.TextField(default='', blank=True, verbose_name='Описание')
-    slug = models.SlugField(max_length=255, db_index=True, verbose_name='Адрес')
+    slug = models.SlugField(max_length=255, db_index=True, blank=True, verbose_name='Адрес')
     image = models.FileField(upload_to=image_city, blank=True, null=True, verbose_name='Изображение')
     default_zoom = models.PositiveSmallIntegerField(default=0, blank=True, verbose_name='Масштаб')
     centre_coordinates = models.CharField(max_length=100, default='', blank=True, verbose_name='Координаты')
@@ -109,7 +109,7 @@ class Sight(BaseModel, RatingMixin):
     price = models.CharField(max_length=100, null=True, blank=True, verbose_name='Цена')
     add_date = models.DateTimeField(null=True, auto_now_add=True, verbose_name='Дата добавления')
     fix_date = models.DateTimeField(null=True, auto_now=True, verbose_name='Дата исправления')
-    address = models.CharField(max_length=255, default='', blank=True, verbose_name='Адрес')
+    address = models.CharField(max_length=255, default='', blank=False, verbose_name='Адрес')
     autotravel_url = models.CharField(max_length=255, default='', blank=True, verbose_name='URL')
 
     class Meta:

@@ -8,7 +8,7 @@
         <h3>Регионы</h3>
         <div class="grid-top-top">
             {% for region in region_list %}
-            <div class="col-md-6 need">
+            <div class="col-md-6 need" style="height:300px;">
                 <a href="{% url 'region_detail_url' pk=region.pk%}">
                     <div class="col-md-6 service-grid">
                         {% thumbnail region.image "x200" as im %}
@@ -26,18 +26,12 @@
                     <div class="col-md-6 top-grid-right">
                         <h4>{{ region.title }}</h4>
                         <p>
-                            {% if region.description %}
-                            {{ region.description|truncatechars:30 }}
-                            {% else %}
-                            {% lorem 6 w random %}
-                            {% endif %}
+                            {{ region.description|truncatechars:200 }}
                         </p>
                     </div>
                 </a>
             </div>
             {% endfor %}
-
-            <div class="clearfix"></div>
         </div>
     </div>
 
