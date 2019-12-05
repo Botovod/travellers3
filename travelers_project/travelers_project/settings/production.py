@@ -7,8 +7,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 THUMBNAIL_DEBUG = False
@@ -26,7 +24,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'sorl.thumbnail',
-    # 'debug_toolbar',
     'django_extensions',
     'graphene_django',
 
@@ -90,6 +87,7 @@ WSGI_APPLICATION = 'travelers_project.wsgi.application'
 from travelers_project import local_settings
 
 DATABASES = local_settings.DATABASES
+SECRET_KEY = local_settings.SECRET_KEY
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -126,9 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
