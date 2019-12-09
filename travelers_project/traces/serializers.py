@@ -6,22 +6,26 @@ from traces.models import (
     SightsRelationship,
 )
 
+
 class RouteByCitiesSerializer(serializers.ModelSerializer):
     class Meta:
         model = RouteByCities
-        fields = '__all__'
+        fields = ('id', 'title', 'description', 'cities')
+
 
 class CitiesRelationshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = CitiesRelationship
-        fields = '__all__'
+        fields = ('id', 'city', 'route', 'position')
+
 
 class RouteBySightsSerializer(serializers.ModelSerializer):
     class Meta:
         model = RouteBySights
-        fields = '__all__'
+        fields = ('id', 'title', 'sights', 'description')
+
 
 class SightsRelationshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = SightsRelationship
-        fields = '__all__'
+        fields = ('id', 'sight', 'route', 'position')
