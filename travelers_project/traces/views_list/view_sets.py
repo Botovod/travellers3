@@ -1,3 +1,5 @@
+from rest_framework.permissions import IsAuthenticated
+
 from rest_framework import viewsets
 from traces.models import (
     RouteByCities,

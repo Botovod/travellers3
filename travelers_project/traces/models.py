@@ -1,7 +1,6 @@
 from django.db import models
 
-from geography.models import City
-from geography.models import Sight
+from geography.models import City, Sight
 
 
 class RouteByCities(models.Model):
@@ -24,7 +23,7 @@ class CitiesRelationship(models.Model):
     ordering = ['position']
 
     class Meta:
-        unique_together = [['route', 'position']]
+        unique_together = ('route', 'position',)
 
     def __str__(self):
         return '{}-{}'.format(self.route.title, self.city.title)
@@ -52,7 +51,7 @@ class SightsRelationship(models.Model):
     ordering = ['position']
 
     class Meta:
-        unique_together = [['route', 'position']]
+        unique_together = ('route', 'position',)
 
     def __str__(self):
         return '{}-{}'.format(self.route.title, self.sight.title)
