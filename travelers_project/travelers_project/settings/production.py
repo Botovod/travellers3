@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 DEBUG = False
 THUMBNAIL_DEBUG = False
 
-ALLOWED_HOSTS = ['91.240.85.84', 'lifeinpenza.fvds.ru']
+ALLOWED_HOSTS = ['lifeinpenza.fvds.ru']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

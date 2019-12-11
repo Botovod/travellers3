@@ -6,6 +6,10 @@ from geography.models import Region, City, Sight, SightPhoto, SectionOfSights, T
 from geography.serializers import RegionSerializer, CitySerializer, SightSerializer
 from geography.serializers import SightPhotoSerializer, SectionOfSightsSerializer, TypeOfSightsSerializer
 
+from traces.models import RouteByCities, CitiesRelationship, RouteBySights, SightsRelationship
+from geography.serializers import RouteByCitiesSerializer, RouteBySightsSerializer
+from geography.serializers import CitiesRelationshipSerializer, SightsRelationshipSerializer
+
 
 class RegionList(ListView):
     model = Region
@@ -86,3 +90,23 @@ class SectionOfSightsViewSet(viewsets.ModelViewSet):
 class TypeOfSightsViewSet(viewsets.ModelViewSet):
     queryset = TypeOfSights.objects.all()
     serializer_class = TypeOfSightsSerializer
+
+
+class RouteByCitiesViewSet(viewsets.ModelViewSet):
+    queryset = RouteByCities.objects.all()
+    serializer_class = RouteByCitiesSerializer
+
+
+class CitiesRelationshipViewSet(viewsets.ModelViewSet):
+    queryset = CitiesRelationship.objects.all()
+    serializer_class = CitiesRelationshipSerializer
+
+
+class RouteBySightsViewSet(viewsets.ModelViewSet):
+    queryset = RouteBySights.objects.all()
+    serializer_class = RouteBySightsSerializer
+
+
+class SightsRelationshipViewSet(viewsets.ModelViewSet):
+    queryset = SightsRelationship.objects.all()
+    serializer_class = SightsRelationshipSerializer
