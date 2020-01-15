@@ -6,10 +6,11 @@ from geography.views import RegionViewSet, CityViewSet, SightViewSet
 from geography.views import SightPhotoViewSet, SectionOfSightsViewSet, TypeOfSightsViewSet
 
 from geography.views import RouteByCitiesViewSet, RouteBySightsViewSet
-from geography.views import CitiesRelationshipViewSet, SightsRelationshipViewSet
+from geography.views import CitiesRelationshipViewSet, SightsRelationshipViewSet, IndexView
 
 urlpatterns = [
-    path('', RegionList.as_view(), name='region_list_url'),
+    path('', IndexView.as_view(), name='index_url'),
+    path('regions/', RegionList.as_view(), name='region_list_url'),
     path('regions/<int:pk>/', RegionDetail.as_view(), name='region_detail_url'),
     path('cities/', CityList.as_view(), name='city_list_url'),
     path('cities/<int:pk>/', CityDetail.as_view(), name='city_detail_url'),
