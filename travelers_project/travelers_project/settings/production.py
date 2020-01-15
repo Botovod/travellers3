@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'django_extensions',
     'graphene_django',
-    'debug_toolbar',
 
     # own apps
     'geography',
@@ -32,6 +31,9 @@ INSTALLED_APPS = [
     'instaposter',
     'feedback',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
