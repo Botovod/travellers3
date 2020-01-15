@@ -1,5 +1,7 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
+from django.views.generic import TemplateView
+
 from rest_framework import viewsets
 
 from geography.models import Region, City, Sight, SightPhoto, SectionOfSights, TypeOfSights
@@ -10,6 +12,8 @@ from traces.models import RouteByCities, CitiesRelationship, RouteBySights, Sigh
 from geography.serializers import RouteByCitiesSerializer, RouteBySightsSerializer
 from geography.serializers import CitiesRelationshipSerializer, SightsRelationshipSerializer
 
+class IndexView(TemplateView):
+    template_name = "geography/index.html"
 
 class RegionList(ListView):
     model = Region
