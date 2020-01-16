@@ -75,7 +75,7 @@
                             <p>
                                 {% for sight in city.sight.all %}
                                     <span>
-                                        <a href="{% url 'sight_detail_url' pk=city.sight.pk %}">{{ sight.title }} </a>
+                                        <a href="{% url 'sight_detail_url' pk=sight.pk %}">{{ sight.title }} </a>
                                     </span>
                                 {% endfor%}
                             </p>
