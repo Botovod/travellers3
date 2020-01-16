@@ -52,10 +52,6 @@ class SightCityDetail(ListView):
     context_object_name = 'sight_city_detail'
     paginate_by = 8
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['sights'] = Sight.objects.all()
-        return context
 
 class CityDetail(DetailView):
     model = City
