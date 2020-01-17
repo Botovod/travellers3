@@ -46,7 +46,6 @@ class CityList(ListView):
     paginate_by = 8
 
 class SightCityDetail(ListView):
-    # model = City
     queryset = City.objects.order_by('-rating')
     template_name = 'geography/sight_with_city_list.html'
     context_object_name = 'sight_city_detail'

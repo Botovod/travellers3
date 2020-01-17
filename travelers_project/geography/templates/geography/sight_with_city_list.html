@@ -4,44 +4,38 @@
 
 {% block content %}
 <div class="container">
-    <div class="story">
         <center>
-            <h1>Города</h1>
+            <h1>Достопримечательности</h1>
             <br>
         </center>
         {% for city in sight_city_detail %}
-        <div class="col-md-12">
-            <a href="{% url 'city_detail_url' pk=city.pk %}">
-                <center>
-                <h2>{{ city.title }}, рейтинг {{ city.rating }}</h2>
-                </center>
-            </a>
-
-            {% with sights=city.sight.all %}
-            {% for sight in sights %}
-                <div class="col-md-4 story-popular" style="height:400px;">
-                    <a href="{% url 'sight_detail_url' pk=sight.pk %}">
-                        {% thumbnail sight.image "x300" as im %}
-                        <img src="{{ im.url }}"
-                             style="height:250px;"
-                             alt="">
-                        {% empty %}
-                        <img src="{% static 'images/not-foto.png' %}"
-                             style="height:250px;"
-                             alt="">
-                        {% endthumbnail %}
-                        <h6>{{ sight.title }}</h6>
-                        <p>
-                            {{ sight.description|truncatechars:60 }}
-                        </p>
-                    </a>
-                </div>
-            {% endfor %}
-            {% endwith %}
-
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                    <h2>{{ city.title }}, рейтинг {{ city.rating }}</h2>
+            </div>
+            <div class="panel-body">
+                {% with sights=city.sight.all %}
+                {% for sight in sights %}
+                    <div class="col-md-4 story-popular" style="height:400px;">
+                        <a href="{% url 'sight_detail_url' pk=sight.pk %}">
+                            {% thumbnail sight.image "x300" as im %}
+                            <img src="{{ im.url }}"
+                                 style="height:250px;"
+                                 alt="">
+                            {% empty %}
+                            <img src="{% static 'images/not-foto.png' %}"
+                                 style="height:250px;"
+                                 alt="">
+                            {% endthumbnail %}
+                            <h6>{{ sight.title }}</h6>
+                        </a>
+                    </div>
+                {% endfor %}
+                {% endwith %}
+            </div>
         </div>
         {% endfor %}
-    </div>
+
     <div class="clearfix"></div>
 </div>
 {% include 'geography/includes/paginator.html' %}
