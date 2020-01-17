@@ -56,13 +56,17 @@
                     {% for city in route_city_detail.cities.all %}
                         <div class="col-md-4 date">
                             <p>
-                                <span>{{ city.title }}</span>
+                                <a href="{% url 'city_detail_url' pk=city.pk %}">
+                                    <span>{{ city.title }}</span>
+                                </a>
                             </p>
                         </div>
 
                         <div class="col-md-4 date">
                             <p>
-                                <span>{{ city.region.title }}</span>
+                                <a href="{% url 'region_detail_url' pk=city.region.pk %}">
+                                    <span>{{ city.region.title }}</span>
+                                </a>
                             </p>
                         </div>
 
@@ -71,7 +75,7 @@
                             <p>
                                 {% for sight in city.sight.all %}
                                     <span>
-                                        <a href="#">{{ sight.title }} </a>
+                                        <a href="{% url 'sight_detail_url' pk=sight.pk %}">{{ sight.title }} </a>
                                     </span>
                                 {% endfor%}
                             </p>
@@ -81,11 +85,19 @@
                         <br>
                     {% endfor %}
                 </div>
-                <p class="tag-in">{{ route_city_detail.description }}</p>
 
             </div>
 
             <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="single">
+        <div class="single-middle">
+            <div class="col-md-12>
+                <p class="tag-in">{{ route_city_detail.description }}</p>
+            </div>
         </div>
     </div>
 </div>
