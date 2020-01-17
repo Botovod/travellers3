@@ -417,6 +417,12 @@ ul.social li a i.gmail:hover{
 	color:#4d4d4d;
 	font-family: 'Lato', sans-serif;
 }
+.story-popular h2 {
+	margin: 0.5em 0;
+	font-size: 2.3em;
+	color: #4d4d4d;
+	font-family: 'Lato', sans-serif;
+}
 .story-popular p {
 	margin: 0 auto;
 	font-size: 1.1em;

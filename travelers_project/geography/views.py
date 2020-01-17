@@ -45,6 +45,12 @@ class CityList(ListView):
     context_object_name = 'city_list'
     paginate_by = 8
 
+class SightCityDetail(ListView):
+    queryset = City.objects.order_by('-rating')
+    template_name = 'geography/sight_with_city_list.html'
+    context_object_name = 'sight_city_detail'
+    paginate_by = 8
+
 
 class CityDetail(DetailView):
     model = City
@@ -63,7 +69,6 @@ class SightDetail(DetailView):
     model = Sight
     template_name = 'geography/sight_detail.html'
     context_object_name = 'sight_detail'
-
 
 # api views
 class RegionViewSet(viewsets.ModelViewSet):
