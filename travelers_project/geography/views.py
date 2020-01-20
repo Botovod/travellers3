@@ -1,7 +1,7 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
 from django.views.generic import TemplateView
-
+from django.db.models import Q
 from rest_framework import viewsets
 
 from geography.models import Region, City, Sight, SightPhoto, SectionOfSights, TypeOfSights
@@ -11,6 +11,38 @@ from geography.serializers import SightPhotoSerializer, SectionOfSightsSerialize
 from traces.models import RouteByCities, CitiesRelationship, RouteBySights, SightsRelationship
 from geography.serializers import RouteByCitiesSerializer, RouteBySightsSerializer
 from geography.serializers import CitiesRelationshipSerializer, SightsRelationshipSerializer
+from django.shortcuts import render
+
+def region_search(request):
+    queryset = Region.objects.all()
+    query = request.GET.get('q')
+    if query:
+        queryset = queryset.filter(Q(title__icontains=query)).distinct()
+    context = {
+        'queryset': queryset
+    }
+    return render(request, 'geography/region_search.html', context)
+
+def city_search(request):
+    queryset = City.objects.all()
+    query = request.GET.get('q')
+    if query:
+        queryset = queryset.filter(Q(title__icontains=query)).distinct()
+    context = {
+        'queryset': queryset
+    }
+    return render(request, 'geography/city_search.html', context)
+
+def sight_search(request):
+    queryset = Sight.objects.all()
+    query = request.GET.get('q')
+    if query:
+        queryset = queryset.filter(Q(title__icontains=query)).distinct()
+    context = {
+        'queryset': queryset
+    }
+    return render(request, 'geography/sight_search.html', context)
+
 
 class IndexView(TemplateView):
     template_name = "geography/index.html"
@@ -44,6 +76,7 @@ class CityList(ListView):
     template_name = 'geography/city_list.html'
     context_object_name = 'city_list'
     paginate_by = 8
+
 
 class SightCityDetail(ListView):
     queryset = City.objects.order_by('-rating')

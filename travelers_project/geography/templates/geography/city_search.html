@@ -9,11 +9,7 @@
             <h1>Города</h1>
             <br>
         </center>
-        <form class="example" action="{% url 'search_for_city' %}" method="get" style="margin:auto;max-width:500px">
-            <input name="q" type="text" placeholder="Введите название города...">
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-        {% for city in city_list %}
+        {% for city in queryset %}
         <div class="col-md-3 story-popular need" style="height:450px;">
             <div class="feature text-center">
                 {% thumbnail city.image "x250" crop="center" as im %}

@@ -6,12 +6,8 @@
 <div class="container">
     <div class="services">
         <h3>Регионы</h3>
-        <form class="example" action="{% url 'search_for_region' %}" method="get" style="margin:auto;max-width:500px;margin-top:20px">
-            <input name="q" type="text" placeholder="Введите название региона...">
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
         <div class="grid-top-top">
-            {% for region in region_list %}
+            {% for region in queryset %}
             <div class="col-md-6 need" style="height:300px;">
                 <a href="{% url 'region_detail_url' pk=region.pk%}">
                     <div class="col-md-6 service-grid">

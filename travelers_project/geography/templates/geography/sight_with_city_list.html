@@ -4,10 +4,17 @@
 
 {% block content %}
 <div class="container">
-        <center>
-            <h1>Достопримечательности</h1>
-            <br>
-        </center>
+
+        <div class="row" style="margin-top:50px">
+            <center>
+                <h1>Достопримечательности</h1>
+                <br>
+            </center>
+        </div>
+        <form class="example" action="{% url 'search_for_sight' %}" method="get" style="margin:auto;max-width:500px;margin-bottom:40px">
+            <input name="q" type="text" placeholder="Введите название достопримечательности...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
         {% for city in sight_city_detail %}
         <div class="panel panel-default">
             <div class="panel-heading">
