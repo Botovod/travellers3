@@ -7,19 +7,16 @@ from geography.views import SightPhotoViewSet, SectionOfSightsViewSet, TypeOfSig
 
 from geography.views import RouteByCitiesViewSet, RouteBySightsViewSet
 from geography.views import CitiesRelationshipViewSet, SightsRelationshipViewSet
-from geography.views import region_search, city_search, sight_search
+
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index_url'),
     path('regions/', RegionList.as_view(), name='region_list_url'),
     path('regions/<int:pk>/', RegionDetail.as_view(), name='region_detail_url'),
-    path('regions/search/', region_search, name='search_for_region'),
     path('cities/', CityList.as_view(), name='city_list_url'),
     path('cities/<int:pk>/', CityDetail.as_view(), name='city_detail_url'),
-    path('cities/search/', city_search, name='search_for_city'),
     path('sights/', SightCityDetail.as_view(), name='sight_list_with_cities_url'),
     path('sights/<int:pk>/', SightDetail.as_view(), name='sight_detail_url'),
-    path('sights/search/', sight_search, name='search_for_sight'),
 ]
 
 router = SimpleRouter()

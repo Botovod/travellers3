@@ -1,7 +1,6 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
 from django.views.generic import TemplateView
-from django.db.models import Q
 from rest_framework import viewsets
 
 from geography.models import Region, City, Sight, SightPhoto, SectionOfSights, TypeOfSights
@@ -11,43 +10,22 @@ from geography.serializers import SightPhotoSerializer, SectionOfSightsSerialize
 from traces.models import RouteByCities, CitiesRelationship, RouteBySights, SightsRelationship
 from geography.serializers import RouteByCitiesSerializer, RouteBySightsSerializer
 from geography.serializers import CitiesRelationshipSerializer, SightsRelationshipSerializer
-from django.shortcuts import render
 
-def region_search(request):
-    queryset = Region.objects.all()
-    query = request.GET.get('q')
-    if query:
-        queryset = queryset.filter(Q(title__icontains=query)).distinct()
-    context = {
-        'queryset': queryset
-    }
-    return render(request, 'geography/region_search.html', context)
 
-def city_search(request):
-    queryset = City.objects.all()
-    query = request.GET.get('q')
-    if query:
-        queryset = queryset.filter(Q(title__icontains=query)).distinct()
-    context = {
-        'queryset': queryset
-    }
-    return render(request, 'geography/city_search.html', context)
-
-def sight_search(request):
-    queryset = Sight.objects.all()
-    query = request.GET.get('q')
-    if query:
-        queryset = queryset.filter(Q(title__icontains=query)).distinct()
-    context = {
-        'queryset': queryset
-    }
-    return render(request, 'geography/sight_search.html', context)
+class SearchMixin(object):
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return super().get_queryset().filter(title__icontains=query)
+        else:
+            return super().get_queryset()
 
 
 class IndexView(TemplateView):
     template_name = "geography/index.html"
 
-class RegionList(ListView):
+
+class RegionList(SearchMixin, ListView):
     model = Region
     template_name = 'geography/regions.html'
     context_object_name = 'region_list'
@@ -71,7 +49,7 @@ class RegionDetail(DetailView, MultipleObjectMixin):
         return context
 
 
-class CityList(ListView):
+class CityList(SearchMixin, ListView):
     model = City
     template_name = 'geography/city_list.html'
     context_object_name = 'city_list'
@@ -83,6 +61,17 @@ class SightCityDetail(ListView):
     template_name = 'geography/sight_with_city_list.html'
     context_object_name = 'sight_city_detail'
     paginate_by = 8
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q')
+        if query:
+            search = Sight.objects.filter(title__icontains=query)
+        else:
+            search = Sight.objects.none()
+
+        context["search"] = search
+        return context
 
 
 class CityDetail(DetailView):
@@ -102,6 +91,7 @@ class SightDetail(DetailView):
     model = Sight
     template_name = 'geography/sight_detail.html'
     context_object_name = 'sight_detail'
+
 
 # api views
 class RegionViewSet(viewsets.ModelViewSet):

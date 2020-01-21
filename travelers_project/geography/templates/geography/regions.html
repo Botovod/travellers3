@@ -6,35 +6,35 @@
 <div class="container">
     <div class="services">
         <h3>Регионы</h3>
-        <form class="example" action="{% url 'search_for_region' %}" method="get" style="margin:auto;max-width:500px;margin-top:20px">
+        <form class="example" action="{% url 'region_list_url' %}" method="get" style="margin:auto;max-width:500px;margin-top:20px">
             <input name="q" type="text" placeholder="Введите название региона...">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
         <div class="grid-top-top">
             {% for region in region_list %}
-            <div class="col-md-6 need" style="height:300px;">
-                <a href="{% url 'region_detail_url' pk=region.pk%}">
-                    <div class="col-md-6 service-grid">
-                        {% thumbnail region.image "x200" as im %}
-                        <img class="img-responsive"
-                             src="{{ im.url }}"
-                             style="height:200px;"
-                             alt=""/>
-                        {% empty %}
-                        <img class="img-responsive"
-                             src="{% static 'images/not-foto.png' %}"
-                             style="height:200px;"
-                             alt=""/>
-                        {% endthumbnail %}
-                    </div>
-                    <div class="col-md-6 top-grid-right">
-                        <h4>{{ region.title }}</h4>
-                        <p>
-                            {{ region.description|truncatechars:200 }}
-                        </p>
-                    </div>
-                </a>
-            </div>
+                <div class="col-md-6 need" style="height:300px;">
+                    <a href="{% url 'region_detail_url' pk=region.pk%}">
+                        <div class="col-md-6 service-grid">
+                            {% thumbnail region.image "x200" as im %}
+                            <img class="img-responsive"
+                                 src="{{ im.url }}"
+                                 style="height:200px;"
+                                 alt=""/>
+                            {% empty %}
+                            <img class="img-responsive"
+                                 src="{% static 'images/not-foto.png' %}"
+                                 style="height:200px;"
+                                 alt=""/>
+                            {% endthumbnail %}
+                        </div>
+                        <div class="col-md-6 top-grid-right">
+                            <h4>{{ region.title }}</h4>
+                            <p>
+                                {{ region.description|truncatechars:200 }}
+                            </p>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
     </div>

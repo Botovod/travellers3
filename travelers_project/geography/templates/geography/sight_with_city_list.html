@@ -11,39 +11,64 @@
                 <br>
             </center>
         </div>
-        <form class="example" action="{% url 'search_for_sight' %}" method="get" style="margin:auto;max-width:500px;margin-bottom:40px">
+        <form class="example" action="{% url 'sight_list_with_cities_url' %}" method="get" style="margin:auto;max-width:500px;margin-bottom:40px">
             <input name="q" type="text" placeholder="Введите название достопримечательности...">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
-        {% for city in sight_city_detail %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                    <h2>{{ city.title }}, рейтинг {{ city.rating }}</h2>
-            </div>
-            <div class="panel-body">
-                {% with sights=city.sight.all %}
-                {% for sight in sights %}
-                    <div class="col-md-4 story-popular" style="height:400px;">
-                        <a href="{% url 'sight_detail_url' pk=sight.pk %}">
-                            {% thumbnail sight.image "x300" as im %}
+
+        {% if search %}
+            {% for sight in search %}
+                <div class="col-md-3 story-popular need" style="height:450px;">
+                    <div class="feature text-center">
+                        {% thumbnail sight.image "x250" crop="center" as im %}
+                        <a href="{{ sight.image.url }}">
                             <img src="{{ im.url }}"
                                  style="height:250px;"
                                  alt="">
-                            {% empty %}
-                            <img src="{% static 'images/not-foto.png' %}"
-                                 style="height:250px;"
-                                 alt="">
-                            {% endthumbnail %}
+                        </a>
+                        {% empty %}
+                        <img src="{% static 'images/not-foto.png' %}"
+                             style="height:250px;"
+                             alt="">
+                        {% endthumbnail %}
+
+                        <a href="{% url 'sight_detail_url' pk=sight.pk %}">
                             <h6>{{ sight.title }}</h6>
                         </a>
+                        <p>{{ sight.description|truncatechars:80 }}</p>
                     </div>
-                {% endfor %}
-                {% endwith %}
-            </div>
-        </div>
-        {% endfor %}
-
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for city in sight_city_detail %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                            <h2>{{ city.title }}, рейтинг {{ city.rating }}</h2>
+                    </div>
+                    <div class="panel-body">
+                        {% with sights=city.sight.all %}
+                        {% for sight in sights %}
+                            <div class="col-md-4 story-popular" style="height:400px;">
+                                <a href="{% url 'sight_detail_url' pk=sight.pk %}">
+                                    {% thumbnail sight.image "x300" as im %}
+                                    <img src="{{ im.url }}"
+                                         style="height:250px;"
+                                         alt="">
+                                    {% empty %}
+                                    <img src="{% static 'images/not-foto.png' %}"
+                                         style="height:250px;"
+                                         alt="">
+                                    {% endthumbnail %}
+                                    <h6>{{ sight.title }}</h6>
+                                </a>
+                            </div>
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% include 'geography/includes/paginator.html' %}
+        {% endif %}
     <div class="clearfix"></div>
 </div>
-{% include 'geography/includes/paginator.html' %}
 {% endblock %}
