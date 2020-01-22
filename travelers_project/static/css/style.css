@@ -123,7 +123,6 @@ h1,h2,h3,h4,h5,h6,label,p{
 }
 }
 .banner{
-	background:url(../images/banner1.jpg) no-repeat center;
 	width:100%;
 	min-height:600px;
 	background-size:cover;
@@ -205,7 +204,7 @@ a.here i{
 }
 .play{
 	position: relative;
-	background: url(../images/v1.jpg) no-repeat 0px 0px;
+
 	min-height: 265px;
 	background-size: cover;
 }

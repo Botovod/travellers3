@@ -2,7 +2,8 @@ from django.db import models
 
 
 class MainPage(models.Model):
-    main_banner = models.ImageField()
+    title = models.CharField(max_length=255, default='', verbose_name='Название страницы')
+    main_banner = models.ImageField(upload_to='images/banners/', verbose_name='Баннер')
     big_description = models.CharField(max_length=255, default='', verbose_name='Большое описание')
     small_description = models.CharField(max_length=255, default='', verbose_name='Малое описание')
     link = models.CharField(max_length=255, default='', verbose_name='Ссылка')
@@ -31,7 +32,7 @@ class MainPage(models.Model):
         blank=True,
         verbose_name='Описание маленькой правой плитки')
     video_link = models.CharField(max_length=255, default='', verbose_name='Видео')
-
+    video_picture = models.ImageField(upload_to='images/video_pics/', default='image/v1.jpg',verbose_name='Превью видео')
     left_big_tile_header = models.CharField(
         max_length=255,
         default='',
@@ -56,3 +57,6 @@ class MainPage(models.Model):
         default='',
         blank=True,
         verbose_name='Описание большой правой плитки')
+
+    def __str__(self):
+        return self.title

@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block content %}
-<div class="banner">
+{% with main_page|first as mainpage %}
+<div class="banner" style="background:url('{{ mainpage.main_banner.url }}') no-repeat center;width:100%;min-height:600px;background-size:cover;display:block;text-align: right;padding:14em 0 ;">
 	<div class="container">
-		<h1>Lorem Ipsum is simply dummy text</h1>
-		<p>excepteur sint occaecat cupidatat non proident</p>
+		<h1>{{ mainpage.big_description }}</h1>
+		<p>{{ mainpage.small_description }}</p>
 		<a href="#" class="here"> START HERE<i> </i></a>
 	</div>
 </div>
@@ -15,25 +16,25 @@
 		<div class=" content-top">
 				<div class="col-md-4 top-grid">
 					<a href="single.html"><img class="img-responsive" src="{% static 'images/s1.png' %}" alt=" "></a>
-					<h5>Curabitur justo</h5>
-					<p>Donec id velit feugiat, congue nunc non, iaculis neque. Vivamus nisl justo, finibus in interdum nec, iaculis non ongfdio lorem ipsum dolor sit amet.</p>
+					<h5>{{ mainpage.left_small_tile_title }}</h5>
+					<p>{{ mainpage.left_small_tile_description }}</p>
 				</div>
 				<div class="col-md-4 top-grid">
 					<a href="single.html"><img class="img-responsive" src="{% static 'images/s2.png' %}" alt=" "></a>
-					<h5>Curabitur justo</h5>
-					<p>Donec id velit feugiat, congue nunc non, iaculis neque. Vivamus nisl justo, finibus in interdum nec, iaculis non ongfdio lorem ipsum dolor sit amet.</p>
+					<h5>{{ mainpage.center_small_tile_title }}</h5>
+					<p>{{ mainpage.center_small_tile_description }}</p>
 				</div>
 				<div class="col-md-4 top-grid">
 					<a href="single.html"><img class="img-responsive" src="{% static 'images/s3.png' %}" alt=" "></a>
-					<h5>Curabitur justo</h5>
-					<p>Donec id velit feugiat, congue nunc non, iaculis neque. Vivamus nisl justo, finibus in interdum nec, iaculis non ongfdio lorem ipsum dolor sit amet.</p>
+					<h5>{{ mainpage.right_small_tile_title }}</h5>
+					<p>{{ mainpage.right_small_tile_description }}</p>
 				</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
 	<!---->
 	<div class="content-middle">
-		<div class="play">
+		<div class="play" style="position: relative;background: url('{{ mainpage.video_picture.url }}') no-repeat 0px 0px;min-height: 265px;background-size: cover;">
 			<a class="play-icon popup-with-zoom-anim" href="#small-dialog">
 				<span> </span>
 			</a>
@@ -44,7 +45,7 @@
 
 			<!--//pop-up-box -->
 			<div id="small-dialog" class="mfp-hide">
-				<iframe src="//player.vimeo.com/video/65062701"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				<iframe src="{{ mainpage.video_link }}"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 			</div>
 			<script>
 				$(document).ready(function() {
@@ -67,22 +68,14 @@
 			<!-- container -->
 			<div class="container">
 				<div class="col-md-6 content-left">
-					<h3>Donec id velit feugiat, congue neque.</h3>
-					<h6>Praesent ac dapibus lacus, condimentum commodo ligula</h6>
-					<p>Vivamus nisl justo, finibus in interdum nec, iaculis non odio.
-						Aliquam lacus tellus, tempus a finibus ac, laoreet rutrum dui. Praesent ex nulla, sagittis imperdiet convallis a, tincidunt sit amet mauris.
-						Cras suscipit cursus eros id tincidunt. Praesent ac dapibus lacus, condimentum commodo ligula.
-						tellus, tempus a finibus ac, laoreet rutrum dui. Praesent ex nulla, sagittis imperdiet convallis a, tincidunt sit amet mauris. Cras suscipit cursus eros
-					</p>
+					<h3>{{ mainpage.left_big_tile_header }}</h3>
+					<h6>{{ mainpage.left_big_tile_title }}</h6>
+					<p>{{ mainpage.left_big_tile_description }}</p>
 				</div>
 				<div class="col-md-6 content-left">
-					<h3>Aliquam lacus tellus, tempus a rutrum.</h3>
-					<h6>Praesent ac dapibus lacus, condimentum commodo ligula</h6>
-					<p>Vivamus nisl justo, finibus in interdum nec, iaculis non odio.
-						Aliquam lacus tellus, tempus a finibus ac, laoreet rutrum dui. Praesent ex nulla, sagittis imperdiet convallis a, tincidunt sit amet mauris.
-						Cras suscipit cursus eros id tincidunt. Praesent ac dapibus lacus, condimentum commodo ligula.
-						tellus, tempus a finibus ac, laoreet rutrum dui. Praesent ex nulla, sagittis imperdiet convallis a, tincidunt sit amet mauris. Cras suscipit cursus eros
-					</p>
+					<h3>{{ mainpage.right_big_tile_header }}</h3>
+					<h6>{{ mainpage.right_big_tile_title }}</h6>
+					<p>{{ mainpage.right_big_tile_description }}</p>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -93,7 +86,7 @@
 	<!-- container -->
 	<div class="container">
 		<div class="middle-top">
-		<h3>Recent Tour</h3>
+		<h3>Последние путешествия</h3>
 			<div class="brand">
 				<div class="col-md-3 fashion">
 					<a href="single.html"><img class="img-responsive" src="{% static 'images/pi.jpg' %}" alt="">
@@ -118,4 +111,5 @@
 		</div>
 	</div>
 </div>
+{% endwith %}
 {% endblock %}
