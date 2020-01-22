@@ -56,22 +56,11 @@ class CityList(SearchMixin, ListView):
     paginate_by = 8
 
 
-class SightCityDetail(ListView):
-    queryset = City.objects.order_by('-rating')
-    template_name = 'geography/sight_with_city_list.html'
-    context_object_name = 'sight_city_detail'
-    paginate_by = 8
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        query = self.request.GET.get('q')
-        if query:
-            search = Sight.objects.filter(title__icontains=query)
-        else:
-            search = Sight.objects.none()
-
-        context["search"] = search
-        return context
+class SightGroupByCity(SearchMixin, ListView):
+    queryset = Sight.objects.order_by('-city__rating', 'city__title')
+    template_name = 'geography/sights_group_by_city.html'
+    context_object_name = 'sight_new'
+    paginate_by = 9
 
 
 class CityDetail(DetailView):
