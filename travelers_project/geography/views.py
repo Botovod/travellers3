@@ -21,10 +21,6 @@ class SearchMixin(object):
             return super().get_queryset()
 
 
-class IndexView(TemplateView):
-    template_name = "geography/index.html"
-
-
 class RegionList(SearchMixin, ListView):
     model = Region
     template_name = 'geography/regions.html'
