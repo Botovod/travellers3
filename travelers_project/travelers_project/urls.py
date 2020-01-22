@@ -13,6 +13,7 @@ schema_view = get_swagger_view(title=API_TITLE)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('geography.urls')),
+    path('bla/', include('mainpage.urls')),
     path('traces/', include('traces.urls')),
     path('feedback/', include('feedback.urls')),
     path('laboratory/', include('laboratory.urls')),
