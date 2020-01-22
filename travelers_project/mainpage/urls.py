@@ -1,5 +1,5 @@
 from django.urls import path
-from geography.views import IndexView
+from .views import IndexView
 
 
 urlpatterns = [
