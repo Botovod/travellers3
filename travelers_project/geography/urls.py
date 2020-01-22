@@ -1,12 +1,13 @@
 from rest_framework.routers import SimpleRouter
 
 from django.urls import path
-from geography.views import IndexView, RegionList, RegionDetail, CityList, CityDetail, SightCityDetail, SightDetail
+from geography.views import IndexView, RegionList, RegionDetail, CityList, CityDetail, SightGroupByCity, SightDetail
 from geography.views import RegionViewSet, CityViewSet, SightViewSet
 from geography.views import SightPhotoViewSet, SectionOfSightsViewSet, TypeOfSightsViewSet
 
 from geography.views import RouteByCitiesViewSet, RouteBySightsViewSet
 from geography.views import CitiesRelationshipViewSet, SightsRelationshipViewSet
+
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index_url'),
@@ -14,7 +15,7 @@ urlpatterns = [
     path('regions/<int:pk>/', RegionDetail.as_view(), name='region_detail_url'),
     path('cities/', CityList.as_view(), name='city_list_url'),
     path('cities/<int:pk>/', CityDetail.as_view(), name='city_detail_url'),
-    path('sights/', SightCityDetail.as_view(), name='sight_list_with_cities_url'),
+    path('sights/', SightGroupByCity.as_view(), name='sight_list_with_cities_url'),
     path('sights/<int:pk>/', SightDetail.as_view(), name='sight_detail_url'),
 ]
 

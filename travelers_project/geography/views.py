@@ -1,7 +1,6 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import MultipleObjectMixin, ListView
 from django.views.generic import TemplateView
-
 from rest_framework import viewsets
 
 from geography.models import Region, City, Sight, SightPhoto, SectionOfSights, TypeOfSights
@@ -12,10 +11,21 @@ from traces.models import RouteByCities, CitiesRelationship, RouteBySights, Sigh
 from geography.serializers import RouteByCitiesSerializer, RouteBySightsSerializer
 from geography.serializers import CitiesRelationshipSerializer, SightsRelationshipSerializer
 
+
+class SearchMixin(object):
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return super().get_queryset().filter(title__icontains=query)
+        else:
+            return super().get_queryset()
+
+
 class IndexView(TemplateView):
     template_name = "geography/index.html"
 
-class RegionList(ListView):
+
+class RegionList(SearchMixin, ListView):
     model = Region
     template_name = 'geography/regions.html'
     context_object_name = 'region_list'
@@ -39,17 +49,18 @@ class RegionDetail(DetailView, MultipleObjectMixin):
         return context
 
 
-class CityList(ListView):
+class CityList(SearchMixin, ListView):
     model = City
     template_name = 'geography/city_list.html'
     context_object_name = 'city_list'
     paginate_by = 8
 
-class SightCityDetail(ListView):
-    queryset = City.objects.order_by('-rating')
-    template_name = 'geography/sight_with_city_list.html'
-    context_object_name = 'sight_city_detail'
-    paginate_by = 8
+
+class SightGroupByCity(SearchMixin, ListView):
+    queryset = Sight.objects.order_by('-city__rating', 'city__title')
+    template_name = 'geography/sights_group_by_city.html'
+    context_object_name = 'sight_new'
+    paginate_by = 9
 
 
 class CityDetail(DetailView):
@@ -69,6 +80,7 @@ class SightDetail(DetailView):
     model = Sight
     template_name = 'geography/sight_detail.html'
     context_object_name = 'sight_detail'
+
 
 # api views
 class RegionViewSet(viewsets.ModelViewSet):

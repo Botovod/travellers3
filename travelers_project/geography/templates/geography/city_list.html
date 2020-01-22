@@ -9,27 +9,31 @@
             <h1>Города</h1>
             <br>
         </center>
+        <form class="example" action="{% url 'city_list_url' %}" method="get" style="margin:auto;max-width:500px">
+            <input name="q" type="text" placeholder="Введите название города...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
         {% for city in city_list %}
-        <div class="col-md-3 story-popular need" style="height:450px;">
-            <div class="feature text-center">
-                {% thumbnail city.image "x250" crop="center" as im %}
-                <a href="{{ city.image.url }}">
-                    <img src="{{ im.url }}"
+            <div class="col-md-3 story-popular need" style="height:450px;">
+                <div class="feature text-center">
+                    {% thumbnail city.image "x250" crop="center" as im %}
+                    <a href="{{ city.image.url }}">
+                        <img src="{{ im.url }}"
+                             style="height:250px;"
+                             alt="">
+                    </a>
+                    {% empty %}
+                    <img src="{% static 'images/not-foto.png' %}"
                          style="height:250px;"
                          alt="">
-                </a>
-                {% empty %}
-                <img src="{% static 'images/not-foto.png' %}"
-                     style="height:250px;"
-                     alt="">
-                {% endthumbnail %}
+                    {% endthumbnail %}
 
-                <a href="{% url 'city_detail_url' pk=city.pk %}">
-                    <h6>{{ city.title }}</h6>
-                </a>
-                <p>{{ city.description|truncatechars:80 }}</p>
+                    <a href="{% url 'city_detail_url' pk=city.pk %}">
+                        <h6>{{ city.title }}</h6>
+                    </a>
+                    <p>{{ city.description|truncatechars:80 }}</p>
+                </div>
             </div>
-        </div>
         {% endfor %}
     </div>
     <div class="clearfix"></div>
