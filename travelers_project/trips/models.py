@@ -12,20 +12,13 @@ class Traveler(models.Model):
         verbose_name_plural = 'Путешественники'
 
 
-class Trip(models.Model):
+class CityTrip(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название путешествия')
     start_date = models.DateTimeField(verbose_name='Дата начала путешествия')
     end_date = models.DateTimeField(verbose_name='Дата окончания путешествия')
     description = models.TextField(default='', verbose_name='Описание путешествия')
-    traveler = models.ManyToManyField(Traveler, related_name='trip_traveler', verbose_name='Путешественники')
-    route_by_sights = models.ForeignKey(
-        RouteBySights,
-        on_delete=models.DO_NOTHING,
-        related_name='trip_route_sight',
-        blank=True,
-        null=True,
-        verbose_name='Путешествие по маршрутам достопримечательностей')
-    route_by_cities = models.ForeignKey(
+    traveler = models.ManyToManyField(Traveler, related_name='city_trip_traveler', verbose_name='Путешественники')
+    route = models.ForeignKey(
         RouteByCities,
         on_delete=models.DO_NOTHING,
         related_name='trip_route_city',
@@ -34,8 +27,31 @@ class Trip(models.Model):
         verbose_name='Путешествие по маршрутам городов')
 
     class Meta:
-        verbose_name = 'Путешествие'
-        verbose_name_plural = 'Путешествия'
+        verbose_name = 'Путешествие городам'
+        verbose_name_plural = 'Путешествия по городам'
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
+
+
+class SightTrip(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Название путешествия')
+    start_date = models.DateTimeField(verbose_name='Дата начала путешествия')
+    end_date = models.DateTimeField(verbose_name='Дата окончания путешествия')
+    description = models.TextField(default='', verbose_name='Описание путешествия')
+    traveler = models.ManyToManyField(Traveler, related_name='sight_trip_traveler', verbose_name='Путешественники')
+    route_by_sights = models.ForeignKey(
+        RouteBySights,
+        on_delete=models.DO_NOTHING,
+        related_name='trip_route_sight',
+        blank=True,
+        null=True,
+        verbose_name='Путешествие по маршрутам достопримечательностей')
+
+    class Meta:
+        verbose_name = 'Путешествие по достопримечательностям'
+        verbose_name_plural = 'Путешествия по достопримечательностям'
         ordering = ['title']
 
     def __str__(self):
