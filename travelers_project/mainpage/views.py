@@ -1,8 +1,11 @@
-from django.views.generic import ListView
+from django.views.generic import TemplateView
 from .models import MainPage
 
 
-class IndexView(ListView):
-    model = MainPage
+class IndexView(TemplateView):
     template_name = "mainpage/index.html"
-    context_object_name = 'main_page'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['main_page'] = MainPage.objects.first()
+        return context
