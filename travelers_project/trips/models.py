@@ -11,6 +11,9 @@ class Traveler(models.Model):
         verbose_name = 'Путешественник'
         verbose_name_plural = 'Путешественники'
 
+    def __str__(self):
+        return f'{self.user.last_name} {self.user.first_name}'
+
 
 class CityTrip(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название путешествия')
