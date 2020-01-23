@@ -16,6 +16,7 @@ class CompleteTripCityList(ListView):
     context_object_name = 'complete_trip_city_list'
     template_name = 'trips/complete_trip_city_list.html'
     paginate_by = 5
+    ordering = ['-end_date']
 
 
 class FutureTripSightList(ListView):
@@ -23,6 +24,7 @@ class FutureTripSightList(ListView):
     context_object_name = 'future_trip_sight_list'
     template_name = 'trips/future_trip_sight_list.html'
     paginate_by = 5
+    ordering = ['start_date']
 
 
 class CompleteTripSightList(ListView):
@@ -30,3 +32,4 @@ class CompleteTripSightList(ListView):
     context_object_name = 'complete_trip_sight_list'
     template_name = 'trips/complete_trip_sight_list.html'
     paginate_by = 5
+    ordering = ['-end_date']
