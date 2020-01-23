@@ -58,5 +58,10 @@ class MainPage(models.Model):
         blank=True,
         verbose_name='Описание большой правой плитки')
 
+    class Meta:
+        verbose_name = 'Главная страница'
+        verbose_name_plural = 'Главные страницы'
+        ordering = ['title']
+
     def __str__(self):
         return self.title
