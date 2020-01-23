@@ -1,7 +1,7 @@
 from rest_framework.routers import SimpleRouter
 
 from django.urls import path
-from geography.views import IndexView, RegionList, RegionDetail, CityList, CityDetail, SightGroupByCity, SightDetail
+from geography.views import RegionList, RegionDetail, CityList, CityDetail, SightGroupByCity, SightDetail
 from geography.views import RegionViewSet, CityViewSet, SightViewSet
 from geography.views import SightPhotoViewSet, SectionOfSightsViewSet, TypeOfSightsViewSet
 
@@ -10,7 +10,6 @@ from geography.views import CitiesRelationshipViewSet, SightsRelationshipViewSet
 
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index_url'),
     path('regions/', RegionList.as_view(), name='region_list_url'),
     path('regions/<int:pk>/', RegionDetail.as_view(), name='region_detail_url'),
     path('cities/', CityList.as_view(), name='city_list_url'),
