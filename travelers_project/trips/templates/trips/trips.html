@@ -6,9 +6,9 @@
 <div class="container">
     <div class="story">
     <center>
-        <h1>Завершенные путешествия по городам</h1><br>
+        <h1>{{ title }}</h1><br>
     </center>
-    {% for trip in complete_trip_city_list %}
+    {% for trip in object_list %}
         <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>{{ trip.start_date|date:"d/m/Y" }} - {{ trip.end_date|date:"d/m/Y" }}</h3>

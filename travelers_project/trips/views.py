@@ -3,33 +3,55 @@ from .models import SightTrip, CityTrip
 from datetime import date
 
 
-class FutureTripCityList(ListView):
-    queryset = CityTrip.objects.filter(start_date__date__gt=date.today())
-    context_object_name = 'future_trip_city_list'
-    template_name = 'trips/future_trip_city_list.html'
-    ordering = ['start_date']
-    paginate_by = 5
-
-
-class CompleteTripCityList(ListView):
-    queryset = CityTrip.objects.filter(end_date__date__lt=date.today())
-    context_object_name = 'complete_trip_city_list'
-    template_name = 'trips/complete_trip_city_list.html'
+class CompleteTripMixin(object):
+    template_name = 'trips/trips.html'
     paginate_by = 5
     ordering = ['-end_date']
 
+    def get_queryset(self):
+        return super().get_queryset().filter(end_date__date__lt=date.today())
 
-class FutureTripSightList(ListView):
-    queryset = SightTrip.objects.filter(start_date__date__gt=date.today())
-    context_object_name = 'future_trip_sight_list'
-    template_name = 'trips/future_trip_sight_list.html'
+
+class FutureTripMixin(object):
+    template_name = 'trips/trips.html'
     paginate_by = 5
     ordering = ['start_date']
 
+    def get_queryset(self):
+        return super().get_queryset().filter(start_date__date__gt=date.today())
 
-class CompleteTripSightList(ListView):
-    queryset = SightTrip.objects.filter(end_date__date__lt=date.today())
-    context_object_name = 'complete_trip_sight_list'
-    template_name = 'trips/complete_trip_sight_list.html'
-    paginate_by = 5
-    ordering = ['-end_date']
+
+class FutureTripCityList(FutureTripMixin, ListView):
+    model = CityTrip
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Планируемые путешествия по городам'
+        return context
+
+
+class CompleteTripCityList(CompleteTripMixin, ListView):
+    model = CityTrip
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Завершенные путешествия по городам'
+        return context
+
+
+class FutureTripSightList(FutureTripMixin, ListView):
+    model = SightTrip
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Планируемые путешествия по достопримечательностям'
+        return context
+
+
+class CompleteTripSightList(CompleteTripMixin, ListView):
+    model = SightTrip
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Завершенные путешествия по достопримечательностям'
+        return context
