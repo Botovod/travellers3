@@ -13,6 +13,14 @@ class BaseTrip(ListView):
         return context
 
 
+class CityTrip(BaseTrip):
+    model = CityTrip
+
+
+class SightTrip(BaseTrip):
+    model = SightTrip
+
+
 class CompleteTripMixin(object):
     ordering = ['-end_date']
 
@@ -27,21 +35,17 @@ class FutureTripMixin(object):
         return super().get_queryset().filter(start_date__date__gt=date.today())
 
 
-class FutureTripCityList(FutureTripMixin, BaseTrip):
-    model = CityTrip
+class FutureTripCityList(FutureTripMixin, CityTrip):
     page_title = 'Планируемые путешествия по городам'
 
 
-class CompleteTripCityList(CompleteTripMixin, BaseTrip):
-    model = CityTrip
+class CompleteTripCityList(CompleteTripMixin, CityTrip):
     page_title = 'Завершенные путешествия по городам'
 
 
-class FutureTripSightList(FutureTripMixin, BaseTrip):
-    model = SightTrip
+class FutureTripSightList(FutureTripMixin, SightTrip):
     page_title = 'Планируемые путешествия по достопримечательностям'
 
 
-class CompleteTripSightList(CompleteTripMixin, BaseTrip):
-    model = SightTrip
+class CompleteTripSightList(CompleteTripMixin, SightTrip):
     page_title = 'Завершенные путешествия по достопримечательностям'
