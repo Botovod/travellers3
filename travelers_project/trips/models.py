@@ -15,18 +15,18 @@ class Traveler(models.Model):
         return f'{self.user.last_name} {self.user.first_name}'
 
 
-class TripMixin(models.Model):
+class AbstractTrip(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название путешествия')
     start_date = models.DateTimeField(verbose_name='Дата начала путешествия')
     end_date = models.DateTimeField(verbose_name='Дата окончания путешествия')
     description = models.TextField(default='', verbose_name='Описание путешествия')
+    traveler = models.ManyToManyField(Traveler, verbose_name='Путешественники')
 
     class Meta:
         abstract = True
 
 
-class CityTrip(TripMixin):
-    traveler = models.ManyToManyField(Traveler, related_name='city_trip_traveler', verbose_name='Путешественники')
+class CityTrip(AbstractTrip):
     route = models.ForeignKey(
         RouteByCities,
         on_delete=models.DO_NOTHING,
@@ -44,8 +44,7 @@ class CityTrip(TripMixin):
         return self.title
 
 
-class SightTrip(TripMixin):
-    traveler = models.ManyToManyField(Traveler, related_name='sight_trip_traveler', verbose_name='Путешественники')
+class SightTrip(AbstractTrip):
     route_by_sights = models.ForeignKey(
         RouteBySights,
         on_delete=models.DO_NOTHING,
