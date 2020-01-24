@@ -14,7 +14,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainpage.urls')),
     path('', include('geography.urls')),
-    path('', include('trips.urls')),
+    path('trips/', include('trips.urls')),
     path('traces/', include('traces.urls')),
     path('feedback/', include('feedback.urls')),
     path('laboratory/', include('laboratory.urls')),
