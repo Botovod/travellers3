@@ -25,6 +25,9 @@ class AbstractTrip(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.title
+
 
 class CityTrip(AbstractTrip):
     route = models.ForeignKey(
@@ -40,9 +43,6 @@ class CityTrip(AbstractTrip):
         verbose_name_plural = 'Путешествия по городам'
         ordering = ['title']
 
-    def __str__(self):
-        return self.title
-
 
 class SightTrip(AbstractTrip):
     route_by_sights = models.ForeignKey(
@@ -57,6 +57,3 @@ class SightTrip(AbstractTrip):
         verbose_name = 'Путешествие по достопримечательностям'
         verbose_name_plural = 'Путешествия по достопримечательностям'
         ordering = ['title']
-
-    def __str__(self):
-        return self.title
