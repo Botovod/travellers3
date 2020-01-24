@@ -3,9 +3,17 @@ from .models import SightTrip, CityTrip
 from datetime import date
 
 
-class CompleteTripMixin(object):
+class BaseTrip(ListView):
     template_name = 'trips/trips.html'
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.page_title
+        return context
+
+
+class CompleteTripMixin(object):
     ordering = ['-end_date']
 
     def get_queryset(self):
@@ -13,45 +21,27 @@ class CompleteTripMixin(object):
 
 
 class FutureTripMixin(object):
-    template_name = 'trips/trips.html'
-    paginate_by = 5
     ordering = ['start_date']
 
     def get_queryset(self):
         return super().get_queryset().filter(start_date__date__gt=date.today())
 
 
-class FutureTripCityList(FutureTripMixin, ListView):
+class FutureTripCityList(FutureTripMixin, BaseTrip):
     model = CityTrip
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Планируемые путешествия по городам'
-        return context
+    page_title = 'Планируемые путешествия по городам'
 
 
-class CompleteTripCityList(CompleteTripMixin, ListView):
+class CompleteTripCityList(CompleteTripMixin, BaseTrip):
     model = CityTrip
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Завершенные путешествия по городам'
-        return context
+    page_title = 'Завершенные путешествия по городам'
 
 
-class FutureTripSightList(FutureTripMixin, ListView):
+class FutureTripSightList(FutureTripMixin, BaseTrip):
     model = SightTrip
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Планируемые путешествия по достопримечательностям'
-        return context
+    page_title = 'Планируемые путешествия по достопримечательностям'
 
 
-class CompleteTripSightList(CompleteTripMixin, ListView):
+class CompleteTripSightList(CompleteTripMixin, BaseTrip):
     model = SightTrip
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Завершенные путешествия по достопримечательностям'
-        return context
+    page_title = 'Завершенные путешествия по достопримечательностям'
