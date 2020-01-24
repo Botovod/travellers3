@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'autotraveler_parser',
     'instaposter',
     'feedback',
+    'trips',
     'mainpage'
 ]
 
