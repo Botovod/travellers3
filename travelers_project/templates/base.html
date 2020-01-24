@@ -111,6 +111,19 @@ form.example::after {
                         <li><a href="{% url 'routes-sights-list-url' %}">По достопримечательностям</a></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       role="button"
+                       aria-expanded="false">Путешествия
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{% url 'future_trip_city_url' %}">Планируемые по городам</a></li>
+                        <li><a href="{% url 'future_trip_sight_url' %}">Планируемые по достопримечательностям</a></li>
+                        <li><a href="{% url 'complete_trip_city_list_url' %}">Завершенные по городам</a></li>
+                        <li><a href="{% url 'complete_trip_sight_url' %}">Завершенные по достопримечательностям</a></li>
+                    </ul>
+                </li>
 
                 <li class="nav-item"><a href="{% url 'feedback_url' %}">Контакты</a></li>
             </ul>
