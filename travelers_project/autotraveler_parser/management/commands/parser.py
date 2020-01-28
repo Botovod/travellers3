@@ -10,6 +10,7 @@ from autotraveler_parser.sights import main as sights
 path_to_log = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "info.log")
 logging.basicConfig(filename=path_to_log, filemode='w', level=logging.INFO)
 
+
 async def main():
     start = time()
 
@@ -17,12 +18,8 @@ async def main():
     await regions()
     print()
 
-    print("Add cities..........\n")
+    print("Add cities and sights..........\n")
     await cities()
-    print()
-
-    print("Add sights..........\n")
-    await sights()
     print()
 
     print("Done....!!!")
@@ -31,6 +28,5 @@ async def main():
 
 
 class Command(BaseCommand):
-
     def handle(self, *args, **kwargs):
         asyncio.run(main())

@@ -18,9 +18,13 @@
         {% for city in city_list %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="{% url 'city_detail_url' pk=city.grouper.pk %}">
-                    <h2>{{ city.grouper }}</h2>
-                </a>
+                {% if city.grouper %}
+                    <a href="{% url 'city_detail_url' pk=city.grouper.pk %}">
+                        <h2>{{ city.grouper }}</h2>
+                    </a>
+                {% else %}
+                    <h2>Остальные</h2>
+                {% endif %}
             </div>
             <div class="panel-body">
                 {% for item in city.list %}

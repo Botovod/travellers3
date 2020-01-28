@@ -7,7 +7,8 @@ from autotraveler_parser.utils import create_path_for_image
 
 logger = logging.getLogger(__name__)
 
-async def regions():
+
+async def parse_regions():
     url = "/areas.php"
     soup = await connect(url)
 
@@ -31,8 +32,7 @@ def write_image(data, title):
     return image
 
 
-async def region(r):
-
+async def parse_region(r):
     soup = await connect(r)
     try:
         title = soup.find('ul', class_='breadcrumb').find('h1').text
@@ -41,7 +41,6 @@ async def region(r):
         logger.error(e)
 
     if title:
-
         try:
             # Получить путь до большой картинки
             path_img = soup.find_all('img', class_='sp-image')[1].get('data-image')     # /album/170.jpg
@@ -61,8 +60,8 @@ async def region(r):
 
 
 async def save_in_db(title, image):
-
     region, status = Region.objects.get_or_create(title=title)
+
     if status:
         region.image = image
         region.save()
@@ -70,10 +69,9 @@ async def save_in_db(title, image):
 
 
 async def main():
-
-    region_list = await regions()
+    region_list = await parse_regions()
     tasks = []
     for r in region_list:
-        tasks.append(asyncio.create_task(region(r)))
+        tasks.append(asyncio.create_task(parse_region(r)))
 
     await asyncio.gather(*tasks)

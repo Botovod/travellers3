@@ -3,6 +3,7 @@ import logging
 import asyncio
 import aiohttp
 
+
 async def connect(url):
     base_url = 'http://autotravel.ru'
 
