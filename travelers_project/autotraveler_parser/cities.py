@@ -126,12 +126,8 @@ async def save_in_db(title, region, image, text):
 async def main():
     pages_list = await parse_pages_with_cities()
     city_list = await parse_cities(pages_list)
-    urls = []
     tasks = []
     for c in city_list:
         tasks.append(asyncio.create_task(parse_city(c)))
-        # urls.append(await parse_city(c))
 
     await asyncio.gather(*tasks)
-
-    return urls
