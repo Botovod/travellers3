@@ -84,17 +84,14 @@ async def parse_sight(urls):
             await save_in_db(title, city, desc, img_list, coordinat)
 
 
-async def save_in_db(title, sity, desc, img_list, coordinat):
-    if sity:
-        city, _ = City.objects.get_or_create(title=sity)
+async def save_in_db(title, city_title, desc, img_list, coordinat):
+    if city_title:
+        city, _ = City.objects.get_or_create(title=city_title)
+        sight, status = Sight.objects.get_or_create(title=title, city=city)
     else:
-        city = ''
-
-    sight, status = Sight.objects.get_or_create(title=title)
+        sight, status = Sight.objects.get_or_create(title=title)
 
     if status:
-        if city:
-            sight.city = city
         if desc:
             sight.text = desc
         if coordinat:
@@ -112,12 +109,3 @@ async def save_in_db(title, sity, desc, img_list, coordinat):
         sight.save()
 
         print(f"Saved {title}")
-
-
-async def main():
-    tasks = []
-    for s in range(1, 5000):
-        task = asyncio.create_task(sight(f'/otklik.php/{s}', s))
-        tasks.append(task)
-
-    await asyncio.gather(*tasks)

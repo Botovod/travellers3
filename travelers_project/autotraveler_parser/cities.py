@@ -96,14 +96,16 @@ async def parse_city(c):
             sights_url = ''
             logger.error(f'{e}......sights_url')
 
-        await save_in_db(title, region, image, text)
+        city_url = f'http://autotravel.ru{c}'
+
+        await save_in_db(title, region, image, text, city_url)
 
         res = await get_all_sights_by_city(sights_url)
 
         await parse_sight(res)
 
 
-async def save_in_db(title, region, image, text):
+async def save_in_db(title, region, image, text, url):
     try:
         region, _ = Region.objects.get_or_create(title=region)
     except (MultipleObjectsReturned, ObjectDoesNotExist) as e:
@@ -119,6 +121,8 @@ async def save_in_db(title, region, image, text):
             city.image = image
         if text:
             city.description = text
+        if url:
+            city.autotravel_url = url
         city.save()
         print(f"{title} added.......{city.id}")
 
