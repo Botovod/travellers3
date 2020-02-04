@@ -1,10 +1,12 @@
+{% load params %}
+
 {% if is_paginated %}
     <center>
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+                <a class="page-link" href="?{% param_replace page=page_obj.previous_page_number %}" tabindex="-1" aria-disabled="true">Previous</a>
               </li>
             {% else %}
               <li class="page-item disabled">
@@ -15,20 +17,18 @@
             {% for n in page_obj.paginator.page_range %}
               {% if n == page_obj.number %}
                 <li class="page-item active">
-                  <a class="page-link" href="?page={{n}}">{{ n }}</a>
+                  <a class="page-link" href="?{% param_replace page=n %}">{{ n }}</a>
                 </li>
               {% elif n > page_obj.number|add:'-5' and n < page_obj.number|add:'5' %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{n}}">{{ n }}</a>
+                  <a class="page-link" href="?{% param_replace page=n %}">{{ n }}</a>
                 </li>
               {% endif %}
             {% endfor %}
 
-
-
             {% if page_obj.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="page-link" href="?{% param_replace page=page_obj.next_page_number %}">Next</a>
               </li>
             {% else %}
               <li class="page-item disabled">
