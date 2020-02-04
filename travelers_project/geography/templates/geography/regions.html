@@ -15,11 +15,10 @@
                 <div class="col-md-6 need" style="height:300px;">
                     <a href="{% url 'region_detail_url' pk=region.pk%}">
                         <div class="col-md-6 service-grid">
-                            {% thumbnail region.image "x200" as im %}
+                            {% thumbnail region.image "300x200" crop="center" as im %}
                             <img class="img-responsive"
                                  src="{{ im.url }}"
-                                 style="height:200px;"
-                                 alt=""/>
+                                 style="height:200px"/>
                             {% empty %}
                             <img class="img-responsive"
                                  src="{% static 'images/not-foto.png' %}"

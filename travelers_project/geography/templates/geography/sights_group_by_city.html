@@ -30,7 +30,7 @@
                 {% for item in city.list %}
                 <div class="col-md-4 story-popular" style="height:400px;">
                     <a href="{% url 'sight_detail_url' pk=item.pk %}">
-                        {% thumbnail item.image "x300" as im %}
+                        {% thumbnail item.image "400x300" crop="center" as im %}
                         <img src="{{ im.url }}"
                              style="height:250px;"
                              alt="">

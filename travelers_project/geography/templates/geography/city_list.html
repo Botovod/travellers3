@@ -16,7 +16,7 @@
         {% for city in city_list %}
             <div class="col-md-3 story-popular need" style="height:450px;">
                 <div class="feature text-center">
-                    {% thumbnail city.image "x250" crop="center" as im %}
+                    {% thumbnail city.image "300x250" crop="center" as im %}
                     <a href="{{ city.image.url }}">
                         <img src="{{ im.url }}"
                              style="height:250px;"
