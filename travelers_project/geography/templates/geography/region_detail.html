@@ -11,7 +11,7 @@
         {% for city in cities %}
         <div class="col-md-4 story-popular" style="height:400px;">
             <a href="{% url 'city_detail_url' pk=city.pk %}">
-                {% thumbnail city.image "x300" as im %}
+                {% thumbnail city.image "400x300" crop="center" as im %}
                 <img src="{{ im.url }}"
                      style="height:250px;"
                      alt="">
