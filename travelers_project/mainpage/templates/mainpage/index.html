@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load thumbnail %}
 
 {% block content %}
 {% with main_page as mainpage %}
@@ -85,30 +86,43 @@
 		<!---->
 		<!-- container -->
 		<div class="container">
-			<div class="middle-top">
-			<h3>Последние путешествия</h3>
-				<div class="brand">
-					<div class="col-md-3 fashion">
-						<a href="single.html"><img class="img-responsive" src="{% static 'images/pi.jpg' %}" alt="">
-						<p>Brand Project<i> </i></p></a>
-					</div>
-					<div class="col-md-3 fashion">
-						<a href="single.html"><img class="img-responsive" src="{% static 'images/pi1.jpg' %}" alt="">
-						<p>Brand Project<i> </i></p></a>
-					</div>
-					<div class="col-md-3 fashion">
-						<a href="single.html"><img class="img-responsive" src="{% static 'images/pi2.jpg' %}" alt="">
-						<p>Brand Project<i> </i></p></a>
-
-					</div>
-					<div class="col-md-3 fashion">
-						<a href="single.html"><img class="img-responsive" src="{% static 'images/pi3.jpg' %}" alt="">
-						<p>Brand Project<i> </i></p></a>
-					</div>
-						<div class="clearfix"> </div>
-					</div>
-
+			<div class="col-md-6">
+				<div style="text-align: center;"><h2>Недавние</h2></div>
+				{% for trip in recent_trips %}
+				<div class="col-md-6 fashion">
+					<a href="{% url 'complete_trip_city_detail_url' pk=trip.pk %}">
+						{% thumbnail trip.route.cities.first.image "400x400" crop="center" as im %}
+							<img src="{{ im.url }}"
+								 style="height:290px;"
+								 alt="">
+						{% empty %}
+							<img src="{% static 'images/not-foto.png' %}"
+								 style="height:250px;"
+								 alt="">
+						{% endthumbnail %}
+					<p>{{ trip.title}}<i> </i></p></a>
+				</div>
+				{% endfor %}
 			</div>
+			<div class="col-md-6">
+				<div style="text-align: center;"><h2>Ближайшие</h2></div>
+				{% for trip in future_trips %}
+					<div class="col-md-6 fashion">
+						<a href="{% url 'future_trip_city_detail_url' pk=trip.pk %}">
+							{% thumbnail trip.route.cities.first.image "400x400" crop="center" as im %}
+								<img src="{{ im.url }}"
+									 style="height:290px;"
+									 alt="">
+							{% empty %}
+								<img src="{% static 'images/not-foto.png' %}"
+									 style="height:250px;"
+									 alt="">
+							{% endthumbnail %}
+						<p>{{ trip.title}}<i> </i></p></a>
+					</div>
+					{% endfor %}
+			</div>
+			<div class="clearfix"> </div>
 		</div>
 	</div>
 {% endwith %}

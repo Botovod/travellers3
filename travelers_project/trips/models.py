@@ -45,7 +45,7 @@ class CityTrip(AbstractTrip):
 
 
 class SightTrip(AbstractTrip):
-    route_by_sights = models.ForeignKey(
+    route = models.ForeignKey(
         RouteBySights,
         on_delete=models.DO_NOTHING,
         related_name='trip_route_sight',

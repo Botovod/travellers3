@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+<div class="container">
+    <h1>{{object.title}}</h1>
+
+    {% if object.route.cities.first.image %}
+        <img class="img-responsive" src="{{ object.route.cities.first.image.url }}" alt="">
+    {% elif object.route.sights.first.image %}
+        <img class="img-responsive" src="{{ object.route.sights.first.image.url }}" alt="">
+    {% else %}
+        <img class="img-responsive" src="{% static 'images/not-foto.png' %}" alt="{{ route.title }}">
+    {% endif %}
+    <br>
+    <h3>{{object.route}}</h3>
+    <br>
+    <h3>Когда: с {{ object.start_date|date:"d/m/Y" }} по {{ object.end_date|date:"d/m/Y" }}</h3>
+    <br>
+    <h3>Участники:</h3>
+    <div class="container">
+        <ul>
+            {% for traveler in object.traveler.all %}
+            <li><h3>{{traveler}}</h3></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <br>
+    <h3>Описание:</h3>
+    <div class="container">
+        <p>{{object.description}}</p>
+    </div>
+</div>
+{% endblock content %}
