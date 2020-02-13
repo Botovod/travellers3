@@ -57,6 +57,18 @@ class MainPage(models.Model):
         default='',
         blank=True,
         verbose_name='Описание большой правой плитки')
+    left_social_url = models.CharField(
+        max_length=255,
+        default='',
+        verbose_name='Левая ссылка на социальные сети')
+    center_social_url = models.CharField(
+        max_length=255,
+        default='',
+        verbose_name='Центральная ссылка на социальные сети')
+    right_social_url = models.CharField(
+        max_length=255,
+        default='',
+        verbose_name='Правая ссылка на социальные сети')
 
     class Meta:
         verbose_name = 'Главная страница'
