@@ -65,6 +65,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'travelers.context_processors.get_vars',
                 'travelers.context_processors.get_social_urls',
+                'travelers.context_processors.get_num_of_travelers',
+                'travelers.context_processors.get_num_of_completed_trips',
             ],
         },
     },
