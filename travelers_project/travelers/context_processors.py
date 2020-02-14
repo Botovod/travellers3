@@ -1,6 +1,6 @@
 from travelers_project.settings import YMAPS_KEY
 from mainpage.models import MainPage
-from trips.models import Traveler, CityTrip, SightTrip
+from trips.models import Traveler, CityTrip
 from datetime import date
 
 
