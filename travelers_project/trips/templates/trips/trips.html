@@ -11,7 +11,7 @@
     {% for trip in object_list %}
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>{{ trip.start_date|date:"d/m/Y" }} - {{ trip.end_date|date:"d/m/Y" }}</h3>
+                    <h3>{{ trip.start_date|date:"j E Y" }} - {{ trip.end_date|date:"j E Y" }}</h3>
                 </div>
                 <div class="panel-body">
                     <a href="{% url url_name pk=trip.pk %}">
