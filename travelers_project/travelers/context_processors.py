@@ -17,9 +17,8 @@ def get_social_urls(request):
 
 
 def get_num_of_completed_trips(request):
-    num_of_sight_trips = SightTrip.objects.filter(end_date__date__lt=date.today()).count()
     num_of_city_trips = CityTrip.objects.filter(end_date__date__lt=date.today()).count()
-    return {'num_of_completed_trips': num_of_city_trips + num_of_sight_trips}
+    return {'num_of_completed_trips': num_of_city_trips}
 
 
 def get_num_of_travelers(request):
