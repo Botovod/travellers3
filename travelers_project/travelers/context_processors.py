@@ -1,5 +1,5 @@
 from travelers_project.settings import YMAPS_KEY
-from mainpage.models import MainPage
+from mainpage.models import SocialMedia
 from trips.models import Traveler, CityTrip
 from datetime import date
 
@@ -12,8 +12,16 @@ def get_vars(request):
     return {'ymaps_key': ymaps_key}
 
 
-def get_social_urls(request):
-    return {'social_urls': MainPage.objects.first()}
+def get_facebook_url(request):
+    return {'facebook_url': SocialMedia.objects.get(title="Facebook")}
+
+
+def get_vk_url(request):
+    return {'vk_url': SocialMedia.objects.get(title="Vkontakte")}
+
+
+def get_instagram_url(request):
+    return {'instagram_url': SocialMedia.objects.get(title="Instagram")}
 
 
 def get_num_of_completed_trips(request):
