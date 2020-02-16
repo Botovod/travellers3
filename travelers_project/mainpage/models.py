@@ -65,3 +65,16 @@ class MainPage(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class SocialMedia(models.Model):
+    title = models.CharField(max_length=255, default='', verbose_name='Название социальной сети')
+    url = models.CharField(max_length=255, default='', verbose_name='Ссылка на социальную сеть')
+
+    class Meta:
+        verbose_name = 'Социальная сеть'
+        verbose_name_plural = 'Социальные сети'
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title

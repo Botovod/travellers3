@@ -367,10 +367,10 @@ ul.social li a i{
 	-moz-transition: 0.5s all;
 	-ms-transition: 0.5s all;
 }
-ul.social li a i.twitter{
+ul.social li a i.vk{
 	background-position:-339px -25px;
 }
-ul.social li a i.dribble{
+ul.social li a i.instagram{
 	background-position:-523px -25px;
 }
 ul.social li a i.gmail{
@@ -379,10 +379,10 @@ ul.social li a i.gmail{
 ul.social li a i:hover{
 	background-position:-245px -25px;
 }
-ul.social li a i.twitter:hover{
+ul.social li a i.vk:hover{
 	background-position:-429px -25px;
 }
-ul.social li a i.dribble:hover{
+ul.social li a i.instagram:hover{
 	background-position:-611px -25px;
 }
 ul.social li a i.gmail:hover{
@@ -1495,16 +1495,16 @@ ul.social li a i {
 ul.social li a i:hover {
 	background-position: -200px -21px;
 }
-ul.social li a i.twitter {
+ul.social li a i.vk {
 	background-position: -274px -22px;
 }
-ul.social li a i.twitter:hover {
+ul.social li a i.vk:hover {
 	background-position: -348px -22px;
 }
-ul.social li a i.dribble {
+ul.social li a i.instagram {
 	background-position: -424px -21px;
 }
-ul.social li a i.dribble:hover {
+ul.social li a i.instagram:hover {
 	background-position: -495px -22px;
 }
 ul.social li a i.gmail {

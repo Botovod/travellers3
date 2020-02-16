@@ -176,10 +176,9 @@ form.example::after {
 <div class="content-bottom-in">
     <div class="container">
         <ul class="social">
-            <li><a href="#"><i> </i></a></li>
-            <li><a href="#"><i class="twitter"> </i></a></li>
-            <li><a href="#"><i class="dribble"> </i></a></li>
-            <li><a href="#"><i class="gmail"> </i></a></li>
+            <li><a href="{{ facebook_url.url }}"><i> </i></a></li>
+            <li><a href="{{ vk_url.url }}"><i class="vk"> </i></a></li>
+            <li><a href="{{ instagram_url.url }}"><i class="instagram"> </i></a></li>
         </ul>
     </div>
 </div>
@@ -188,36 +187,21 @@ form.example::after {
 <div class="footer">
     <div class="container">
         <div class="footer-top">
-            <div class="col-md-3 amet-sed">
-                <h4>Местоположение</h4>
-                <p>Россия</p>
-                <p>Санкт-Петербург </p>
-                <p>(213) 748-2411</p>
-                <a href="#">Посмотреть на карте<i> </i></a>
+            <div class="col-md-6 amet-sed">
+                <h4>Контакты</h4>
+                <p>Победителей 7А, Минск, Беларусь</p>
+                <p>Phone: +375 (33) 444-44-44</p>
+                <p>Email: <a href="mailto:russiantravel.net@yandex.ru">russiantravel.net@yandex.ru</a></p>
+                <a href="{% url 'feedback_url' %}">По всем вопросам</a>
             </div>
-            <div class="col-md-3 amet-sed ">
-                <h4>Компания</h4>
 
-                <ul class="nav-bottom">
-                    <li><a href="story.html">Наша история</a></li>
-                    <li><a href="#">Миссия</a></li>
-                    <li><a href="404.html">Журнал </a></li>
-                    <li><a href="#">Карьера </a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 amet-sed ">
-                <h4>Поддержка</h4>
-                <ul class="nav-bottom">
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="contact.html">Наши контакты</a></li>
-                    <li><a href="#">Политики</a></li>
 
-                </ul>
-            </div>
-            <div class="col-md-3 amet-sed ">
+            <div class="col-md-6 amet-sed ">
                 <h4>Путешествия</h4>
+                <p>Путешественников - <b>{{num_of_travelers}}</b></p>
+                <p>Завершенных путешествий - <b>{{num_of_completed_trips}}</b></p>
                 <p>"Путешествовать необходимо тем, кто учится", - Марк Твен </p>
-                <p class="footer-class">Copyright © 2019</p>
+                <p class="footer-class">Copyright © 2020</p>
             </div>
             <div class="clearfix"></div>
         </div>
