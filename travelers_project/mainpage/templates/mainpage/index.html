@@ -15,17 +15,17 @@
 	<div class="content">
 		<div class="container">
 			<div class=" content-top">
-					<div class="col-md-4 top-grid">
+					<div class="col-md-4 top-grid" style="margin-top:25px">
 						<a href="single.html"><img class="img-responsive" src="{% static 'images/s1.png' %}" alt=" "></a>
 						<h5>{{ mainpage.left_small_tile_title }}</h5>
 						<p>{{ mainpage.left_small_tile_description }}</p>
 					</div>
-					<div class="col-md-4 top-grid">
+					<div class="col-md-4 top-grid" style="margin-top:25px">
 						<a href="single.html"><img class="img-responsive" src="{% static 'images/s2.png' %}" alt=" "></a>
 						<h5>{{ mainpage.center_small_tile_title }}</h5>
 						<p>{{ mainpage.center_small_tile_description }}</p>
 					</div>
-					<div class="col-md-4 top-grid">
+					<div class="col-md-4 top-grid" style="margin-top:25px">
 						<a href="single.html"><img class="img-responsive" src="{% static 'images/s3.png' %}" alt=" "></a>
 						<h5>{{ mainpage.right_small_tile_title }}</h5>
 						<p>{{ mainpage.right_small_tile_description }}</p>
@@ -85,45 +85,45 @@
 		</div>
 		<!---->
 		<!-- container -->
-		<div class="container">
-			<div class="col-md-6">
-				<div style="text-align: center;"><h2>Недавние</h2></div>
-				{% for trip in recent_trips %}
-				<div class="col-md-6 fashion">
-					<a href="{% url 'complete_trip_city_detail_url' pk=trip.pk %}">
-						{% thumbnail trip.route.cities.first.image "400x400" crop="center" as im %}
-							<img src="{{ im.url }}"
-								 style="height:290px;"
-								 alt="">
-						{% empty %}
-							<img src="{% static 'images/not-foto.png' %}"
-								 style="height:250px;"
-								 alt="">
-						{% endthumbnail %}
-					<p>{{ trip.title|truncatechars:12 }}<i> </i></p></a>
-				</div>
-				{% endfor %}
+		<div style="text-align:center;margin-top:35px"><h2>Недавние</h2></div>
+		<div class="container" style="display:flex;justify-content:center;align-items:center;">
+			{% for trip in recent_trips %}
+			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12 fashion">
+				<a href="{% url 'complete_trip_city_detail_url' pk=trip.pk %}">
+					{% thumbnail trip.route.cities.first.image "400x400" crop="center" as im %}
+						<img src="{{ im.url }}"
+							 style="height:290px;"
+							 alt="">
+					{% empty %}
+						<img src="{% static 'images/not-foto.png' %}"
+							 style="height:250px;"
+							 alt="">
+					{% endthumbnail %}
+				<p>{{ trip.title}}<i> </i></p></a>
 			</div>
-			<div class="col-md-6">
-				<div style="text-align: center;"><h2>Ближайшие</h2></div>
-				{% for trip in future_trips %}
-					<div class="col-md-6 fashion">
-						<a href="{% url 'future_trip_city_detail_url' pk=trip.pk %}">
-							{% thumbnail trip.route.cities.first.image "400x400" crop="center" as im %}
-								<img src="{{ im.url }}"
-									 style="height:290px;"
-									 alt="">
-							{% empty %}
-								<img src="{% static 'images/not-foto.png' %}"
-									 style="height:250px;"
-									 alt="">
-							{% endthumbnail %}
-						<p>{{ trip.title|truncatechars:12 }}<i> </i></p></a>
-					</div>
-					{% endfor %}
-			</div>
-			<div class="clearfix"> </div>
+			{% endfor %}
 		</div>
+
+		<div style="text-align:center;margin-top:35px;"><h2>Ближайшие</h2></div>
+		<div class="container" style="display:flex;justify-content:center;align-items:center;">
+			{% for trip in future_trips %}
+			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12 fashion">
+				<a href="{% url 'future_trip_city_detail_url' pk=trip.pk %}">
+					{% thumbnail trip.route.cities.first.image "400x400" crop="center" as im %}
+						<img src="{{ im.url }}"
+							 style="height:290px;"
+							 alt="">
+					{% empty %}
+						<img src="{% static 'images/not-foto.png' %}"
+							 style="height:250px;"
+							 alt="">
+					{% endthumbnail %}
+				<p>{{ trip.title}}<i> </i></p></a>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="clearfix"> </div>
+
 	</div>
 {% endwith %}
 {% endblock %}
