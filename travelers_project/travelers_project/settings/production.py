@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 DEBUG = True
 THUMBNAIL_DEBUG = False
 
-ALLOWED_HOSTS = ['lifeinpenza.fvds.ru', '127.0.0.1']
+ALLOWED_HOSTS = ['lifeinpenza.fvds.ru', 'russiantravel.net', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -64,6 +64,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'travelers.context_processors.get_vars',
+                'travelers.context_processors.get_facebook_url',
+                'travelers.context_processors.get_vk_url',
+                'travelers.context_processors.get_instagram_url',
+                'travelers.context_processors.get_num_of_travelers',
+                'travelers.context_processors.get_num_of_completed_trips',
             ],
         },
     },
