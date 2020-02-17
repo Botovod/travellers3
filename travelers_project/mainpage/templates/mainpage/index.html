@@ -99,7 +99,7 @@
 							 style="height:250px;"
 							 alt="">
 					{% endthumbnail %}
-				<p>{{ trip.title}}<i> </i></p></a>
+				<p>{{ trip.title|truncatechars:12 }}<i> </i></p></a>
 			</div>
 			{% endfor %}
 		</div>
@@ -118,7 +118,7 @@
 							 style="height:250px;"
 							 alt="">
 					{% endthumbnail %}
-				<p>{{ trip.title}}<i> </i></p></a>
+				<p>{{ trip.title|truncatechars:12 }}<i> </i></p></a>
 			</div>
 			{% endfor %}
 		</div>
