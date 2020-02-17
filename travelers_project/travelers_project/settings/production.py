@@ -1,11 +1,13 @@
 import os
+from travelers_project import local_settings
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-DEBUG = True
-THUMBNAIL_DEBUG = False
+DEBUG = local_settings.DEBUG
+THUMBNAIL_DEBUG = local_settings.THUMBNAIL_DEBUG
 
-ALLOWED_HOSTS = ['lifeinpenza.fvds.ru', 'russiantravel.net', '127.0.0.1']
+ALLOWED_HOSTS = ['lifeinpenza.fvds.ru', 'russiantravel.net', '127.0.0.1', '91.240.85.84']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -96,8 +98,6 @@ SWAGGER_SETTINGS = {
 }
 
 WSGI_APPLICATION = 'travelers_project.wsgi.application'
-
-from travelers_project import local_settings
 
 DATABASES = local_settings.DATABASES
 SECRET_KEY = local_settings.SECRET_KEY
