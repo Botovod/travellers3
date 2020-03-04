@@ -131,5 +131,5 @@ def create_wall_post(post):
 
 
 @shared_task
-def foo():
+def post():
     create_wall_post(upload_photo())

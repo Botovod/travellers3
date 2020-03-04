@@ -157,8 +157,8 @@ CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
-    'post-every': {
-        'task': 'geography.tasks.foo',
+    'post-every-minute': {
+        'task': 'geography.tasks.post',
         'schedule': crontab(minute='*/1'),
     }
 }
