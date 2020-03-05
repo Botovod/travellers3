@@ -33,8 +33,7 @@ class CityPost(GeographicObject):
 
 class SightPost(GeographicObject):
     def get_data(self):
-        sights = Sight.objects.all().order_by('?')[:1].get()
-        random_item = random.choice(sights)
+        random_item = Sight.objects.all().order_by('?')[:1].get()
 
         if random_item.text:
             text = f'{random_item.title}\nГород: {random_item.city}\n\n{random_item.text}'
