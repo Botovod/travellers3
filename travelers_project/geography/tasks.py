@@ -1,14 +1,14 @@
 from __future__ import absolute_import, unicode_literals
+import os
+import random
+from datetime import date
+
 from celery import shared_task
 import vk_api
 
 from geography.models import City, Sight
 from trips.models import SightTrip, CityTrip
 from travelers_project.settings import MEDIA_ROOT, BASE_DIR, VK_TOKEN, VK_GROUP_ID
-import os
-import random
-from datetime import date
-
 
 
 class GeographicObject:
@@ -18,8 +18,7 @@ class GeographicObject:
 
 class CityPost(GeographicObject):
     def get_data(self):
-        cities = City.objects.all()
-        random_item = random.choice(cities)
+        random_item = City.objects.all().order_by('?')[:1].get()
 
         if random_item.description:
             text = f'{random_item.title}\nРегион: {random_item.region}\n\n{random_item.description}'
@@ -34,7 +33,7 @@ class CityPost(GeographicObject):
 
 class SightPost(GeographicObject):
     def get_data(self):
-        sights = Sight.objects.all()
+        sights = Sight.objects.all().order_by('?')[:1].get()
         random_item = random.choice(sights)
 
         if random_item.text:
@@ -52,8 +51,7 @@ class SightPost(GeographicObject):
 
 class TripCityRecentPost(GeographicObject):
     def get_data(self):
-        trips = CityTrip.objects.filter(end_date__date__lt=date.today())
-        random_item = random.choice(trips)
+        random_item = CityTrip.objects.filter(end_date__date__lt=date.today()).order_by('?')[:1].get()
 
         text = (
             f'Название путешествия: {random_item.title}\n\n'
@@ -68,29 +66,11 @@ class TripCityRecentPost(GeographicObject):
         return img_path, text
 
 
-class TripCityFuturePost(GeographicObject):
-    def get_data(self):
-        print('furute trip')
-
-
-class TripSightRecentPost(GeographicObject):
-    def get_data(self):
-        print('furute trip')
-
-
-class TripSightFuturePost(GeographicObject):
-    def get_data(self):
-        print('furute trip')
-
-
 def get_random_object():
     geographic_objects = (
         CityPost(),
         SightPost(),
         TripCityRecentPost(),
-        # TripCityFuturePost(),
-        # TripSightRecentPost(),
-        # TripSightFuturePost(),
     )
 
     geographic_object = random.choice(geographic_objects)
@@ -120,7 +100,6 @@ def upload_photo():
 
 def create_wall_post(post):
     vk_session = get_session()
-
     vk = vk_session.get_api()
 
     vk.wall.post(
