@@ -19,8 +19,8 @@ class GeographicObject:
 
 class CityPostObject(GeographicObject):
     def get_data(self):
-        random_item = City.objects.all().order_by('?')[:1].get()
-        post_settings = CityPost.objects.filter()[:1].get()
+        random_item = City.objects.all().order_by('?').first()
+        post_settings = CityPost.objects.all().first()
 
         if post_settings.region:
             if random_item.region:
@@ -77,8 +77,8 @@ class CityPostObject(GeographicObject):
 
 class SightPostObject(GeographicObject):
     def get_data(self):
-        random_item = Sight.objects.all().order_by('?')[:1].get()
-        post_settings = SightPost.objects.filter()[:1].get()
+        random_item = Sight.objects.all().order_by('?').first()
+        post_settings = SightPost.objects.all().first()
 
         if post_settings.city:
             if random_item.city:
@@ -143,8 +143,8 @@ class SightPostObject(GeographicObject):
 
 class TripCityRecentPostObject(GeographicObject):
     def get_data(self):
-        random_item = CityTrip.objects.filter(end_date__date__lt=date.today()).order_by('?')[:1].get()
-        post_settings = CityTripPost.objects.filter()[:1].get()
+        random_item = CityTrip.objects.filter(end_date__date__lt=date.today()).order_by('?').first()
+        post_settings = CityTripPost.objects.all().first()
 
         type = 'Тип: завершенное\n'
 
