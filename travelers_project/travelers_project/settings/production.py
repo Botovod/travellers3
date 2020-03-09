@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'instaposter',
     'feedback',
     'trips',
-    'mainpage'
+    'mainpage',
+    'vk_poster',
 ]
 
 if DEBUG:
