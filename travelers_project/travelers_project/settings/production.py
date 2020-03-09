@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'django_extensions',
     'graphene_django',
+    'django_celery_beat',
 
     # own apps
     'geography',
@@ -154,6 +155,8 @@ EMAIL_USE_TLS = True
 PAGINATION_COUNT_ONE = 60
 
 CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
