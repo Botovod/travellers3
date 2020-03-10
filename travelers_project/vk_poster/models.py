@@ -28,6 +28,7 @@ class SightPost(models.Model):
     coordinates = models.BooleanField(verbose_name='Координаты')
     latitude = models.BooleanField(verbose_name='Широта')
     longitude = models.BooleanField(verbose_name='Долгота')
+    hashtags = models.BooleanField(default=True, verbose_name='Хэштэги')
 
     class Meta:
         verbose_name = 'Пост достопримечательности'

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-import os
 import random
 from datetime import date
 
@@ -9,7 +7,7 @@ import vk_api
 from geography.models import City, Sight
 from trips.models import SightTrip, CityTrip
 from vk_poster.models import CityPost, SightPost, CityTripPost
-from travelers_project.settings import MEDIA_ROOT, BASE_DIR, VK_TOKEN, VK_GROUP_ID
+from travelers_project.settings import VK_TOKEN, VK_GROUP_ID
 
 
 class GeographicObject:
@@ -23,37 +21,37 @@ class CityPostObject(GeographicObject):
         post_settings = CityPost.objects.all().first()
 
         if post_settings.region:
-            region = random_item.get_region()
+            region = random_item.get_region
         else:
             region = ''
 
         if post_settings.hashtags:
-            hashtags = random_item.get_hashtags()
+            hashtags = random_item.get_hashtags
         else:
             hashtags = ''
 
         if post_settings.title:
-            title = random_item.get_title()
+            title = random_item.get_title
         else:
             title = ''
 
         if post_settings.description:
-            description = random_item.get_description()
+            description = random_item.get_description
         else:
             description = ''
 
         if post_settings.image:
-            img_path = random_item.get_image_path()
+            img_path = random_item.get_image_path
         else:
             img_path = ''
 
         if post_settings.latitude:
-            latitude = random_item.get_latitude()
+            latitude = random_item.get_latitude
         else:
             latitude = ''
 
         if post_settings.longitude:
-            longitude = random_item.get_longitude()
+            longitude = random_item.get_longitude
         else:
             longitude = ''
 
@@ -68,62 +66,46 @@ class SightPostObject(GeographicObject):
         post_settings = SightPost.objects.all().first()
 
         if post_settings.city:
-            if random_item.city:
-                city = f'Город: {random_item.city}\n'
-            else:
-                city = ''
+            city = random_item.get_city
         else:
             city = ''
 
         if post_settings.title:
-            if random_item.title:
-                title = f'{random_item.title}\n'
-            else:
-                title = ''
+            title = random_item.get_title
         else:
             title = ''
 
+        if post_settings.hashtags:
+            hashtags = random_item.get_hashtags
+        else:
+            hashtags = ''
+
         if post_settings.text:
-            if random_item.text:
-                description = f'\n{random_item.text}'
-            else:
-                description = ''
+            description = random_item.get_description
         else:
             description = ''
 
         if post_settings.image:
-            if random_item.image:
-                img_path = os.path.join(MEDIA_ROOT, str(random_item.image))
-            else:
-                img_path = os.path.join(BASE_DIR, 'static/images/not-foto.png')
+            img_path = random_item.get_image_path
         else:
             img_path = ''
 
         if post_settings.coordinates:
-            if random_item.coordinates:
-                coordinates = f'Координаты: {random_item.coordinates}\n'
-            else:
-                coordinates = ''
+            coordinates = random_item.get_coordinates
         else:
             coordinates = ''
 
         if post_settings.latitude:
-            if random_item.latitude:
-                latitude = f'Широта: {random_item.latitude}\n'
-            else:
-                latitude = ''
+            latitude = random_item.get_latitude
         else:
             latitude = ''
 
         if post_settings.longitude:
-            if random_item.longitude:
-                longitude = f'Долгота: {random_item.longitude}\n'
-            else:
-                longitude = ''
+            longitude = random_item.get_longitude
         else:
             longitude = ''
 
-        text = title + city + coordinates + latitude + longitude + description
+        text = title + city + coordinates + latitude + coordinates + longitude + description + hashtags
 
         return img_path, text
 
@@ -136,42 +118,27 @@ class TripCityRecentPostObject(GeographicObject):
         type = 'Тип: завершенное\n'
 
         if post_settings.title:
-            if random_item.title:
-                title = f'{random_item.title}\n'
-            else:
-                title = ''
+            title = random_item.get_title
         else:
             title = ''
 
         if post_settings.route:
-            if random_item.route:
-                route = f'Маршрут: {random_item.route}\n'
-            else:
-                route = ''
+            route = random_item.get_route
         else:
             route = ''
 
         if post_settings.start_date:
-            if random_item.start_date:
-                start_date = f'Дата начала: {random_item.start_date.strftime("%d/%m/%Y")}\n'
-            else:
-                start_date = ''
+            start_date = random_item.get_start_date
         else:
             start_date = ''
 
         if post_settings.end_date:
-            if random_item.end_date:
-                end_date = f'Дата окончания: {random_item.end_date.strftime("%d/%m/%Y")}\n'
-            else:
-                end_date = ''
+            end_date = random_item.get_end_date
         else:
             end_date = ''
 
         if post_settings.description:
-            if random_item.description:
-                description = f'\n{random_item.description}'
-            else:
-                description = ''
+            description = random_item.get_description
         else:
             description = ''
 
@@ -183,9 +150,9 @@ class TripCityRecentPostObject(GeographicObject):
 
 def get_random_object():
     geographic_objects = (
-        CityPostObject(),
+        # CityPostObject(),
         # SightPostObject(),
-        # TripCityRecentPostObject(),
+        TripCityRecentPostObject(),
     )
 
     geographic_object = random.choice(geographic_objects)
