@@ -1,5 +1,6 @@
 import os
 from travelers_project import local_settings
+from celery.schedules import crontab
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -21,6 +22,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'django_extensions',
     'graphene_django',
+    'django_celery_beat',
 
     # own apps
     'geography',
@@ -33,7 +35,8 @@ INSTALLED_APPS = [
     'instaposter',
     'feedback',
     'trips',
-    'mainpage'
+    'mainpage',
+    'vk_poster',
 ]
 
 if DEBUG:
@@ -133,7 +136,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_PHOTO_PATH = os.path.join(MEDIA_ROOT, 'images', 'not-foto.png')
 
-VK_TOKEN = local_settings.token
+VK_GROUP_ID = local_settings.VK_GROUP_ID
+VK_TOKEN = local_settings.VK_TOKEN
 VK_APP_ID = local_settings.VK_APP_ID
 VK_LOGIN = local_settings.VK_LOGIN
 VK_PASSWORD = local_settings.VK_PASSWORD
@@ -150,3 +154,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 PAGINATION_COUNT_ONE = 60
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_BEAT_SCHEDULE = {
+    'post-every-minute': {
+        'task': 'geography.tasks.post',
+        'schedule': crontab(minute='*/1'),
+    }
+}

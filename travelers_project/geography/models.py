@@ -3,6 +3,8 @@ import random
 from django.db import models
 from django.shortcuts import reverse
 from slugify import slugify
+import os
+from travelers_project.settings import BASE_DIR, MEDIA_ROOT
 
 
 def image_region(instance, filename):
@@ -74,6 +76,61 @@ class City(BaseModel, RatingMixin):
         verbose_name_plural = 'Города'
         ordering = ['title']
 
+    @property
+    def get_region(self):
+        region = ''
+        if self.region:
+            region = f'Регион: {self.region}\n'
+        return region
+
+    @property
+    def get_hashtags(self):
+        hashtags = ''
+        if self.region:
+            region_tag = f'#{self.region}'
+            # сutting unnecessary data like "Лесной (Зеленоградский р-н)" and "Крым/Республика Крым"
+            hashtags += region_tag.split("(")[0].split('/')[0]
+        if self.title:
+            city_tag = f'#{self.title}'
+            hashtags += city_tag.split("(")[0]
+
+        return "\n\n" + hashtags.replace(" ", "_").replace("-", "")
+
+    @property
+    def get_title(self):
+        title = ''
+        if self.title:
+            title = f'{self.title}\n'
+        return title
+
+    @property
+    def get_description(self):
+        description = ''
+        if self.description:
+            description = f'\n{self.description}'
+        return description
+
+    @property
+    def get_image_path(self):
+        img_path = os.path.join(BASE_DIR, 'static/images/not-foto.png')
+        if self.image:
+            img_path = os.path.join(MEDIA_ROOT, str(self.image))
+        return img_path
+
+    @property
+    def get_latitude(self):
+        latitude = ''
+        if self.latitude:
+            latitude = f'Широта: {self.latitude}\n'
+        return latitude
+
+    @property
+    def get_longitude(self):
+        longitude = ''
+        if self.longitude:
+            longitude = f'Долгота: {self.longitude}\n'
+        return longitude
+
 
 class TypeOfSights(BaseModel):
     title = models.CharField(max_length=255, default='', verbose_name='Название')
@@ -114,8 +171,66 @@ class Sight(BaseModel, RatingMixin):
 
     class Meta:
         verbose_name = 'Достопримечательность'
-        verbose_name_plural = 'Достопримечтельности'
+        verbose_name_plural = 'Достопримечательности'
         ordering = ['title']
+
+    @property
+    def get_title(self):
+        title = ''
+        if self.title:
+            title = f'{self.title}\n'
+        return title
+
+    @property
+    def get_city(self):
+        city = ''
+        if self.city:
+            city = f'Город: {self.city}\n'
+        return city
+
+    @property
+    def get_hashtags(self):
+        hashtags = ''
+        if self.city:
+            city_tag = f'#{self.city}'
+            hashtags += city_tag.split("(")[0]
+
+        return "\n\n" + hashtags.replace(" ", "_").replace("-", "")
+
+    @property
+    def get_description(self):
+        description = ''
+        if self.text:
+            description = f'\n{self.text}'
+        return description
+
+    @property
+    def get_image_path(self):
+        img_path = os.path.join(BASE_DIR, 'static/images/not-foto.png')
+        if self.image:
+            img_path = os.path.join(MEDIA_ROOT, str(self.image))
+        return img_path
+
+    @property
+    def get_coordinates(self):
+        coordinates = ''
+        if self.coordinates:
+            coordinates = f'Координаты: {self.coordinates}\n'
+        return coordinates
+
+    @property
+    def get_latitude(self):
+        latitude = ''
+        if self.latitude:
+            latitude = f'Широта: {self.latitude}\n'
+        return latitude
+
+    @property
+    def get_longitude(self):
+        longitude = ''
+        if self.longitude:
+            longitude = f'Долгота: {self.longitude}\n'
+        return longitude
 
 
 class SectionOfSights(BaseModel):

@@ -43,6 +43,41 @@ class CityTrip(AbstractTrip):
         verbose_name_plural = 'Путешествия по городам'
         ordering = ['title']
 
+    @property
+    def get_title(self):
+        title = ''
+        if self.title:
+            title = f'{self.title}\n'
+        return title
+
+    @property
+    def get_route(self):
+        route = ''
+        if self.route:
+            route = f'Маршрут: {self.route}\n'
+        return route
+
+    @property
+    def get_start_date(self):
+        start_date = ''
+        if self.start_date:
+            start_date = f'Дата начала: {self.start_date.strftime("%d/%m/%Y")}\n'
+        return start_date
+
+    @property
+    def get_end_date(self):
+        end_date = ''
+        if self.end_date:
+            end_date = f'Дата окончания: {self.end_date.strftime("%d/%m/%Y")}\n'
+        return end_date
+
+    @property
+    def get_description(self):
+        description = ''
+        if self.description:
+            description = f'\n{self.description}'
+        return description
+
 
 class SightTrip(AbstractTrip):
     route = models.ForeignKey(
