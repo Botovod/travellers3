@@ -149,9 +149,9 @@ class TripCityRecentPostObject(GeographicObject):
 
 def get_random_object():
     geographic_objects = (
-        # CityPostObject(),
+        CityPostObject(),
         SightPostObject(),
-        # TripCityRecentPostObject(),
+        TripCityRecentPostObject(),
     )
 
     geographic_object = random.choice(geographic_objects)
