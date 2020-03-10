@@ -2,12 +2,11 @@ import random
 from datetime import date
 
 from celery import shared_task
-import vk_api
 
 from geography.models import City, Sight
 from trips.models import SightTrip, CityTrip
 from vk_poster.models import CityPost, SightPost, CityTripPost
-from travelers_project.settings import VK_TOKEN, VK_GROUP_ID
+from vk_poster.vk_backend import upload_photo, create_wall_post
 
 
 class GeographicObject:
@@ -151,8 +150,8 @@ class TripCityRecentPostObject(GeographicObject):
 def get_random_object():
     geographic_objects = (
         # CityPostObject(),
-        # SightPostObject(),
-        TripCityRecentPostObject(),
+        SightPostObject(),
+        # TripCityRecentPostObject(),
     )
 
     geographic_object = random.choice(geographic_objects)
@@ -160,45 +159,6 @@ def get_random_object():
     return geographic_object.get_data()
 
 
-def get_session():
-    vk_session = vk_api.VkApi(token=VK_TOKEN)
-
-    return vk_session
-
-
-def upload_photo():
-    vk_session = get_session()
-    path, text = get_random_object()
-    if path:
-        upload = vk_api.VkUpload(vk_session)
-        photo = upload.photo_wall(
-            photos=path,
-            group_id=VK_GROUP_ID)
-
-        photo_url = 'photo{}_{}'.format(photo[0]['owner_id'], photo[0]['id'])
-    else:
-        photo_url = ''
-    return photo_url, text
-
-
-def create_wall_post(post):
-    vk_session = get_session()
-    vk = vk_session.get_api()
-
-    attachments = post[0]
-    if attachments:
-        vk.wall.post(
-            owner_id='-' + str(VK_GROUP_ID),
-            message=post[1],
-            from_group=True,
-            attachments=post[0])
-    else:
-        vk.wall.post(
-            owner_id='-' + str(VK_GROUP_ID),
-            message=post[1],
-            from_group=True)
-
-
 @shared_task
 def post():
-    create_wall_post(upload_photo())
+    create_wall_post(upload_photo(get_random_object()))
