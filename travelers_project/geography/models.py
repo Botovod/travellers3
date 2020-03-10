@@ -171,7 +171,7 @@ class Sight(BaseModel, RatingMixin):
 
     class Meta:
         verbose_name = 'Достопримечательность'
-        verbose_name_plural = 'Достопримечтельности'
+        verbose_name_plural = 'Достопримечательности'
         ordering = ['title']
 
     @property
