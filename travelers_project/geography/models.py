@@ -3,6 +3,8 @@ import random
 from django.db import models
 from django.shortcuts import reverse
 from slugify import slugify
+import os
+from travelers_project.settings import BASE_DIR, MEDIA_ROOT
 
 
 def image_region(instance, filename):
@@ -73,6 +75,60 @@ class City(BaseModel, RatingMixin):
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
         ordering = ['title']
+
+    def get_region(self):
+        if self.region:
+            region = f'Регион: {self.region}\n'
+        else:
+            region = ''
+        return region
+
+    def get_hashtags(self):
+        hashtags = ''
+        if self.region:
+            region_tag = f'#{self.region}'
+            # сutting unnecessary data like "Лесной (Зеленоградский р-н)" and "Крым/Республика Крым"
+            hashtags += region_tag.split("(")[0].split('/')[0]
+        if self.title:
+            city_tag = f'#{self.title}'
+            hashtags += city_tag.split("(")[0]
+
+        return "\n\n" + hashtags.replace(" ", "_").replace("-", "")
+
+    def get_title(self):
+        if self.title:
+            title = f'{self.title}\n'
+        else:
+            title = ''
+        return title
+
+    def get_description(self):
+        if self.description:
+            description = f'\n{self.description}'
+        else:
+            description = ''
+        return description
+
+    def get_image_path(self):
+        if self.image:
+            img_path = os.path.join(MEDIA_ROOT, str(self.image))
+        else:
+            img_path = os.path.join(BASE_DIR, 'static/images/not-foto.png')
+        return img_path
+
+    def get_latitude(self):
+        if self.latitude:
+            latitude = f'Широта: {self.latitude}\n'
+        else:
+            latitude = ''
+        return latitude
+
+    def get_longitude(self):
+        if self.longitude:
+            longitude = f'Долгота: {self.longitude}\n'
+        else:
+            longitude = ''
+        return longitude
 
 
 class TypeOfSights(BaseModel):

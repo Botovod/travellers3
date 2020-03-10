@@ -23,54 +23,41 @@ class CityPostObject(GeographicObject):
         post_settings = CityPost.objects.all().first()
 
         if post_settings.region:
-            if random_item.region:
-                region = f'Регион: {random_item.region}\n'
-            else:
-                region = ''
+            region = random_item.get_region()
         else:
             region = ''
 
+        if post_settings.hashtags:
+            hashtags = random_item.get_hashtags()
+        else:
+            hashtags = ''
+
         if post_settings.title:
-            if random_item.title:
-                title = f'{random_item.title}\n'
-            else:
-                title = ''
+            title = random_item.get_title()
         else:
             title = ''
 
         if post_settings.description:
-            if random_item.description:
-                description = f'\n{random_item.description}'
-            else:
-                description = ''
+            description = random_item.get_description()
         else:
             description = ''
 
         if post_settings.image:
-            if random_item.image:
-                img_path = os.path.join(MEDIA_ROOT, str(random_item.image))
-            else:
-                img_path = os.path.join(BASE_DIR, 'static/images/not-foto.png')
+            img_path = random_item.get_image_path()
         else:
             img_path = ''
 
         if post_settings.latitude:
-            if random_item.latitude:
-                latitude = f'Широта: {random_item.latitude}\n'
-            else:
-                latitude = ''
+            latitude = random_item.get_latitude()
         else:
             latitude = ''
 
         if post_settings.longitude:
-            if random_item.longitude:
-                longitude = f'Долгота: {random_item.longitude}\n'
-            else:
-                longitude = ''
+            longitude = random_item.get_longitude()
         else:
             longitude = ''
 
-        text = title + region + latitude + longitude + description
+        text = title + region + latitude + longitude + description + hashtags
 
         return img_path, text
 
@@ -197,8 +184,8 @@ class TripCityRecentPostObject(GeographicObject):
 def get_random_object():
     geographic_objects = (
         CityPostObject(),
-        SightPostObject(),
-        TripCityRecentPostObject(),
+        # SightPostObject(),
+        # TripCityRecentPostObject(),
     )
 
     geographic_object = random.choice(geographic_objects)

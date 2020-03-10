@@ -9,6 +9,7 @@ class CityPost(models.Model):
     image = models.BooleanField(default=True, verbose_name='Изображение')
     latitude = models.BooleanField(verbose_name='Широта')
     longitude = models.BooleanField(verbose_name='Долгота')
+    hashtags = models.BooleanField(default=True, verbose_name='Хэштэги')
 
     class Meta:
         verbose_name = 'Пост города'
