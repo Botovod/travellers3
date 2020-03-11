@@ -118,7 +118,7 @@ pip install -r requirements.txt
 файл default скопировать в каталог /etc/nginx/sites-available/
 
 Каталог supervisor:
-файл travelers_project.conf скопировать в каталог /etc/supervisor/conf.d/
+файл travelers_project.conf, travelers_celery.conf и travelers_celerybeat.conf скопировать в каталог /etc/supervisor/conf.d/
 
 Для загрузки изображений из vk необходимо в файле local_settings.py
 задать значение полям VK_LOGIN, VK_PASSWORD,
