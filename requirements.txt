@@ -36,7 +36,7 @@ instagram-private-api==1.6.0.0
 instagram-private-api-extensions==0.3.8
 instapy-cli==0.0.12
 itypes==1.1.0
-Jinja2==2.10.3
+Jinja2==2.11.3
 kombu==4.6.8
 lxml==4.4.1
 MarkupSafe==1.1.1
